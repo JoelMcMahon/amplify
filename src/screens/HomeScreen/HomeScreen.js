@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import styles from './styles';
 import { firebase } from '../../firebase/config';
-import { NavigationContainer } from '@react-navigation/native';
 
 export default function HomeScreen(props) {
   const [entityText, setEntityText] = useState('');
