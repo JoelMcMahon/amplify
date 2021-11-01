@@ -25,6 +25,7 @@ if (!global.atob) {
 const Stack = createStackNavigator();
 
 export default function App() {
+  LogBox.ignoreLogs(['Async Storage has been extracted from react-native core']);
   LogBox.ignoreLogs(['Setting a timer']);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -62,7 +63,7 @@ export default function App() {
       <Stack.Navigator>
         {user ? (
           <>
-            <Stack.Screen name="Home">
+            <Stack.Screen name="Hello Celina">
               {(props) => <HomeScreen {...props} extraData={user} />}
             </Stack.Screen>
             <Stack.Screen name="Location">
