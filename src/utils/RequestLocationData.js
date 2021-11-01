@@ -1,7 +1,7 @@
 
 
 import * as Location from 'expo-location';
-import { firebase } from '../../firebase/config';
+import { firebase } from '../firebase/config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -13,7 +13,7 @@ export default requestLocationPermission = async () => {
   
     
   
-    // const storageRef = firebase.firestore().collection('ads');
+    const storageRef = firebase.firestore().collection('ads');
   
     try {
       const granted = await Location.requestForegroundPermissionsAsync();
@@ -27,9 +27,9 @@ export default requestLocationPermission = async () => {
         const long = currLocation.coords.longitude + ((Math.random() * 0.0005) + 0.001);
         const hash = geofire.geohashForLocation([lat, long]);
         const data = { geohash: hash, lat, long };
-        // storageRef.add(data);
+        storageRef.add(data);
 
-        return data
+        // return data
         
         
       }
