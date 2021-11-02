@@ -6,14 +6,14 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import RequestLocationData from "../../utils/RequestLocationData";
 
 export default function MapScreen() {
-  const { markerArray, mapToggle, setMapToggle } = useMarkers();
+  const { markerArray, mapToggle, setMapToggle,lastLocation } = useMarkers();
 
   console.log(markerArray, "marker in map");
   const initRegion = {
-    latitude: 53.661119347171336,
-    latitudeDelta: 0.0003385718758650569,
-    longitude: -2.966440352731869,
-    longitudeDelta: 0.00039982805485072603,
+    latitude: lastLocation.latitude,
+    latitudeDelta: 0.008,
+    longitude: lastLocation.longitude,
+    longitudeDelta: 0.0008,
   };
 
   return (

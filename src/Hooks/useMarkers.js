@@ -5,11 +5,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const geofire = require("geofire-common");
 
 export default function useMarkers() {
+  
   const [mapToggle, setMapToggle] = useState(true);
   const [markerArray, setMarkerArray] = useState([]);
+  const [lastLocation, setLastLocation]=useState({latitude:0,longitude:0});
 
   const db = firebase.firestore();
 
+  requestLocationPermission();
   const retrieveMarkers = async () => {
     const lastPosition = await JSON.parse(
       await AsyncStorage.getItem("lastKnownPosition")
@@ -19,6 +22,7 @@ export default function useMarkers() {
     const lastLong = lastPosition.coords.longitude;
     const center = [lastLat, lastLong];
     const radiusInM = 10 * 1000;
+    setLastLocation({latitude:lastLat,longitude:lastLong})
 
     const bounds = geofire.geohashQueryBounds(center, radiusInM);
     const promises = [];
@@ -124,5 +128,5 @@ export default function useMarkers() {
     retrieveMarkers();
   }, []);
 
-  return { markerArray, mapToggle, setMapToggle };
+  return { markerArray, mapToggle, setMapToggle , lastLocation};
 }

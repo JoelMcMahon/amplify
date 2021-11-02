@@ -22,9 +22,14 @@ export default requestLocationPermission = async () => {
        const stringedLocation = JSON.stringify(currLocation)
         await AsyncStorage.setItem('lastKnownPosition', stringedLocation)
   
-       
-        const lat = currLocation.coords.latitude + ((Math.random() * 0.0005) + 0.001);
-        const long = currLocation.coords.longitude + ((Math.random() * 0.0005) + 0.001);
+        function getRandomInt() {
+         const min = -.002;
+         const max = .002;
+          return Math.random() * (max - min) + min;
+        }
+        
+        const lat = currLocation.coords.latitude + (getRandomInt());
+        const long = currLocation.coords.longitude + (getRandomInt());
         const hash = geofire.geohashForLocation([lat, long]);
         const data = { geohash: hash, lat, long };
         storageRef.add(data);
