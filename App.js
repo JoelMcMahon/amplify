@@ -1,19 +1,16 @@
-import 'react-native-gesture-handler';
-import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import {
-  LoginScreen,
-  HomeScreen,
-  RegistrationScreen,
-  LocationScreen,
-  MapScreen
-} from './src/screens';
-import { decode, encode } from 'base-64';
-import { firebase } from './src/firebase/config';
-// import RNLocation from 'react-native-location';
-import { LogBox } from 'react-native';
-import _ from 'lodash';
+import "react-native-gesture-handler";
+import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { LoginScreen, HomeScreen, RegistrationScreen } from "./src/screens";
+import { decode, encode } from "base-64";
+import { LogBox } from "react-native";
+import { userAppAuth } from "./src/hooks/userAppAuth";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Profile from "./src/screens/Profile/Profile";
+import NewPost from "./src/screens/NewPost/NewPost";
+import Chats from "./src/screens/Chats/Chats";
+import { navIcons } from "./src/utils/navIcons";
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -22,7 +19,9 @@ if (!global.atob) {
   global.atob = decode;
 }
 
+LogBox.ignoreLogs(["Setting a timer"]);
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   LogBox.ignoreLogs(['Async Storage has been extracted from react-native core']);
@@ -31,35 +30,23 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [location,setLocation] =useState(null);
 
-  // if (loading) {
-  //   return (
-  //     <></>
-  //   )
-  // }
+  const { user, setUser, loading } = userAppAuth();
 
-  useEffect(() => {
-    const usersRef = firebase.firestore().collection('users');
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        usersRef
-          .doc(user.uid)
-          .get()
-          .then((document) => {
-            const userData = document.data();
-            setLoading(false);
-            setUser(userData);
-          })
-          .catch((error) => {
-            setLoading(false);
-          });
-      } else {
-        setLoading(false);
-      }
-    });
-  }, []);
+  const tabs = () => {
+    return (
+      <Tab.Navigator screenOptions={navIcons}>
+        <Tab.Screen name="Home">
+          {(props) => <HomeScreen {...props} user={user} setUser={setUser} />}
+        </Tab.Screen>
+        <Tab.Screen name="Profile" component={Profile} />
+        <Tab.Screen name="NewPost" component={NewPost} />
+        <Tab.Screen name="Chats" component={Chats} />
+      </Tab.Navigator>
+    );
+  };
 
-  return (
-    <NavigationContainer>
+  const loginSignup = () => {
+    return (
       <Stack.Navigator>
         {user ? (
           <>
@@ -87,7 +74,12 @@ export default function App() {
             <Stack.Screen name="Registration" component={RegistrationScreen} />
           </>
         )}
+        
       </Stack.Navigator>
-    </NavigationContainer>
+    );
+  };
+
+  return (
+    <NavigationContainer>{user ? tabs() : loginSignup()}</NavigationContainer>
   );
 }
