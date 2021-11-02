@@ -24,7 +24,11 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const [location, setLocation] = useState(null);
+  LogBox.ignoreLogs(['Async Storage has been extracted from react-native core']);
+  LogBox.ignoreLogs(['Setting a timer']);
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [location,setLocation] =useState(null);
 
   const { user, setUser, loading } = userAppAuth();
 
@@ -44,20 +48,33 @@ export default function App() {
   const loginSignup = () => {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="Login">
-          {(props) => (
-            <LoginScreen {...props} setUser={setUser} component={LoginScreen} />
-          )}
-        </Stack.Screen>
-        <Stack.Screen name="Registration">
-          {(props) => (
-            <RegistrationScreen
-              {...props}
-              setUser={setUser}
-              component={LoginScreen}
-            />
-          )}
-        </Stack.Screen>
+        {user ? (
+          <>
+            <Stack.Screen name="Hello Celina">
+              {(props) => <HomeScreen {...props} extraData={user} />}
+            </Stack.Screen>
+            <Stack.Screen name="Location">
+              {(props) => <LocationScreen {...props} location={location} setLocation={setLocation} extraData={user} component={LocationScreen} />}
+            </Stack.Screen>
+            <Stack.Screen name="Map">
+              {(props) => <MapScreen {...props} extraData={user} />}
+            </Stack.Screen>
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Login">
+              {(props) => (
+                <LoginScreen
+                  {...props}
+                  setUser={setUser}
+                  component={LoginScreen}
+                />
+              )}
+            </Stack.Screen>
+            <Stack.Screen name="Registration" component={RegistrationScreen} />
+          </>
+        )}
+        
       </Stack.Navigator>
     );
   };

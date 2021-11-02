@@ -1,9 +1,17 @@
-import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import styles from "./styles";
+
+import React from 'react';
+import { Button, Text, TouchableOpacity, View } from 'react-native';
+import styles from './styles';
+import { useState } from 'react';
+import MapScreen from '../MapScreen/MapScreen';
+import ListScreen from '../ListScreen/ListScreen';
+import RequestLocationData from '../../utils/RequestLocationData';
 import { firebase } from "../../firebase/config";
 
-export default function HomeScreen({ user, setUser }) {
+export default function HomeScreen(props) {
+  const [viewToggle, setViewToggle] = useState('map');
+
+  export default function HomeScreen({ user, setUser }) {
   const logoutHandler = () => {
     firebase
       .auth()
@@ -18,11 +26,11 @@ export default function HomeScreen({ user, setUser }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.formContainer}>
-        <TouchableOpacity style={styles.button} onPress={logoutHandler}>
-          <Text style={styles.buttonText}>Logout</Text>
-        </TouchableOpacity>
-      </View>
+      <Button title="Map" onPress={()=> setViewToggle('map')}></Button>
+      <Button title="List" onPress={()=> setViewToggle('list')}></Button>
+      {viewToggle === 'map'&& <MapScreen/>} 
+      {viewToggle === 'list'&& <ListScreen/>} 
+
     </View>
   );
 }
