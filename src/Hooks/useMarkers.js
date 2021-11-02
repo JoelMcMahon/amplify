@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Marker, Callout, View, Text } from 'react-native-maps';
-import firebase from 'firebase';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-const geofire = require('geofire-common');
-import { StyleSheet } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { Marker, Callout, View, Text } from "react-native-maps";
+import firebase from "firebase";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+const geofire = require("geofire-common");
+import { StyleSheet } from "react-native";
 
 export default function useMarkers(setIsLoading) {
   const [mapToggle, setMapToggle] = useState(true);
@@ -12,17 +12,15 @@ export default function useMarkers(setIsLoading) {
     latitude: 0,
     longitude: 0,
   });
- 
-
 
   const db = firebase.firestore();
 
   requestLocationPermission();
   const retrieveMarkers = async () => {
     const lastPosition = await JSON.parse(
-      await AsyncStorage.getItem('lastKnownPosition')
+      await AsyncStorage.getItem("lastKnownPosition")
     );
-    console.log(lastPosition, 'mapview');
+    console.log(lastPosition, "mapview");
     const lastLat = lastPosition.coords.latitude;
     const lastLong = lastPosition.coords.longitude;
     const center = [lastLat, lastLong];
@@ -33,8 +31,8 @@ export default function useMarkers(setIsLoading) {
     const promises = [];
     for (const b of bounds) {
       const q = db
-        .collection('ads')
-        .orderBy('geohash')
+        .collection("ads")
+        .orderBy("geohash")
         .startAt(b[0])
         .endAt(b[1]);
       promises.push(q.get());
@@ -46,8 +44,8 @@ export default function useMarkers(setIsLoading) {
 
         for (const snap of snapshots) {
           for (const doc of snap.docs) {
-            const lat = doc.get('lat');
-            const long = doc.get('long');
+            const lat = doc.get("lat");
+            const long = doc.get("long");
 
             const distanceInKm = geofire.distanceBetween([lat, long], center);
             const distanceInM = distanceInKm * 1000;
@@ -60,51 +58,7 @@ export default function useMarkers(setIsLoading) {
         return matchingDocs;
       })
       .then((matchingDocs) => {
-        console.log(matchingDocs, 'then');
-
-        const deltaArray = matchingDocs.map((docs) => {
-          const lat =
-            docs._delegate._document.data.value.mapValue.fields.lat.doubleValue;
-          const long =
-            docs._delegate._document.data.value.mapValue.fields.long
-              .doubleValue;
-          return { latitude: lat, longitude: long };
-        });
-
-        function getRegionForCoordinates(points) {
-          // points should be an array of { latitude: X, longitude: Y }
-          let minX, maxX, minY, maxY;
-
-          // init first point
-          ((point) => {
-            minX = point.latitude;
-            maxX = point.latitude;
-            minY = point.longitude;
-            maxY = point.longitude;
-          })(points[0]);
-
-          // calculate rect
-          points.map((point) => {
-            minX = Math.min(minX, point.latitude);
-            maxX = Math.max(maxX, point.latitude);
-            minY = Math.min(minY, point.longitude);
-            maxY = Math.max(maxY, point.longitude);
-          });
-
-          const midX = (minX + maxX) / 2;
-          const midY = (minY + maxY) / 2;
-          const deltaX = maxX - minX;
-          const deltaY = maxY - minY;
-
-          return {
-            latitude: midX,
-            longitude: midY,
-            latitudeDelta: deltaX,
-            longitudeDelta: deltaY,
-          };
-        }
-        const deltaCoords = getRegionForCoordinates(deltaArray);
-        console.log(deltaCoords, '<------------------delta coords');
+        console.log(matchingDocs, "then");
 
         const markerCoords = matchingDocs.map((docs) => {
           const lat =
@@ -114,7 +68,6 @@ export default function useMarkers(setIsLoading) {
               .doubleValue;
           return { lat, long };
         });
-    
 
         setMarkerArray(markerCoords);
       })
@@ -125,7 +78,6 @@ export default function useMarkers(setIsLoading) {
 
   useEffect(() => {
     retrieveMarkers();
-    setIsLoading(false);
   }, []);
 
   return { markerArray, mapToggle, setMapToggle, lastLocation };
