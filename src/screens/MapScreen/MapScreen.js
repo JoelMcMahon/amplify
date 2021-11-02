@@ -20,7 +20,7 @@ export default function MapScreen() {
     longitudeDelta: 0.01,
   };
 
-  console.log(markerArray, "marker in map");
+  // console.log(markerArray, "marker in map");
   const initRegion = {
     latitude: lastLocation.latitude,
     latitudeDelta: 0.008,

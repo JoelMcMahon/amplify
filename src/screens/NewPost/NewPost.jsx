@@ -1,11 +1,14 @@
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { Text, View } from "react-native";
 
+const Tab = createBottomTabNavigator();
+
 const NewPost = () => {
   return (
-    <View>
-      <Text>New Post</Text>
-    </View>
+    <>
+      <Tab.Screen>Test</Tab.Screen>
+    </>
   );
 };
 

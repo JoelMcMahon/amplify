@@ -5,21 +5,9 @@ import { useState } from "react";
 import MapScreen from "../MapScreen/MapScreen";
 import ListScreen from "../ListScreen/ListScreen";
 import RequestLocationData from "../../utils/RequestLocationData";
-import { firebase } from "../../firebase/config";
 
-export default function HomeScreen({ user, setUser }) {
+export default function HomeScreen() {
   const [viewToggle, setViewToggle] = useState("map");
-  const logoutHandler = () => {
-    firebase
-      .auth()
-      .signOut()
-      .then((res) => {
-        console.log(res);
-
-        setUser(null);
-      })
-      .catch((err) => console.dir(err));
-  };
 
   return (
     <View style={styles.container}>
