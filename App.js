@@ -24,11 +24,13 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  LogBox.ignoreLogs(['Async Storage has been extracted from react-native core']);
-  LogBox.ignoreLogs(['Setting a timer']);
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
-  const [location,setLocation] =useState(null);
+  LogBox.ignoreLogs([
+    "Async Storage has been extracted from react-native core",
+  ]);
+  LogBox.ignoreLogs(["Setting a timer"]);
+  // const [loading, setLoading] = useState(true);
+
+  const [location, setLocation] = useState(null);
 
   const { user, setUser, loading } = userAppAuth();
 
@@ -54,7 +56,15 @@ export default function App() {
               {(props) => <HomeScreen {...props} extraData={user} />}
             </Stack.Screen>
             <Stack.Screen name="Location">
-              {(props) => <LocationScreen {...props} location={location} setLocation={setLocation} extraData={user} component={LocationScreen} />}
+              {(props) => (
+                <LocationScreen
+                  {...props}
+                  location={location}
+                  setLocation={setLocation}
+                  extraData={user}
+                  component={LocationScreen}
+                />
+              )}
             </Stack.Screen>
             <Stack.Screen name="Map">
               {(props) => <MapScreen {...props} extraData={user} />}
@@ -74,7 +84,6 @@ export default function App() {
             <Stack.Screen name="Registration" component={RegistrationScreen} />
           </>
         )}
-        
       </Stack.Navigator>
     );
   };
