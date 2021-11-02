@@ -28,39 +28,41 @@ export default function App() {
 
   const { user, setUser, loading } = userAppAuth();
 
+  const tabs = () => {
+    return (
+      <Tab.Navigator screenOptions={navIcons}>
+        <Tab.Screen name="Home">
+          {(props) => <HomeScreen {...props} user={user} setUser={setUser} />}
+        </Tab.Screen>
+        <Tab.Screen name="Profile" component={Profile} />
+        <Tab.Screen name="NewPost" component={NewPost} />
+        <Tab.Screen name="Chats" component={Chats} />
+      </Tab.Navigator>
+    );
+  };
+
+  const loginSignup = () => {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen name="Login">
+          {(props) => (
+            <LoginScreen {...props} setUser={setUser} component={LoginScreen} />
+          )}
+        </Stack.Screen>
+        <Stack.Screen name="Registration">
+          {(props) => (
+            <RegistrationScreen
+              {...props}
+              setUser={setUser}
+              component={LoginScreen}
+            />
+          )}
+        </Stack.Screen>
+      </Stack.Navigator>
+    );
+  };
+
   return (
-    <NavigationContainer>
-      {user ? (
-        <Tab.Navigator screenOptions={navIcons}>
-          <Tab.Screen name="Home">
-            {(props) => <HomeScreen {...props} user={user} setUser={setUser} />}
-          </Tab.Screen>
-          <Tab.Screen name="Profile" component={Profile} />
-          <Tab.Screen name="NewPost" component={NewPost} />
-          <Tab.Screen name="Chats" component={Chats} />
-        </Tab.Navigator>
-      ) : (
-        <Stack.Navigator>
-          <Stack.Screen name="Login">
-            {(props) => (
-              <LoginScreen
-                {...props}
-                setUser={setUser}
-                component={LoginScreen}
-              />
-            )}
-          </Stack.Screen>
-          <Stack.Screen name="Registration">
-            {(props) => (
-              <RegistrationScreen
-                {...props}
-                setUser={setUser}
-                component={LoginScreen}
-              />
-            )}
-          </Stack.Screen>
-        </Stack.Navigator>
-      )}
-    </NavigationContainer>
+    <NavigationContainer>{user ? tabs() : loginSignup()}</NavigationContainer>
   );
 }
