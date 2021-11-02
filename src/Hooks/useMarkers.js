@@ -1,35 +1,40 @@
-import React, { useState, useEffect } from "react";
-import { Marker } from "react-native-maps";
-import firebase from "firebase";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-const geofire = require("geofire-common");
+import React, { useState, useEffect } from 'react';
+import { Marker, Callout, View, Text } from 'react-native-maps';
+import firebase from 'firebase';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const geofire = require('geofire-common');
+import { StyleSheet } from 'react-native';
 
-export default function useMarkers() {
-  
+export default function useMarkers(setIsLoading) {
   const [mapToggle, setMapToggle] = useState(true);
   const [markerArray, setMarkerArray] = useState([]);
-  const [lastLocation, setLastLocation]=useState({latitude:0,longitude:0});
+  const [lastLocation, setLastLocation] = useState({
+    latitude: 0,
+    longitude: 0,
+  });
+ 
+
 
   const db = firebase.firestore();
 
   requestLocationPermission();
   const retrieveMarkers = async () => {
     const lastPosition = await JSON.parse(
-      await AsyncStorage.getItem("lastKnownPosition")
+      await AsyncStorage.getItem('lastKnownPosition')
     );
-    console.log(lastPosition, "mapview");
+    console.log(lastPosition, 'mapview');
     const lastLat = lastPosition.coords.latitude;
     const lastLong = lastPosition.coords.longitude;
     const center = [lastLat, lastLong];
     const radiusInM = 10 * 1000;
-    setLastLocation({latitude:lastLat,longitude:lastLong})
+    setLastLocation({ latitude: lastLat, longitude: lastLong });
 
     const bounds = geofire.geohashQueryBounds(center, radiusInM);
     const promises = [];
     for (const b of bounds) {
       const q = db
-        .collection("ads")
-        .orderBy("geohash")
+        .collection('ads')
+        .orderBy('geohash')
         .startAt(b[0])
         .endAt(b[1]);
       promises.push(q.get());
@@ -41,8 +46,8 @@ export default function useMarkers() {
 
         for (const snap of snapshots) {
           for (const doc of snap.docs) {
-            const lat = doc.get("lat");
-            const long = doc.get("long");
+            const lat = doc.get('lat');
+            const long = doc.get('long');
 
             const distanceInKm = geofire.distanceBetween([lat, long], center);
             const distanceInM = distanceInKm * 1000;
@@ -55,7 +60,7 @@ export default function useMarkers() {
         return matchingDocs;
       })
       .then((matchingDocs) => {
-        console.log(matchingDocs, "then");
+        console.log(matchingDocs, 'then');
 
         const deltaArray = matchingDocs.map((docs) => {
           const lat =
@@ -99,7 +104,7 @@ export default function useMarkers() {
           };
         }
         const deltaCoords = getRegionForCoordinates(deltaArray);
-        console.log(deltaCoords, "<------------------delta coords");
+        console.log(deltaCoords, '<------------------delta coords');
 
         const markerCoords = matchingDocs.map((docs) => {
           const lat =
@@ -107,15 +112,9 @@ export default function useMarkers() {
           const long =
             docs._delegate._document.data.value.mapValue.fields.long
               .doubleValue;
-
-          return (
-            <Marker
-              key={`${Math.random()}`}
-              coordinate={{ latitude: lat, longitude: long }}
-            />
-          );
+          return { lat, long };
         });
-        // console.log(markerCoords, "marker Array");
+    
 
         setMarkerArray(markerCoords);
       })
@@ -126,7 +125,8 @@ export default function useMarkers() {
 
   useEffect(() => {
     retrieveMarkers();
+    setIsLoading(false);
   }, []);
 
-  return { markerArray, mapToggle, setMapToggle , lastLocation};
+  return { markerArray, mapToggle, setMapToggle, lastLocation };
 }

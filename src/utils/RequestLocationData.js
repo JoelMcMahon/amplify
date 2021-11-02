@@ -32,7 +32,7 @@ export default requestLocationPermission = async () => {
         const long = currLocation.coords.longitude + (getRandomInt());
         const hash = geofire.geohashForLocation([lat, long]);
         const data = { geohash: hash, lat, long };
-        storageRef.add(data);
+        // storageRef.add(data);
 
         // return data
         
