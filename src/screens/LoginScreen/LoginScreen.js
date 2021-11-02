@@ -11,6 +11,7 @@ export default function LoginScreen({ navigation, setUser }) {
   const onFooterLinkPress = () => {
     navigation.navigate("Registration");
   };
+
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView
