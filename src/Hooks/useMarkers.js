@@ -20,7 +20,7 @@ export default function useMarkers(setIsLoading) {
     const lastPosition = await JSON.parse(
       await AsyncStorage.getItem("lastKnownPosition")
     );
-    console.log(lastPosition, "mapview");
+    // console.log(lastPosition, "mapview");
     const lastLat = lastPosition.coords.latitude;
     const lastLong = lastPosition.coords.longitude;
     const center = [lastLat, lastLong];
@@ -58,7 +58,7 @@ export default function useMarkers(setIsLoading) {
         return matchingDocs;
       })
       .then((matchingDocs) => {
-        console.log(matchingDocs, "then");
+        // console.log(matchingDocs, "then");
 
         const markerCoords = matchingDocs.map((docs) => {
           const lat =

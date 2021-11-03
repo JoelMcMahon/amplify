@@ -67,3 +67,13 @@ export const onRegisterPress = (
       alert(error);
     });
 };
+
+export const logoutHandler = (setUser) => {
+  firebase
+    .auth()
+    .signOut()
+    .then((res) => {
+      setUser(null);
+    })
+    .catch((err) => console.dir(err));
+};
