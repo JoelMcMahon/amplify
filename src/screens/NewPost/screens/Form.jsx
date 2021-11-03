@@ -8,6 +8,7 @@ const Form = ({ navigation, media }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [uploadingAd, setUploadingAd] = useState(false);
+  const [error, setError] = useState(false);
 
   const navigateToCapture = () => {
     navigation.navigate("Capture");
@@ -53,10 +54,15 @@ const Form = ({ navigation, media }) => {
       />
       <Button
         onPress={() => {
-          uploadAd(setUploadingAd, title, body, media);
+          uploadAd(setUploadingAd, title, body, media, setError);
         }}
         title={uploadingAd ? "Uploading.." : "Upload Ad"}
       />
+      {error && (
+        <Text style={styles.error}>
+          Both title and body fields must be filled
+        </Text>
+      )}
     </View>
   );
 };
@@ -69,5 +75,9 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
+  },
+  error: {
+    fontSize: 10,
+    color: "red",
   },
 });

@@ -1,7 +1,21 @@
 import { db, firebase } from "../../firebase/config";
 import RequestLocationData from "../../utils/RequestLocationData";
 
-export const uploadAd = async (setUploadingAd, title, body, media) => {
+export const uploadAd = async (
+  setUploadingAd,
+  title,
+  body,
+  media,
+  setError
+) => {
+  //Checks if the title/body are adequate length. If not - changes error state and returns from function.
+  if (title.length < 5 || body.length < 20) {
+    setError(true);
+    return;
+  }
+
+  setError(false);
+
   //Starts uploading ad.
   setUploadingAd(true);
 
