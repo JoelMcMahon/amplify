@@ -40,7 +40,9 @@ export default function App() {
         <Tab.Screen name="Home">
           {(props) => <HomeScreen {...props} user={user} setUser={setUser} />}
         </Tab.Screen>
-        <Tab.Screen name="Profile" component={Profile} />
+        <Tab.Screen name="Profile">
+          {(props) => <Profile {...props} user={user} setUser={setUser} />}
+        </Tab.Screen>
         <Tab.Screen name="NewPost" component={NewPost} />
         <Tab.Screen name="Chats" component={Chats} />
       </Tab.Navigator>
@@ -50,40 +52,12 @@ export default function App() {
   const loginSignup = () => {
     return (
       <Stack.Navigator>
-        {user ? (
-          <>
-            <Stack.Screen name="Hello Celina">
-              {(props) => <HomeScreen {...props} extraData={user} />}
-            </Stack.Screen>
-            <Stack.Screen name="Location">
-              {(props) => (
-                <LocationScreen
-                  {...props}
-                  location={location}
-                  setLocation={setLocation}
-                  extraData={user}
-                  component={LocationScreen}
-                />
-              )}
-            </Stack.Screen>
-            <Stack.Screen name="Map">
-              {(props) => <MapScreen {...props} extraData={user} />}
-            </Stack.Screen>
-          </>
-        ) : (
-          <>
-            <Stack.Screen name="Login">
-              {(props) => (
-                <LoginScreen
-                  {...props}
-                  setUser={setUser}
-                  component={LoginScreen}
-                />
-              )}
-            </Stack.Screen>
-            <Stack.Screen name="Registration" component={RegistrationScreen} />
-          </>
-        )}
+        <Stack.Screen name="Login">
+          {(props) => (
+            <LoginScreen {...props} setUser={setUser} component={LoginScreen} />
+          )}
+        </Stack.Screen>
+        <Stack.Screen name="Registration" component={RegistrationScreen} />
       </Stack.Navigator>
     );
   };
