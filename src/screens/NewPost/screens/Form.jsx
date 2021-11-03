@@ -2,9 +2,9 @@ import { Video } from "expo-av";
 import React, { useState } from "react";
 import { Image } from "react-native";
 import { Button, StyleSheet, Text, View, TextInput } from "react-native";
+import { mediaThumbnail } from "../utils";
 
-const Form = ({ navigation }) => {
-  const [media, setMedia] = useState(null);
+const Form = ({ navigation, media }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
@@ -12,21 +12,16 @@ const Form = ({ navigation }) => {
     navigation.navigate("Capture");
   };
 
-  const mediaThumbnail = () => {
-    if (media.type === "photo") {
-      return <Image source={{ uri: media }} />;
-    }
-
-    if (media.type === "video") {
-      return <Video source={{ uri: media }} />;
-    }
+  const confirmAd = () => {
+    console.log("confirming ad");
   };
 
   return (
     <View>
+      <View style={styles.mediaPlaceholder}>{mediaThumbnail(media)}</View>
       <Button
         onPress={navigateToCapture}
-        title={media ? "Change Photo/Video" : "Add Photo/Video"}
+        title={media.uri ? "Change Photo/Video" : "Add Photo/Video"}
       />
       <TextInput
         placeholder="Title.."
@@ -36,10 +31,21 @@ const Form = ({ navigation }) => {
         placeholder="Tell us more.."
         onChangeText={(value) => setBody(value)}
       />
+      <Button
+        onPress={confirmAd}
+        title={media.uri ? "Change Photo/Video" : "Add Photo/Video"}
+      />
     </View>
   );
 };
 
 export default Form;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  mediaPlaceholder: {
+    height: "60%",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

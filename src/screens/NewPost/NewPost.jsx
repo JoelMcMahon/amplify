@@ -7,7 +7,7 @@ import Form from "./screens/Form";
 const Stack = createStackNavigator();
 
 const NewPostNav = () => {
-  const [media, setMedia] = useState(null);
+  const [media, setMedia] = useState({ type: null, uri: null });
 
   return (
     <Stack.Navigator
@@ -15,7 +15,9 @@ const NewPostNav = () => {
         header: () => null,
       }}
     >
-      <Stack.Screen name="Form">{(props) => <Form {...props} />}</Stack.Screen>
+      <Stack.Screen name="Form">
+        {(props) => <Form {...props} media={media} />}
+      </Stack.Screen>
       <Stack.Screen name="Capture">
         {(props) => <Capture {...props} setMedia={setMedia} />}
       </Stack.Screen>

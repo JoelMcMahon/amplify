@@ -5,13 +5,16 @@ const ConfirmMedia = ({ navigation, media, setMedia }) => {
   console.log(media.type);
 
   const deleteMedia = () => {
-    setMedia(null);
+    setMedia({ type: null, uri: null });
     navigation.navigate("Capture");
   };
 
   const confirmMedia = () => {
+    console.log(media);
     navigation.navigate("Form");
   };
+
+  console.log(media.uri);
 
   if (media.type === "photo") {
     return (
