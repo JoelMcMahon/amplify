@@ -1,5 +1,5 @@
 import { Camera } from "expo-camera";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export const useCamera = () => {
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -23,9 +23,10 @@ export const useCamera = () => {
     );
   };
 
-  const toggleMediaType = () => {
+  const toggleCameraMode = () => {
+    console.log(mediaType);
     setMediaType(mediaType === "photo" ? "video" : "photo");
   };
 
-  return { type, toggleType, mediaType, toggleMediaType, hasPermission };
+  return { type, toggleType, mediaType, toggleCameraMode, hasPermission };
 };
