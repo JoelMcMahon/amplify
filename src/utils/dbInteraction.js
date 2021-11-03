@@ -17,7 +17,7 @@ export const onLoginPress = (navigation, setUser, email, password) => {
           }
           const user = firestoreDocument.data();
           setUser({ user: user });
-          navigation.navigate({ name: "Home", params: user });
+          // navigation.navigate({ name: "Home", params: user });
         })
         .catch((error) => {
           alert(error);
