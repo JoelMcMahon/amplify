@@ -27,6 +27,7 @@ export const useCamera = () => {
         : Camera.Constants.Type.back
     );
   };
+  //comment
 
   const toggleCameraMode = () => {
     console.log(mediaType);
