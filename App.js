@@ -38,7 +38,7 @@ export default function App() {
     return (
       <Tab.Navigator screenOptions={navIcons}>
         <Tab.Screen name="Home">
-          {(props) => <HomeScreen {...props} />}
+          {(props) => <HomeScreen {...props} user={user} />}
         </Tab.Screen>
         <Tab.Screen name="Profile">
           {(props) => <Profile {...props} user={user} setUser={setUser} />}
