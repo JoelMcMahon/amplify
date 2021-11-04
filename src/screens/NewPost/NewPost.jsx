@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 
 const NewPostNav = () => {
   const [media, setMedia] = useState({ type: null, uri: null });
-
+  console.log("rerender");
   return (
     <Stack.Navigator
       screenOptions={{
