@@ -1,50 +1,33 @@
+import { createStackNavigator } from "@react-navigation/stack";
 import React, { useState } from "react";
-import { Button, View, Pressable, Text } from "react-native";
-import { TakePicture } from "./capture/picture";
-import { TakeVideo } from "./capture/video";
-import styles from "./styles";
-import { Feather } from "@expo/vector-icons";
+import Capture from "./screens/Capture";
+import ConfirmMedia from "./screens/ConfirmMedia";
+import Form from "./screens/Form";
 
-const NewPost = () => {
-  const [toggleCapture, setToggleCapture] = useState(true);
+const Stack = createStackNavigator();
 
-  const toggle = () => {
-    setToggleCapture(!toggleCapture);
-  };
+const NewPostNav = () => {
+  const [media, setMedia] = useState({ type: null, uri: null });
 
   return (
-    <View style={styles.container}>
-      <View style={styles.capture}>
-        {toggleCapture ? TakePicture() : TakeVideo()}
-      </View>
-      <View style={styles.toggleButton}>
-        <Pressable style={styles.pressArea} onPress={toggle}>
-          <Text style={styles.buttonColour}>
-            {toggleCapture ? "Photo" : "Video"}
-          </Text>
-        </Pressable>
-      </View>
-      <Pressable
-        style={({ pressed }) => {
-          return [
-            { borderColor: pressed ? "black" : "#2d6a4f", color: "red" },
-            styles.captureButton,
-          ];
-        }}
-      >
-        {toggleCapture ? (
-          <Feather name="video" size={24} color="#2d6a4f" style={styles.icon} />
-        ) : (
-          <Feather
-            name="camera"
-            size={24}
-            color="#2d6a4f"
-            style={styles.icon}
-          />
+    <Stack.Navigator
+      screenOptions={{
+        header: () => null,
+      }}
+    >
+      <Stack.Screen name="Form">
+        {(props) => <Form {...props} media={media} setMedia={setMedia} />}
+      </Stack.Screen>
+      <Stack.Screen name="Capture">
+        {(props) => <Capture {...props} setMedia={setMedia} />}
+      </Stack.Screen>
+      <Stack.Screen name="ConfirmMedia">
+        {(props) => (
+          <ConfirmMedia {...props} media={media} setMedia={setMedia} />
         )}
-      </Pressable>
-    </View>
+      </Stack.Screen>
+    </Stack.Navigator>
   );
 };
 
-export default NewPost;
+export default NewPostNav;
