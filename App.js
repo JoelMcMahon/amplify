@@ -35,6 +35,8 @@ export default function App() {
 
   const { user, setUser, loading } = userAppAuth();
 
+  console.log(setUser);
+
   const tabs = () => {
     return (
       <Tab.Navigator screenOptions={navIcons}>
@@ -44,7 +46,9 @@ export default function App() {
         <Tab.Screen name="Profile">
           {(props) => <Profile {...props} user={user} setUser={setUser} />}
         </Tab.Screen>
-        <Tab.Screen name="NewPost" component={NewPost} />
+        <Tab.Screen name="NewPost">
+          {(props) => <NewPost {...props} user={user} />}
+        </Tab.Screen>
         <Tab.Screen name="Chats" component={Chats} />
       </Tab.Navigator>
     );
@@ -54,11 +58,11 @@ export default function App() {
     return (
       <Stack.Navigator>
         <Stack.Screen name="Login">
-          {(props) => (
-            <LoginScreen {...props} setUser={setUser} component={LoginScreen} />
-          )}
+          {(props) => <LoginScreen {...props} setUser={setUser} />}
         </Stack.Screen>
-        <Stack.Screen name="Registration" component={RegistrationScreen} />
+        <Stack.Screen name="Registration">
+          {(props) => <RegistrationScreen {...props} setUser={setUser} />}
+        </Stack.Screen>
       </Stack.Navigator>
     );
   };
