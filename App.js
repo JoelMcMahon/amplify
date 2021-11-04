@@ -11,6 +11,7 @@ import Profile from "./src/screens/Profile/Profile";
 import NewPost from "./src/screens/NewPost/NewPost";
 import Chats from "./src/screens/Chats/Chats";
 import { navIcons } from "./src/utils/navIcons";
+import InboxScreen from "./src/screens/InboxScreen/InboxScreen";
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -44,7 +45,7 @@ export default function App() {
           {(props) => <Profile {...props} user={user} setUser={setUser} />}
         </Tab.Screen>
         <Tab.Screen name="NewPost" component={NewPost} />
-        <Tab.Screen name="Chats" component={Chats} />
+        <Tab.Screen name="Inbox" component={InboxScreen} />
       </Tab.Navigator>
     );
   };

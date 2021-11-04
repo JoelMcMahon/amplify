@@ -1,23 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { useState } from 'react';
 import firebase from 'firebase';
-import { getAuth } from "firebase/auth";
+import { getAuth } from 'firebase/auth';
 
 export default function useChats() {
   const [chatArray, setChatArray] = useState([]);
+
   const db = firebase.firestore();
   const auth = firebase.auth();
   const user = auth.currentUser;
-  console.log(user,'<<<user')
+  const userID = user.uid;
 
-  const fetchChats = () => {
-      db.collection('chats').where('users','array-contains','')
+
+  const fetchChats = async () => {
+    await db
+      .collection('chats')
+      .where('users', 'array-contains', userID)
+      .get()
+      .then((snapshot) => {
+        const tempRooms = [];
+        snapshot.docs.forEach((doc) => {
+          const id = doc.id;
+          // setRoomIdArray((currIdArray) => {
+          //   return [...currIdArray, id];
+          // });
+          tempRooms.push(id);
+        });
+        setChatArray(tempRooms);
+      });
   };
 
-//   return (
-//     <View>
-//       <Text></Text>
-//     </View>
-//   );
+  useEffect(() => {
+    fetchChats();
+  }, []);
+
+  return { chatArray };
+  // console.log(fetchChats(), '<<<<chats');
+
+  //   return (
+  //     <View>
+  //       <Text></Text>
+  //     </View>
+  //   );
 }
