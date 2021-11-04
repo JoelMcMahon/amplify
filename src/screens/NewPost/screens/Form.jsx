@@ -5,7 +5,7 @@ import { Button, StyleSheet, Text, View, TextInput } from "react-native";
 import { uploadAd } from "../dbInteraction";
 import loadingIcon from "../../../images/loading.gif";
 
-const Form = ({ navigation, media, setMedia }) => {
+const Form = ({ navigation, media, setMedia, user }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [uploadingAd, setUploadingAd] = useState(false);
@@ -74,7 +74,7 @@ const Form = ({ navigation, media, setMedia }) => {
       </View>
       <Button
         onPress={() => {
-          uploadAd(setUploadingAd, title, body, media, setError);
+          uploadAd(setUploadingAd, title, body, media, setError, user);
         }}
         title={uploadingAd ? "Uploading.." : "Upload Ad"}
       />

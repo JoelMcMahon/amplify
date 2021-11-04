@@ -9,6 +9,7 @@ export default function RegistrationScreen({ navigation, setUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
 
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
@@ -16,11 +17,14 @@ export default function RegistrationScreen({ navigation, setUser }) {
 
   const onRegisterPress = (
     navigation,
+    displayName,
     fullName,
     email,
     password,
-    confirmPassword
+    confirmPassword,
+    setUser
   ) => {
+    console.log(setUser);
     if (password !== confirmPassword) {
       alert("Passwords don't match.");
       return;
@@ -32,6 +36,7 @@ export default function RegistrationScreen({ navigation, setUser }) {
         const uid = response.user.uid;
         const data = {
           id: uid,
+          displayName,
           email,
           fullName,
         };
@@ -40,7 +45,8 @@ export default function RegistrationScreen({ navigation, setUser }) {
           .doc(uid)
           .set(data)
           .then(() => {
-            navigation.navigate("Home", { user: data });
+            // navigation.navigate("Home", { user: data });
+            setUser({ user: data });
           })
           .catch((error) => {
             alert(error);
@@ -60,6 +66,15 @@ export default function RegistrationScreen({ navigation, setUser }) {
         <Image
           style={styles.logo}
           source={require("../../../assets/icon.png")}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Display Name"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setDisplayName(text)}
+          value={displayName}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
         />
         <TextInput
           style={styles.input}
@@ -94,7 +109,10 @@ export default function RegistrationScreen({ navigation, setUser }) {
           placeholderTextColor="#aaaaaa"
           secureTextEntry
           placeholder="Confirm Password"
-          onChangeText={(text) => setConfirmPassword(text)}
+          onChangeText={(text) => {
+            console.log(text);
+            setConfirmPassword(text);
+          }}
           value={confirmPassword}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
@@ -104,6 +122,7 @@ export default function RegistrationScreen({ navigation, setUser }) {
           onPress={() =>
             onRegisterPress(
               navigation,
+              displayName,
               fullName,
               email,
               password,
