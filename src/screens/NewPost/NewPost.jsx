@@ -16,7 +16,7 @@ const NewPostNav = () => {
       }}
     >
       <Stack.Screen name="Form">
-        {(props) => <Form {...props} media={media} />}
+        {(props) => <Form {...props} media={media} setMedia={setMedia} />}
       </Stack.Screen>
       <Stack.Screen name="Capture">
         {(props) => <Capture {...props} setMedia={setMedia} />}

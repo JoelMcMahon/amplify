@@ -3,6 +3,20 @@ import React, { useState } from "react";
 import { Pressable } from "react-native";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { useCamera } from "../hooks/camera";
+import { FontAwesome5 } from "@expo/vector-icons";
+{
+  /* <FontAwesome5 name="camera-retro" size={24} color="black" /> */
+}
+import { AntDesign } from "@expo/vector-icons";
+{
+  /* <AntDesign name="videocamera" size={24} color="black" /> */
+}
+
+import { Fontisto } from "@expo/vector-icons";
+
+{
+  /* <Fontisto name="spinner-refresh" size={24} color="black" /> */
+}
 
 const Capture = ({ navigation, setMedia }) => {
   const [camera, setCamera] = useState(null);
@@ -11,6 +25,14 @@ const Capture = ({ navigation, setMedia }) => {
 
   const { type, toggleType, mediaType, toggleCameraMode, hasPermission } =
     useCamera();
+
+  if (!hasPermission) {
+    return (
+      <View>
+        <Text>No Camera permissions</Text>
+      </View>
+    );
+  }
 
   const takePhoto = async () => {
     if (camera) {
@@ -39,17 +61,24 @@ const Capture = ({ navigation, setMedia }) => {
   const buttons = () => {
     return (
       <View style={styles.buttons}>
-        <Button title="Flip Camera" onPress={toggleType}></Button>
         {mediaType === "photo" ? (
-          <Button
-            title={loading ? "Processing Photo" : "Take Photo"}
-            onPress={takePhoto}
-          />
+          <Pressable onPress={takePhoto} style={styles.takeMedia}>
+            {loading ? (
+              <Fontisto name="spinner-refresh" size={24} color="white" />
+            ) : (
+              <FontAwesome5 name="camera-retro" size={24} color="white" />
+            )}
+          </Pressable>
         ) : (
-          <Pressable style={styles.record} onPress={takeVideo}>
-            <Text>{isRecording ? "Recording.." : "Take Video"}</Text>
+          <Pressable onPress={takeVideo} style={styles.takeMedia}>
+            {isRecording ? (
+              <AntDesign name="videocamera" size={24} color="red" />
+            ) : (
+              <AntDesign name="videocamera" size={24} color="white" />
+            )}
           </Pressable>
         )}
+        <Button title="Toggle type" onPress={toggleType} />
         <Button title="Go Back" onPress={() => navigation.navigate("Form")} />
         <Button title="Change Camera Mode" onPress={toggleCameraMode} />
       </View>
@@ -88,5 +117,26 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "gray",
     height: 50,
+  },
+  takeMedia: {
+    position: "absolute",
+    bottom: 120,
+    left: "45%",
+    borderWidth: 5,
+    borderColor: "white",
+    borderRadius: 50,
+    height: 50,
+    width: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  toggleMode: {
+    position: "absolute",
+    top: 0,
+    backgroundColor: "black",
+    padding: 5,
+  },
+  whiteText: {
+    color: "white",
   },
 });
