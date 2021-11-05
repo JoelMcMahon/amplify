@@ -30,7 +30,6 @@ export const useCamera = () => {
   //comment
 
   const toggleCameraMode = () => {
-    console.log(mediaType);
     setMediaType(mediaType === "photo" ? "video" : "photo");
   };
 

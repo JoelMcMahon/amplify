@@ -35,8 +35,10 @@ const ConfirmMedia = ({ navigation, media, setMedia }) => {
         useNativeControls
         isLooping
       />
-      <Button title="Confirm" onPress={confirmMedia} />
-      <Button title="Delete" onPress={deleteMedia} />
+      <View style={styles.floatingButtons}>
+        <Button title="Confirm" onPress={confirmMedia} />
+        <Button title="Delete" onPress={deleteMedia} />
+      </View>
     </View>
   );
 };
@@ -47,5 +49,8 @@ const styles = StyleSheet.create({
   placeholder: {
     width: "100%",
     height: "80%",
+  },
+  floatingButtons: {
+    position: "absolute",
   },
 });

@@ -24,7 +24,6 @@ export default function RegistrationScreen({ navigation, setUser }) {
     confirmPassword,
     setUser
   ) => {
-    console.log(setUser);
     if (password !== confirmPassword) {
       alert("Passwords don't match.");
       return;
@@ -110,7 +109,6 @@ export default function RegistrationScreen({ navigation, setUser }) {
           secureTextEntry
           placeholder="Confirm Password"
           onChangeText={(text) => {
-            console.log(text);
             setConfirmPassword(text);
           }}
           value={confirmPassword}

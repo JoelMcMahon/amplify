@@ -1,7 +1,14 @@
 import { Video } from "expo-av";
 import React, { useState } from "react";
 import { Image } from "react-native";
-import { Button, StyleSheet, Text, View, TextInput } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  KeyboardAvoidingView,
+} from "react-native";
 import { uploadAd } from "../dbInteraction";
 import loadingIcon from "../../../images/loading.gif";
 
@@ -51,7 +58,9 @@ const Form = ({ navigation, media, setMedia, user }) => {
     //Checks if any media is being held and displays the correct component
     <View style={styles.formContainer}>
       {mediaPlaceholder()}
-      <View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
         <Button
           onPress={navigateToCapture}
           title={media.uri ? "Change Photo/Video" : "Add Photo/Video"}
@@ -71,7 +80,7 @@ const Form = ({ navigation, media, setMedia, user }) => {
             Both title and body fields must be filled
           </Text>
         )}
-      </View>
+      </KeyboardAvoidingView>
       <Button
         onPress={() => {
           uploadAd(setUploadingAd, title, body, media, setError, user);
