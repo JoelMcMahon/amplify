@@ -4,7 +4,6 @@ import { StyleSheet, View, Dimensions, Text, Image } from "react-native";
 import useMarkers from "../../Hooks/useMarkers";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import RequestLocationData from "../../utils/RequestLocationData";
-import ListScreen from "../ListScreen/ListScreen";
 
 export default function MapScreen() {
   const [isLoading, setIsLoading] = useState(true);
