@@ -59,10 +59,11 @@ const Form = ({ navigation, media, setMedia, user }) => {
     //Checks if any media is being held and displays the correct component
     <KeyboardAwareScrollView
       style={{ backgroundColor: "#4c69a5" }}
-      resetScrollToCoords={{ x: 10, y: 10 }}
+      resetScrollToCoords={{ x: 0, y: 0 }}
       contentContainerStyle={styles.formContainer}
       scrollEnabled={true}
       extraScrollHeight={10}
+      enableOnAndroid={true}
     >
       {mediaPlaceholder()}
 
