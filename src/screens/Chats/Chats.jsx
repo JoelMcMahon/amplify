@@ -12,6 +12,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { SearchBar } from 'react-native-elements';
 import fetchUsers from '../../Hooks/fetchUsers';
 import createChatRoom from '../../utils/createChatRoom';
+import { isSameUser } from 'react-native-gifted-chat/lib/utils';
 
 const Chats = ({ navigation }) => {
   const { chatArray } = useChats();
@@ -31,7 +32,7 @@ const Chats = ({ navigation }) => {
       {searchStr
         ? usersArray.map((user) => {
             return (
-              <Card>
+              <Card key={user.id}>
                 <TouchableOpacity
                   onPress={async () => {
                     const newRoomId = await createChatRoom(userId, user.id, chatArray);
@@ -51,7 +52,7 @@ const Chats = ({ navigation }) => {
         : null}
       {chatArray.map((roomId) => {
         return (
-          <Card>
+          <Card key={roomId.id}>
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate({ name: 'SingleChat', params: roomId.id });

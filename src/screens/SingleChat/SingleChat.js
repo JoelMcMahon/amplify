@@ -17,7 +17,7 @@ export default function SingleChat(props) {
   function renderBubble(props) {
     // if ()
     return (
-      <Bubble
+      <Bubble key={Math.random()}
         {...props}
         wrapperStyle={{
           right: { backgroundColor: '#6646ee' },

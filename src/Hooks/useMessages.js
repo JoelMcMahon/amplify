@@ -10,37 +10,45 @@ export default function useMessages(roomId) {
 
   const fetchMessages = async () => {
     console.log(roomId, '<<rooomid');
-    await db.collection(`chats/${roomId}/messages/`).onSnapshot((snapshot) => {
-      const messages = snapshot.docs.map((doc,index) => {
+    const messages = await db
+      .collection(`chats/${roomId}/messages/`)
+      .orderBy('createdAt', 'desc')
+      .onSnapshot((snapshot) => {
+        const messages = snapshot.docs.map((doc, index) => {
+          const message = doc.data();
+          console.log(message, '<message');
+          const id = () => {
+            if (message.senderID === userId) {
+              return 1;
+            } else {
+              return 2;
+            }
+          };
+          const formattedTime = message.createdAt.seconds
+            ? message.createdAt.seconds * 1000
+            :new Date.now();
 
-          const message= doc.data();
-          console.log(message,"<message")
-        const id = () => {
-          if (message.senderID === userId) {
-            return 1;
-          } else {
-            return 2;
-          }
-        };
-        const formattedMessage = {
-          _id:index ,
-          text: message.body,
-          createdAt:  new Date(message.createdAt.seconds *1000).toISOString(),
-          user:{
-              _id:id()
-          }
-        };
+          const formattedMessage = {
+            _id: index,
+            text: message.body,
+            createdAt: formattedTime,
+            user: {
+              _id: id(),
+            },
+          };
 
-       
-        console.log(formattedMessage.createdAt,"<<formatted msg")
-        return  formattedMessage;
+          console.log(formattedMessage, '<<formatted msg');
+          return formattedMessage;
+        });
+        setMessagesArray(messages);
       });
-      setMessagesArray(messages);
-    });
+
+ 
   };
 
   useEffect(() => {
     fetchMessages();
+    console.log(messagesArray, 'messagesArr');
   }, []);
 
   return messagesArray;
