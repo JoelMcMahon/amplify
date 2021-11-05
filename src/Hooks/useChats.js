@@ -17,15 +17,12 @@ export default function useChats() {
     await db
       .collection('chats')
       .where('users', 'array-contains', userID)
-      .get()
-      .then((snapshot) => {
+      .onSnapshot((snapshot) => {
         const tempRooms = [];
         snapshot.docs.forEach((doc) => {
+          const users = doc.data().users
           const id = doc.id;
-          // setRoomIdArray((currIdArray) => {
-          //   return [...currIdArray, id];
-          // });
-          tempRooms.push(id);
+          tempRooms.push({id,users});
         });
         setChatArray(tempRooms);
       });

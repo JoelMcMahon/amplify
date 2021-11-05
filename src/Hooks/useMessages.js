@@ -14,6 +14,7 @@ export default function useMessages(roomId) {
       const messages = snapshot.docs.map((doc,index) => {
 
           const message= doc.data();
+          console.log(message,"<message")
         const id = () => {
           if (message.senderID === userId) {
             return 1;
@@ -24,14 +25,14 @@ export default function useMessages(roomId) {
         const formattedMessage = {
           _id:index ,
           text: message.body,
-          createdAt:  new Date(message.createdAt.seconds * 1000).toISOString(),
+          createdAt:  new Date(message.createdAt.seconds *1000).toISOString(),
           user:{
               _id:id()
           }
         };
 
        
-        console.log(formattedMessage,"<<formatted msg")
+        console.log(formattedMessage.createdAt,"<<formatted msg")
         return  formattedMessage;
       });
       setMessagesArray(messages);
