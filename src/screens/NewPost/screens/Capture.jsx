@@ -44,7 +44,7 @@ const Capture = ({ navigation, setMedia }) => {
       setMedia({ type: "photo", uri });
       navigation.navigate("ConfirmMedia");
     } else {
-      console.log("Error with camera reference");
+      console.warn("Error with camera reference");
     }
   };
 
