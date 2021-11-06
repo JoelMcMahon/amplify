@@ -25,8 +25,10 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Button title="Map" onPress={mapToggle}></Button>
-      <Button title="List" onPress={mapToggle}></Button>
+      <Button
+        title={viewToggle === "map" ? "Go to list" : "Go to map"}
+        onPress={mapToggle}
+      ></Button>
       {viewToggle === "map" && <MapScreen />}
       {viewToggle === "list" && <PostFeed ads={ads} />}
     </View>
