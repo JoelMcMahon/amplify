@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { firebase } from "../firebase/config";
 
 export const userAppAuth = () => {
-  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -14,17 +13,16 @@ export const userAppAuth = () => {
           .get()
           .then((document) => {
             const userData = document.data();
-            setLoading(false);
             setUser(userData);
           })
           .catch((error) => {
-            setLoading(false);
+            console.warn(error);
           });
       } else {
-        setLoading(false);
+        console.warn("Invalid user");
       }
     });
   }, []);
 
-  return { user, setUser, loading };
+  return { user, setUser };
 };

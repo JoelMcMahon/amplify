@@ -1,5 +1,5 @@
 import { Camera } from "expo-camera";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 
 export const useCamera = () => {
@@ -27,7 +27,6 @@ export const useCamera = () => {
         : Camera.Constants.Type.back
     );
   };
-  //comment
 
   const toggleCameraMode = () => {
     setMediaType(mediaType === "photo" ? "video" : "photo");

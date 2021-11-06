@@ -1,17 +1,14 @@
 import React, { useState } from "react";
-import { Button, Text, TouchableOpacity, View } from "react-native";
+import { Button, Text, View } from "react-native";
 import styles from "./styles";
 import MapScreen from "../MapScreen/MapScreen";
-import ListScreen from "../ListScreen/ListScreen";
-import useMarkers from "../../Hooks/useMarkers";
-import { useMap } from "../../Hooks/testMapHook";
 import PostFeed from "../../utils/PostFeed";
-// import RequestLocationData from "../../utils/RequestLocationData";
+import { useMap } from "../../Hooks/useMarkers";
 
 export default function HomeScreen() {
   const [viewToggle, setViewToggle] = useState("map");
 
-  const { ads, loading } = useMap();
+  const { ads, loading, lastLocation } = useMap();
 
   if (loading) {
     return (
@@ -29,8 +26,10 @@ export default function HomeScreen() {
         title={viewToggle === "map" ? "Go to list" : "Go to map"}
         onPress={mapToggle}
       ></Button>
-      {viewToggle === "map" && <MapScreen />}
-      {viewToggle === "list" && <PostFeed ads={ads} />}
+      {viewToggle === "map" && (
+        <MapScreen ads={ads} lastLocation={lastLocation} />
+      )}
+      {viewToggle === "list" && <PostFeed ads={ads} mainList={true} />}
     </View>
   );
 }

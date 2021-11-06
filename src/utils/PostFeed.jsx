@@ -1,12 +1,10 @@
 import { Video } from "expo-av";
-import React, { useEffect, useState } from "react";
-import { Button } from "react-native";
+import React from "react";
 import { Image } from "react-native";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { db } from "../firebase/config";
 import { formatDate } from "./date";
 
-const PostFeed = ({ ads }) => {
+const PostFeed = ({ ads, mainList }) => {
   const media = (type, uri) => {
     if (type === "photo") {
       return <Image style={styles.media} source={{ uri }} />;
@@ -39,6 +37,7 @@ const PostFeed = ({ ads }) => {
 
     return (
       <View style={styles.individualPost}>
+        <Text>{mainList && item.displayName}</Text>
         <Text>{item.title}</Text>
         <Text>{item.body}</Text>
         {item.created && (
@@ -47,7 +46,6 @@ const PostFeed = ({ ads }) => {
             <Text>{textTime}</Text>
           </>
         )}
-        {/* <Text>{Date(item.created)}</Text> */}
         {media(item.type, item.url)}
       </View>
     );

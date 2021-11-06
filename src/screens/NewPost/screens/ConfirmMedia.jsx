@@ -1,6 +1,6 @@
 import { Video } from "expo-av";
 import React from "react";
-import { Button, StyleSheet, Text, View, Image } from "react-native";
+import { Button, StyleSheet, View, Image } from "react-native";
 
 const ConfirmMedia = ({ navigation, media, setMedia }) => {
   const deleteMedia = () => {
