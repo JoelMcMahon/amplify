@@ -6,32 +6,7 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import { db } from "../firebase/config";
 import { formatDate } from "./date";
 
-const PostFeed = ({ collection, queries }) => {
-  const [posts, setPosts] = useState([]);
-  const [order, setOrder] = useState("asc");
-
-  const toggleOrder = () => {
-    setOrder(order === "asc" ? "desc" : "asc");
-  };
-
-  useEffect(() => {
-    const getPosts = async () => {
-      await db
-        .collection(collection)
-        .where(...queries)
-        .orderBy("created", order)
-        .onSnapshot((snapshot) => {
-          let allPosts = [];
-          snapshot.forEach((doc) => {
-            allPosts.unshift(doc.data());
-          });
-          setPosts(allPosts);
-        });
-    };
-
-    getPosts();
-  }, [order]);
-
+const PostFeed = ({ ads }) => {
   const media = (type, uri) => {
     if (type === "photo") {
       return <Image style={styles.media} source={{ uri }} />;
@@ -80,12 +55,8 @@ const PostFeed = ({ collection, queries }) => {
 
   return (
     <View>
-      <Button
-        title={order === "desc" ? "Oldest first" : "Latest first"}
-        onPress={toggleOrder}
-      />
       <FlatList
-        data={posts}
+        data={ads}
         renderItem={post}
         keyExtractor={(item, index) => index}
       />
