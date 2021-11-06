@@ -26,19 +26,16 @@ export const useMap = () => {
       const center = [latitude, longitude];
       setLastLocation({ latitude, longitude });
 
-      const adsPromises = [];
-
-      for (let i = 0; i < bounds.length; i++) {
-        const [start, end] = bounds[i];
-        const promises = db
-          .collection("ads")
-          .orderBy("geohash")
-          .startAt(start)
-          .endAt(end);
-        adsPromises.push(promises.get());
-      }
-
-      Promise.all(adsPromises)
+      Promise.all(
+        bounds.map(([start, end]) => {
+          const boundPromise = db
+            .collection("ads")
+            .orderBy("geohash")
+            .startAt(start)
+            .endAt(end);
+          return boundPromise.get();
+        })
+      )
         .then(async (snapshots) => {
           const matchingDocs = [];
 
@@ -85,8 +82,7 @@ export const useMap = () => {
 //     const lastPosition = await JSON.parse(
 //       await AsyncStorage.getItem("lastKnownPosition")
 //     );
-//     // console.log(lastPosition, "mapview");
-//     const lastLat = lastPosition.coords.latitude;
+//     const lastLat = lastPosition.coords.adslatitude;
 //     const lastLong = lastPosition.coords.longitude;
 //     const center = [lastLat, lastLong];
 //     const radiusInM = 10 * 1000;
@@ -123,7 +119,6 @@ export const useMap = () => {
 //         return matchingDocs;
 //       })
 //       .then((matchingDocs) => {
-//         // console.log(matchingDocs, "then");
 
 //         const markerCoords = matchingDocs.map((docs) => {
 //           const lat =
