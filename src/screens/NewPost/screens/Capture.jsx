@@ -5,20 +5,10 @@ import { StyleSheet, Text, View, Button } from "react-native";
 import { useCamera } from "../hooks/camera";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+
 import * as ImagePicker from "expo-image-picker";
-{
-  /* <FontAwesome5 name="camera-retro" size={24} color="black" /> */
-}
 import { AntDesign } from "@expo/vector-icons";
-{
-  /* <AntDesign name="videocamera" size={24} color="black" /> */
-}
-
 import { Fontisto } from "@expo/vector-icons";
-
-{
-  /* <Fontisto name="spinner-refresh" size={24} color="black" /> */
-}
 
 const Capture = ({ navigation, setMedia }) => {
   const [camera, setCamera] = useState(null);

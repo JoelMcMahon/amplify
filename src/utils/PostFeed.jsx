@@ -1,37 +1,10 @@
 import { Video } from "expo-av";
-import React, { useEffect, useState } from "react";
-import { Button } from "react-native";
+import React from "react";
 import { Image } from "react-native";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { db } from "../firebase/config";
 import { formatDate } from "./date";
 
-const PostFeed = ({ collection, queries }) => {
-  const [posts, setPosts] = useState([]);
-  const [order, setOrder] = useState("asc");
-
-  const toggleOrder = () => {
-    setOrder(order === "asc" ? "desc" : "asc");
-  };
-
-  useEffect(() => {
-    const getPosts = async () => {
-      await db
-        .collection(collection)
-        .where(...queries)
-        .orderBy("created", order)
-        .onSnapshot((snapshot) => {
-          let allPosts = [];
-          snapshot.forEach((doc) => {
-            allPosts.unshift(doc.data());
-          });
-          setPosts(allPosts);
-        });
-    };
-
-    getPosts();
-  }, [order]);
-
+const PostFeed = ({ ads, mainList }) => {
   const media = (type, uri) => {
     if (type === "photo") {
       return <Image style={styles.media} source={{ uri }} />;
@@ -64,6 +37,7 @@ const PostFeed = ({ collection, queries }) => {
 
     return (
       <View style={styles.individualPost}>
+        <Text>{mainList && item.displayName}</Text>
         <Text>{item.title}</Text>
         <Text>{item.body}</Text>
         {item.created && (
@@ -72,7 +46,6 @@ const PostFeed = ({ collection, queries }) => {
             <Text>{textTime}</Text>
           </>
         )}
-        {/* <Text>{Date(item.created)}</Text> */}
         {media(item.type, item.url)}
       </View>
     );
@@ -80,12 +53,8 @@ const PostFeed = ({ collection, queries }) => {
 
   return (
     <View>
-      <Button
-        title={order === "desc" ? "Oldest first" : "Latest first"}
-        onPress={toggleOrder}
-      />
       <FlatList
-        data={posts}
+        data={ads}
         renderItem={post}
         keyExtractor={(item, index) => index}
       />

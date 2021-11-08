@@ -29,17 +29,12 @@ export default function App() {
     "Async Storage has been extracted from react-native core",
   ]);
   LogBox.ignoreLogs(["Setting a timer"]);
-  // const [loading, setLoading] = useState(true);
 
-  const [location, setLocation] = useState(null);
-
-  const { user, setUser, loading } = userAppAuth();
-
-  console.log(setUser);
+  const { user, setUser } = userAppAuth();
 
   const tabs = () => {
     return (
-      <Tab.Navigator screenOptions={navIcons}>
+      <Tab.Navigator screenOptions={navIcons} tabBarHideOnKeyboard={true}>
         <Tab.Screen name="Home">
           {(props) => <HomeScreen {...props} />}
         </Tab.Screen>

@@ -1,14 +1,7 @@
 import { Video } from "expo-av";
 import React, { useState } from "react";
 import { Image } from "react-native";
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  KeyboardAvoidingView,
-} from "react-native";
+import { Button, StyleSheet, Text, View, TextInput } from "react-native";
 import { uploadAd } from "../dbInteraction";
 import loadingIcon from "../../../images/loading.gif";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";

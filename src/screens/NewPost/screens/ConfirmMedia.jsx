@@ -1,21 +1,16 @@
 import { Video } from "expo-av";
 import React from "react";
-import { Button, StyleSheet, Text, View, Image } from "react-native";
+import { Button, StyleSheet, View, Image } from "react-native";
 
 const ConfirmMedia = ({ navigation, media, setMedia }) => {
-  console.log(media.type);
-
   const deleteMedia = () => {
     setMedia({ type: null, uri: null });
     navigation.navigate("Capture");
   };
 
   const confirmMedia = () => {
-    console.log(media);
     navigation.navigate("Form");
   };
-
-  console.log(media.uri);
 
   if (media.type === "photo") {
     return (
