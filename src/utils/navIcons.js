@@ -12,7 +12,7 @@ export const navIcons = ({ route }) => ({
       return <Feather name="user" size={24} color="black" />;
     } else if (route.name === "NewPost") {
       return <MaterialIcons name="post-add" size={24} color="black" />;
-    } else if (route.name === "Chats") {
+    } else if (route.name === "Inbox") {
       return (
         <Ionicons name="chatbox-ellipses-outline" size={24} color="black" />
       );
