@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { Button, Text, View, Pressable } from "react-native";
-import styles from "./styles";
+import { Text, View } from "react-native";
 import MapScreen from "../MapScreen/MapScreen";
 import PostFeed from "../../utils/PostFeed";
 import { useMap } from "../../Hooks/useMarkers";
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
-export default function HomeScreen() {
-  const [viewToggle, setViewToggle] = useState("map");
+import { createStackNavigator } from "@react-navigation/stack";
+import SingleAd from "../SingleAd/SingleAd";
 
+const Stack = createStackNavigator();
+
+export default function HomeScreen({ navigation }) {
+  const [currentAd, setCurrentAd] = useState({});
   const { ads, loading, lastLocation } = useMap();
 
   if (loading) {
@@ -19,23 +21,32 @@ export default function HomeScreen() {
     );
   }
 
-  const mapToggle = () => setViewToggle(viewToggle === "map" ? "list" : "map");
+  const navToAd = (ad) => {
+    setCurrentAd(ad);
+    console.log(currentAd);
+    navigation.navigate("SingleHomeAd");
+  };
 
   return (
-    <View style={styles.container}>
-      <Pressable onPress={mapToggle} style={styles.Pressable}>
-        <Text style={styles.Text}>
-          {viewToggle === "map" ? (
-            <FontAwesome name="th-list" size={35} color="grey" />
-          ) : (
-            <FontAwesome5 name="map-marked-alt" size={35} color="grey" />
-          )}
-        </Text>
-      </Pressable>
-      {viewToggle === "map" && (
-        <MapScreen ads={ads} lastLocation={lastLocation} />
-      )}
-      {viewToggle === "list" && <PostFeed ads={ads} mainList={true} />}
-    </View>
+    <Stack.Navigator screenOptions={{ header: () => null }}>
+      <Stack.Screen name="Map">
+        {(props) => (
+          <MapScreen
+            {...props}
+            ads={ads}
+            lastLocation={lastLocation}
+            navToAd={navToAd}
+          />
+        )}
+      </Stack.Screen>
+      <Stack.Screen name="HomePosts">
+        {(props) => (
+          <PostFeed {...props} ads={ads} mainList={true} navToAd={navToAd} />
+        )}
+      </Stack.Screen>
+      <Stack.Screen name="SingleHomeAd">
+        {(props) => <SingleAd {...props} currentAd={currentAd} />}
+      </Stack.Screen>
+    </Stack.Navigator>
   );
 }

@@ -3,7 +3,6 @@ import { Image, View, Text, StyleSheet } from "react-native";
 import { Video } from "expo-av";
 
 export const displayMedia = (type, uri) => {
-  console.log(uri);
   if (type === "photo") {
     return <Image style={styles.media} source={{ uri }} />;
   } else if (type === "video") {

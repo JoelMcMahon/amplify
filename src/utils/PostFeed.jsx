@@ -1,10 +1,22 @@
-import { Video } from "expo-av";
-import React, { useState } from "react";
-import { FlatList, StyleSheet, Text, View, Button, Image } from "react-native";
+import React from "react";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Pressable,
+} from "react-native";
 import { displayMedia } from "../Hooks/displayMedia";
 import { formatDate } from "./date";
+import buttonStyle from "../screens/HomeScreen/styles";
+import { FontAwesome5 } from "@expo/vector-icons";
 
-const PostFeed = ({ ads, mainList, setCurrentAd, navigation }) => {
+const PostFeed = ({ ads, mainList, navToAd, navigation }) => {
+  const navToMap = () => {
+    navigation.navigate("Map");
+  };
+
   const post = ({ item }) => {
     let date, textTime;
 
@@ -13,11 +25,6 @@ const PostFeed = ({ ads, mainList, setCurrentAd, navigation }) => {
       date = formattedDate;
       textTime = elapsedTime;
     }
-
-    const handleSingleAdPress = () => {
-      setCurrentAd(item);
-      navigation.navigate("SingleAd");
-    };
 
     return (
       <View style={styles.individualPost}>
@@ -31,13 +38,20 @@ const PostFeed = ({ ads, mainList, setCurrentAd, navigation }) => {
           </>
         )}
         {displayMedia(item.type, item.url)}
-        <Button title="Single Ad" onPress={handleSingleAdPress}></Button>
+        <Button title="Single Ad" onPress={() => navToAd(item)}></Button>
       </View>
     );
   };
 
   return (
     <View>
+      {mainList && (
+        <Pressable onPress={navToMap} style={buttonStyle.Pressable}>
+          <Text style={styles.Text}>
+            <FontAwesome5 name="map-marked-alt" size={35} color="grey" />
+          </Text>
+        </Pressable>
+      )}
       <FlatList
         data={ads}
         renderItem={post}
