@@ -1,31 +1,10 @@
 import { Video } from "expo-av";
-import React from "react";
-import { Image } from "react-native";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { FlatList, StyleSheet, Text, View, Button, Image } from "react-native";
+import { displayMedia } from "../Hooks/displayMedia";
 import { formatDate } from "./date";
 
-const PostFeed = ({ ads, mainList }) => {
-  const media = (type, uri) => {
-    if (type === "photo") {
-      return <Image style={styles.media} source={{ uri }} />;
-    } else if (type === "video") {
-      return (
-        <Video
-          style={styles.media}
-          source={{ uri }}
-          useNativeControls
-          isLooping
-        />
-      );
-    } else {
-      return (
-        <View style={styles.media}>
-          <Text>No Media</Text>
-        </View>
-      );
-    }
-  };
-
+const PostFeed = ({ ads, mainList, setCurrentAd, navigation }) => {
   const post = ({ item }) => {
     let date, textTime;
 
@@ -34,6 +13,11 @@ const PostFeed = ({ ads, mainList }) => {
       date = formattedDate;
       textTime = elapsedTime;
     }
+
+    const handleSingleAdPress = () => {
+      setCurrentAd(item);
+      navigation.navigate("SingleAd");
+    };
 
     return (
       <View style={styles.individualPost}>
@@ -46,7 +30,8 @@ const PostFeed = ({ ads, mainList }) => {
             <Text>{textTime}</Text>
           </>
         )}
-        {media(item.type, item.url)}
+        {displayMedia(item.type, item.url)}
+        <Button title="Single Ad" onPress={handleSingleAdPress}></Button>
       </View>
     );
   };
@@ -65,13 +50,6 @@ const PostFeed = ({ ads, mainList }) => {
 export default PostFeed;
 
 const styles = StyleSheet.create({
-  media: {
-    height: 200,
-    width: 200,
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   individualPost: {
     marginTop: 10,
     borderWidth: 1,
