@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Text, View } from "react-native";
+import { Button, Text, View, Pressable } from "react-native";
 import styles from "./styles";
 import MapScreen from "../MapScreen/MapScreen";
 import PostFeed from "../../utils/PostFeed";
@@ -22,10 +22,11 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Button
-        title={viewToggle === "map" ? "Go to list" : "Go to map"}
-        onPress={mapToggle}
-      ></Button>
+      <Pressable onPress={mapToggle} style={styles.Pressable}>
+        <Text style={styles.Text}>
+          {viewToggle === "map" ? "Go to list" : "Go to map"}
+        </Text>
+      </Pressable>
       {viewToggle === "map" && (
         <MapScreen ads={ads} lastLocation={lastLocation} />
       )}
