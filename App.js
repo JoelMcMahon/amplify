@@ -35,13 +35,11 @@ export default function App() {
   const { messagesArray } = useMessages(chatArray);
 
 
-  const [location, setLocation] = useState(null);
-
-  const { user, setUser, loading } = userAppAuth();
+  const { user, setUser } = userAppAuth();
 
   const tabs = () => {
     return (
-      <Tab.Navigator screenOptions={navIcons}>
+      <Tab.Navigator screenOptions={navIcons} tabBarHideOnKeyboard={true}>
         <Tab.Screen name="Home">
           {(props) => <HomeScreen {...props} user={user} />}
         </Tab.Screen>
@@ -60,11 +58,11 @@ export default function App() {
     return (
       <Stack.Navigator>
         <Stack.Screen name="Login">
-          {(props) => (
-            <LoginScreen {...props} setUser={setUser} component={LoginScreen} />
-          )}
+          {(props) => <LoginScreen {...props} setUser={setUser} />}
         </Stack.Screen>
-        <Stack.Screen name="Registration" component={RegistrationScreen} />
+        <Stack.Screen name="Registration">
+          {(props) => <RegistrationScreen {...props} setUser={setUser} />}
+        </Stack.Screen>
       </Stack.Navigator>
     );
   };

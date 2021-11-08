@@ -1,20 +1,35 @@
-import React from "react";
-import { Button, Text, TouchableOpacity, View } from "react-native";
+import React, { useState } from "react";
+import { Button, Text, View } from "react-native";
 import styles from "./styles";
-import { useState } from "react";
 import MapScreen from "../MapScreen/MapScreen";
-import ListScreen from "../ListScreen/ListScreen";
-import RequestLocationData from "../../utils/RequestLocationData";
+import PostFeed from "../../utils/PostFeed";
+import { useMap } from "../../Hooks/useMarkers";
 
 export default function HomeScreen() {
   const [viewToggle, setViewToggle] = useState("map");
 
+  const { ads, loading, lastLocation } = useMap();
+
+  if (loading) {
+    return (
+      <View>
+        <Text>Loading..</Text>
+      </View>
+    );
+  }
+
+  const mapToggle = () => setViewToggle(viewToggle === "map" ? "list" : "map");
+
   return (
     <View style={styles.container}>
-      <Button title="Map" onPress={() => setViewToggle("map")}></Button>
-      <Button title="List" onPress={() => setViewToggle("list")}></Button>
-      {viewToggle === "map" && <MapScreen />}
-      {viewToggle === "list" && <ListScreen />}
+      <Button
+        title={viewToggle === "map" ? "Go to list" : "Go to map"}
+        onPress={mapToggle}
+      ></Button>
+      {viewToggle === "map" && (
+        <MapScreen ads={ads} lastLocation={lastLocation} />
+      )}
+      {viewToggle === "list" && <PostFeed ads={ads} mainList={true} />}
     </View>
   );
 }

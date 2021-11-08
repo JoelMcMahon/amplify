@@ -4,19 +4,11 @@ import { Pressable } from "react-native";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { useCamera } from "../hooks/camera";
 import { FontAwesome5 } from "@expo/vector-icons";
-{
-  /* <FontAwesome5 name="camera-retro" size={24} color="black" /> */
-}
+import { Ionicons } from "@expo/vector-icons";
+
+import * as ImagePicker from "expo-image-picker";
 import { AntDesign } from "@expo/vector-icons";
-{
-  /* <AntDesign name="videocamera" size={24} color="black" /> */
-}
-
 import { Fontisto } from "@expo/vector-icons";
-
-{
-  /* <Fontisto name="spinner-refresh" size={24} color="black" /> */
-}
 
 const Capture = ({ navigation, setMedia }) => {
   const [camera, setCamera] = useState(null);
@@ -42,7 +34,7 @@ const Capture = ({ navigation, setMedia }) => {
       setMedia({ type: "photo", uri });
       navigation.navigate("ConfirmMedia");
     } else {
-      console.log("Error with camera reference");
+      console.warn("Error with camera reference");
     }
   };
 
@@ -55,6 +47,22 @@ const Capture = ({ navigation, setMedia }) => {
     } else {
       setIsRecording(false);
       camera.stopRecording();
+    }
+  };
+
+  const pickMedia = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes:
+        mediaType === "photo"
+          ? ImagePicker.MediaTypeOptions.Images
+          : ImagePicker.MediaTypeOptions.Videos,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
     }
   };
 
@@ -81,6 +89,9 @@ const Capture = ({ navigation, setMedia }) => {
         <Button title="Toggle type" onPress={toggleType} />
         <Button title="Go Back" onPress={() => navigation.navigate("Form")} />
         <Button title="Change Camera Mode" onPress={toggleCameraMode} />
+        <Pressable onPress={pickMedia}>
+          <Ionicons name="images-outline" size={40} color="white" />
+        </Pressable>
       </View>
     );
   };

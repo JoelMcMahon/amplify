@@ -4,8 +4,9 @@ import { Image } from "react-native";
 import { Button, StyleSheet, Text, View, TextInput } from "react-native";
 import { uploadAd } from "../dbInteraction";
 import loadingIcon from "../../../images/loading.gif";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-const Form = ({ navigation, media, setMedia }) => {
+const Form = ({ navigation, media, setMedia, user }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [uploadingAd, setUploadingAd] = useState(false);
@@ -49,36 +50,42 @@ const Form = ({ navigation, media, setMedia }) => {
 
   return (
     //Checks if any media is being held and displays the correct component
-    <View style={styles.formContainer}>
+    <KeyboardAwareScrollView
+      style={{ backgroundColor: "#4c69a5" }}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      contentContainerStyle={styles.formContainer}
+      scrollEnabled={true}
+      extraScrollHeight={10}
+      enableOnAndroid={true}
+    >
       {mediaPlaceholder()}
-      <View>
-        <Button
-          onPress={navigateToCapture}
-          title={media.uri ? "Change Photo/Video" : "Add Photo/Video"}
-        />
-        <TextInput
-          placeholder="Title.."
-          onChangeText={(value) => setTitle(value)}
-          style={styles.formInput}
-        />
-        <TextInput
-          placeholder="Tell us more.."
-          onChangeText={(value) => setBody(value)}
-          style={styles.formInput}
-        />
-        {error && (
-          <Text style={styles.error}>
-            Both title and body fields must be filled
-          </Text>
-        )}
-      </View>
+
+      <Button
+        onPress={navigateToCapture}
+        title={media.uri ? "Change Photo/Video" : "Add Photo/Video"}
+      />
+      <TextInput
+        placeholder="Title.."
+        onChangeText={(value) => setTitle(value)}
+        style={styles.formInput}
+      />
+      <TextInput
+        placeholder="Tell us more.."
+        onChangeText={(value) => setBody(value)}
+        style={styles.formInput}
+      />
+      {error && (
+        <Text style={styles.error}>
+          Both title and body fields must be filled
+        </Text>
+      )}
       <Button
         onPress={() => {
-          uploadAd(setUploadingAd, title, body, media, setError);
+          uploadAd(setUploadingAd, title, body, media, setError, user);
         }}
         title={uploadingAd ? "Uploading.." : "Upload Ad"}
       />
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -88,9 +95,9 @@ const styles = StyleSheet.create({
   formContainer: {
     flex: 1,
     height: "100%",
-    width: "100%",
+    // width: "100%",
     backgroundColor: "white",
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
   },
   mediaPlaceholder: {
     height: "60%",

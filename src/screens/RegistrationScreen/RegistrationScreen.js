@@ -9,47 +9,52 @@ export default function RegistrationScreen({ navigation, setUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
 
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
   };
 
-  // const onRegisterPress = (
-  //   navigation,
-  //   fullName,
-  //   email,
-  //   password,
-  //   confirmPassword
-  // ) => {
-  //   if (password !== confirmPassword) {
-  //     alert("Passwords don't match.");
-  //     return;
-  //   }
-  //   firebase
-  //     .auth()
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then((response) => {
-  //       const uid = response.user.uid;
-  //       const data = {
-  //         id: uid,
-  //         email,
-  //         fullName,
-  //       };
-  //       const usersRef = firebase.firestore().collection("users");
-  //       usersRef
-  //         .doc(uid)
-  //         .set(data)
-  //         .then(() => {
-  //           navigation.navigate("Home", { user: data });
-  //         })
-  //         .catch((error) => {
-  //           alert(error);
-  //         });
-  //     })
-  //     .catch((error) => {
-  //       alert(error);
-  //     });
-  // };
+  const onRegisterPress = (
+    navigation,
+    displayName,
+    fullName,
+    email,
+    password,
+    confirmPassword,
+    setUser
+  ) => {
+    if (password !== confirmPassword) {
+      alert("Passwords don't match.");
+      return;
+    }
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((response) => {
+        const uid = response.user.uid;
+        const data = {
+          id: uid,
+          displayName,
+          email,
+          fullName,
+        };
+        const usersRef = firebase.firestore().collection("users");
+        usersRef
+          .doc(uid)
+          .set(data)
+          .then(() => {
+            // navigation.navigate("Home", { user: data });
+            setUser({ user: data });
+          })
+          .catch((error) => {
+            alert(error);
+          });
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -60,6 +65,15 @@ export default function RegistrationScreen({ navigation, setUser }) {
         <Image
           style={styles.logo}
           source={require("../../../assets/icon.png")}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Display Name"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setDisplayName(text)}
+          value={displayName}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
         />
         <TextInput
           style={styles.input}
@@ -94,7 +108,9 @@ export default function RegistrationScreen({ navigation, setUser }) {
           placeholderTextColor="#aaaaaa"
           secureTextEntry
           placeholder="Confirm Password"
-          onChangeText={(text) => setConfirmPassword(text)}
+          onChangeText={(text) => {
+            setConfirmPassword(text);
+          }}
           value={confirmPassword}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
@@ -104,6 +120,7 @@ export default function RegistrationScreen({ navigation, setUser }) {
           onPress={() =>
             onRegisterPress(
               navigation,
+              displayName,
               fullName,
               email,
               password,
