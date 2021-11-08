@@ -13,12 +13,16 @@ import { SearchBar } from 'react-native-elements';
 import fetchUsers from '../../Hooks/fetchUsers';
 import createChatRoom from '../../utils/createChatRoom';
 import { isSameUser } from 'react-native-gifted-chat/lib/utils';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Chats = ({ navigation }) => {
-  const { chatArray } = useChats();
+const Chats = ({ navigation, chatArray}) => {
+
   const userId = firebase.auth().currentUser.uid;
-
   const { searchStr, setSearchStr, usersArray } = fetchUsers();
+  const chatRooms = AsyncStorage.getItem('chatRooms');
+  console.log(chatRooms,"chatrooms")
+
+
 
   return (
     <ScrollView>

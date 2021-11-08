@@ -5,7 +5,7 @@ import Chats from '../Chats/Chats';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-export default function InboxScreen() {
+export default function InboxScreen({chatArray}) {
   const [chatSelected, setChatSelected] = useState(false);
   const [roomId, setRoomId] = useState('');
 
@@ -14,7 +14,7 @@ export default function InboxScreen() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Chats">
-        {(props) => <Chats {...props} />}
+        {(props) => <Chats {...props} chatArray={chatArray} />}
       </Stack.Screen>
       <Stack.Screen name="SingleChat">
         {(props) => <SingleChat {...props} />}

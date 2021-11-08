@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import firebase from 'firebase';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import useChats from './useChats';
 
-export default function useMessages(roomId) {
+export default async function useMessages(chatArray) {
   const db = firebase.firestore();
   const [messagesArray, setMessagesArray] = useState([]);
-  const auth = firebase.auth();
-  const userId = auth.currentUser.uid;
+  // const auth = firebase.auth();
+  // const userId = auth.currentUser.uid;
+  try {
+    const userData = await AsyncStorage.getItem('userData');
+    const parsedUserData = JSON.parse(userData);
+    console.log(parsedUserData, 'userData  in use messages');
+  } catch (error) {
+    console.log(error);
+  }
 
-  const fetchMessages = async () => {
+  const fetchMessages = async (roomId) => {
     console.log(roomId, '<<rooomid');
     const messages = await db
       .collection(`chats/${roomId}/messages/`)
@@ -26,7 +35,7 @@ export default function useMessages(roomId) {
           };
           const formattedTime = message.createdAt.seconds
             ? message.createdAt.seconds * 1000
-            :new Date.now();
+            : new Date.now();
 
           const formattedMessage = {
             _id: index,
@@ -38,16 +47,21 @@ export default function useMessages(roomId) {
           };
 
           console.log(formattedMessage, '<<formatted msg');
+
           return formattedMessage;
         });
         setMessagesArray(messages);
+        AsyncStorage.setItem(
+          `chats/${roomId}/messages`,
+          JSON.stringify(messages)
+        );
       });
-
- 
   };
 
   useEffect(() => {
-    fetchMessages();
+    chatArray.map((roomId) => {
+      fetchMessages(roomId);
+    });
     console.log(messagesArray, 'messagesArr');
   }, []);
 
