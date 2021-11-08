@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from "react";
 import { firebase } from "../firebase/config";
 
@@ -14,6 +15,7 @@ export const userAppAuth = () => {
           .then((document) => {
             const userData = document.data();
             setUser(userData);
+            AsyncStorage.setItem('userData',JSON.stringify(userData))
           })
           .catch((error) => {
             console.warn(error);
