@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Button, Text, View } from "react-native";
+import { Button, Text, View, Pressable } from "react-native";
 import styles from "./styles";
 import MapScreen from "../MapScreen/MapScreen";
 import PostFeed from "../../utils/PostFeed";
 import { useMap } from "../../Hooks/useMarkers";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
 export default function HomeScreen() {
   const [viewToggle, setViewToggle] = useState("map");
@@ -22,10 +23,15 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Button
-        title={viewToggle === "map" ? "Go to list" : "Go to map"}
-        onPress={mapToggle}
-      ></Button>
+      <Pressable onPress={mapToggle} style={styles.Pressable}>
+        <Text style={styles.Text}>
+          {viewToggle === "map" ? (
+            <FontAwesome name="th-list" size={35} color="grey" />
+          ) : (
+            <FontAwesome5 name="map-marked-alt" size={35} color="grey" />
+          )}
+        </Text>
+      </Pressable>
       {viewToggle === "map" && (
         <MapScreen ads={ads} lastLocation={lastLocation} />
       )}
