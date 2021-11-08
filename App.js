@@ -9,11 +9,7 @@ import { userAppAuth } from "./src/Hooks/userAppAuth";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Profile from "./src/screens/Profile/Profile";
 import NewPost from "./src/screens/NewPost/NewPost";
-import Chats from "./src/screens/Chats/Chats";
-import useChats from "./src/Hooks/useChats";
-import useMessages from "./src/Hooks/useMessages";
 import { navIcons } from "./src/utils/navIcons";
-import InboxScreen from "./src/screens/InboxScreen/InboxScreen";
 import useMessages from "./src/Hooks/useMessages";
 import useChats from "./src/Hooks/useChats";
 
@@ -24,19 +20,19 @@ if (!global.atob) {
   global.atob = decode;
 }
 
-LogBox.ignoreLogs(['Setting a timer']);
+LogBox.ignoreLogs(["Setting a timer"]);
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   LogBox.ignoreLogs([
-    'Async Storage has been extracted from react-native core',
+    "Async Storage has been extracted from react-native core",
   ]);
-  
+
   LogBox.ignoreLogs(["Setting a timer"]);
   const { chatArray } = useChats();
 
-  // useMessages(chatArray);
+  useMessages(chatArray);
 
   const { user, setUser } = userAppAuth();
 
