@@ -4,21 +4,12 @@ import { useState } from 'react';
 import firebase from 'firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default async function useChats() {
+export default function useChats() {
   const [chatArray, setChatArray] = useState([]);
 
   const db = firebase.firestore();
-  try {
-    const userData = await AsyncStorage.getItem('userData');
-    const parsedUserData = JSON.parse(userData);
-    console.log(parsedUserData, 'userData ');
-    const userId = parsedUserData.id;
-    console.log(userId, 'user id');
-  } catch (error) {
-    console.log(error);
-  }
 
-  const fetchChats = async () => {
+  const fetchChats = async (userId) => {
     await db
       .collection('chats')
       .where('users', 'array-contains', userID)
@@ -35,7 +26,16 @@ export default async function useChats() {
   };
 
   useEffect(() => {
-    // fetchChats();
+    const fetchUserData = async () => {
+      const userData = await AsyncStorage.getItem('userData');
+      const parsedUserData = JSON.parse(userData);
+      console.log(parsedUserData, 'userData ');
+      const userId = parsedUserData.id;
+      console.log(userId, 'user id');
+    };
+    fetchUserData();
+
+    fetchChats(userId);
   }, []);
 
   return { chatArray };

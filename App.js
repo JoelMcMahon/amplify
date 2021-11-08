@@ -11,6 +11,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Profile from "./src/screens/Profile/Profile";
 import NewPost from "./src/screens/NewPost/NewPost";
 import Chats from "./src/screens/Chats/Chats";
+import useChats from "./src/Hooks/useChats";
+import useMessages from "./src/Hooks/useMessages";
 import { navIcons } from "./src/utils/navIcons";
 
 if (!global.btoa) {
