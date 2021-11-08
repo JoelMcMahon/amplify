@@ -23,7 +23,6 @@ export default function HomeScreen({ navigation }) {
 
   const navToAd = (ad) => {
     setCurrentAd(ad);
-    console.log(currentAd);
     navigation.navigate("SingleHomeAd");
   };
 

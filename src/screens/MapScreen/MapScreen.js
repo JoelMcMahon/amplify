@@ -7,12 +7,7 @@ import buttonStyle from "../HomeScreen/styles";
 import { FontAwesome } from "@expo/vector-icons";
 import { displayMedia } from "../../Hooks/displayMedia";
 
-export default function MapScreen({
-  ads,
-  lastLocation,
-  mapToggle,
-  navigation,
-}) {
+export default function MapScreen({ ads, lastLocation, navToAd, navigation }) {
   const initRegion = {
     latitude: lastLocation.latitude,
     latitudeDelta: 0.008,
@@ -25,7 +20,7 @@ export default function MapScreen({
   };
 
   const seeMoreFromPin = (ad) => {
-    console.log(ad);
+    navToAd(ad);
   };
 
   return (
