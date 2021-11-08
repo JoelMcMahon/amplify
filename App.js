@@ -1,19 +1,19 @@
-import 'react-native-gesture-handler';
-import React, { useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { LoginScreen, HomeScreen, RegistrationScreen } from './src/screens';
-import { decode, encode } from 'base-64';
-import { LogBox } from 'react-native';
-import { userAppAuth } from './src/hooks/userAppAuth';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Profile from './src/screens/Profile/Profile';
-import NewPost from './src/screens/NewPost/NewPost';
-import Chats from './src/screens/Chats/Chats';
-import { navIcons } from './src/utils/navIcons';
-import InboxScreen from './src/screens/InboxScreen/InboxScreen';
-import useMessages from './src/Hooks/useMessages';
-import useChats from './src/Hooks/useChats';
+import "react-native-gesture-handler";
+import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { LoginScreen, HomeScreen, RegistrationScreen } from "./src/screens";
+import { decode, encode } from "base-64";
+import { LogBox } from "react-native";
+import { userAppAuth } from "./src/Hooks/userAppAuth";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Profile from "./src/screens/Profile/Profile";
+import NewPost from "./src/screens/NewPost/NewPost";
+import Chats from "./src/screens/Chats/Chats";
+import { navIcons } from "./src/utils/navIcons";
+import InboxScreen from "./src/screens/InboxScreen/InboxScreen";
+import useMessages from "./src/Hooks/useMessages";
+import useChats from "./src/Hooks/useChats";
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -22,18 +22,18 @@ if (!global.atob) {
   global.atob = decode;
 }
 
-LogBox.ignoreLogs(['Setting a timer']);
+LogBox.ignoreLogs(["Setting a timer"]);
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   LogBox.ignoreLogs([
-    'Async Storage has been extracted from react-native core',
+    "Async Storage has been extracted from react-native core",
   ]);
-  LogBox.ignoreLogs(['Setting a timer']);
+  LogBox.ignoreLogs(["Setting a timer"]);
   const { chatArray } = useChats();
-  const { messagesArray } = useMessages(chatArray);
 
+  // useMessages(chatArray);
 
   const { user, setUser } = userAppAuth();
 
