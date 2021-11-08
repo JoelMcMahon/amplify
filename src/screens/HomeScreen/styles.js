@@ -54,10 +54,9 @@ export default StyleSheet.create({
   },
   Pressable: {
     zIndex: 1000,
-    top: 30,
-    left: 330,
+    top: "4%",
+    right: "7%",
     position: "absolute",
-    width: 100,
   },
   Text: {
     color: "white",
