@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Card, Button } from "react-native-elements";
 import useMarkers from "../../Hooks/useMarkers";

@@ -1,19 +1,17 @@
-import 'react-native-gesture-handler';
-import React, { useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { LoginScreen, HomeScreen, RegistrationScreen } from './src/screens';
-import { decode, encode } from 'base-64';
-import { LogBox } from 'react-native';
-import { userAppAuth } from './src/hooks/userAppAuth';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Profile from './src/screens/Profile/Profile';
-import NewPost from './src/screens/NewPost/NewPost';
-import Chats from './src/screens/Chats/Chats';
-import { navIcons } from './src/utils/navIcons';
-import InboxScreen from './src/screens/InboxScreen/InboxScreen';
-import useMessages from './src/Hooks/useMessages';
-import useChats from './src/Hooks/useChats';
+import "react-native-gesture-handler";
+import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { LoginScreen, HomeScreen, RegistrationScreen } from "./src/screens";
+import { decode, encode } from "base-64";
+import { LogBox } from "react-native";
+// import { userAppAuth } from "./src/hooks/userAppAuth";
+import { userAppAuth } from "./src/Hooks/userAppAuth";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Profile from "./src/screens/Profile/Profile";
+import NewPost from "./src/screens/NewPost/NewPost";
+import Chats from "./src/screens/Chats/Chats";
+import { navIcons } from "./src/utils/navIcons";
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -35,13 +33,11 @@ export default function App() {
   const { messagesArray } = useMessages(chatArray);
 
 
-  const [location, setLocation] = useState(null);
-
-  const { user, setUser, loading } = userAppAuth();
+  const { user, setUser } = userAppAuth();
 
   const tabs = () => {
     return (
-      <Tab.Navigator screenOptions={navIcons}>
+      <Tab.Navigator screenOptions={navIcons} tabBarHideOnKeyboard={true}>
         <Tab.Screen name="Home">
           {(props) => <HomeScreen {...props} user={user} />}
         </Tab.Screen>
@@ -60,11 +56,11 @@ export default function App() {
     return (
       <Stack.Navigator>
         <Stack.Screen name="Login">
-          {(props) => (
-            <LoginScreen {...props} setUser={setUser} component={LoginScreen} />
-          )}
+          {(props) => <LoginScreen {...props} setUser={setUser} />}
         </Stack.Screen>
-        <Stack.Screen name="Registration" component={RegistrationScreen} />
+        <Stack.Screen name="Registration">
+          {(props) => <RegistrationScreen {...props} setUser={setUser} />}
+        </Stack.Screen>
       </Stack.Navigator>
     );
   };

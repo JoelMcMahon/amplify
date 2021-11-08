@@ -6,10 +6,11 @@ export const uploadAd = async (
   title,
   body,
   media,
-  setError
+  setError,
+  user
 ) => {
   //Checks if the title/body are adequate length. If not - changes error state and returns from function.
-  if (title.length < 5 || body.length < 20) {
+  if (title.length < 5 || body.length < 10) {
     setError(true);
     return;
   }
@@ -22,14 +23,11 @@ export const uploadAd = async (
   //Getting geolocation
   const { geohash, lat, long } = await RequestLocationData();
 
-  //Getting userId
-  const uid = await firebase.auth().currentUser.uid;
-
   //Setting up the endpoint for the data
   const endpoint = `/${media.type}/${Date.now()}`;
 
   //Setting a url variable for if there is media.
-  let url = "none";
+  let url = null;
 
   //If there's media - "blob" it and store it at the specified endpoint. Use getDownloadUrl to get the endpoint for the firestore.
   if (media.uri) {
@@ -42,6 +40,7 @@ export const uploadAd = async (
 
   //Create and upload firestore object.
   const adObject = {
+    displayName: user.displayName,
     title,
     body,
     type: media.type,
@@ -49,7 +48,7 @@ export const uploadAd = async (
     geohash,
     lat,
     long,
-    userId: uid,
+    userId: user.id,
     created: firebase.firestore.FieldValue.serverTimestamp(),
   };
 

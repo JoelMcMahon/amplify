@@ -6,9 +6,8 @@ import Form from "./screens/Form";
 
 const Stack = createStackNavigator();
 
-const NewPostNav = () => {
+const NewPostNav = ({ user }) => {
   const [media, setMedia] = useState({ type: null, uri: null });
-
   return (
     <Stack.Navigator
       screenOptions={{
@@ -16,7 +15,9 @@ const NewPostNav = () => {
       }}
     >
       <Stack.Screen name="Form">
-        {(props) => <Form {...props} media={media} setMedia={setMedia} />}
+        {(props) => (
+          <Form {...props} media={media} setMedia={setMedia} user={user} />
+        )}
       </Stack.Screen>
       <Stack.Screen name="Capture">
         {(props) => <Capture {...props} setMedia={setMedia} />}
