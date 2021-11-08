@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Text, View } from "react-native";
-import MapScreen from "../MapScreen/MapScreen";
-import PostFeed from "../../utils/PostFeed";
+import MapScreen from "./MapScreen";
+import PostFeed from "../PostFeed/PostFeed";
 import { useMap } from "../../Hooks/useMarkers";
 
 import { createStackNavigator } from "@react-navigation/stack";

@@ -7,9 +7,9 @@ import {
   Button,
   Pressable,
 } from "react-native";
-import { displayMedia } from "../Hooks/displayMedia";
-import { formatDate } from "./date";
-import buttonStyle from "../screens/HomeScreen/styles";
+import { displayMedia } from "../../Hooks/displayMedia";
+import { formatDate } from "../../utils/date";
+import buttonStyle from "../HomeScreen/styles";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const PostFeed = ({ ads, mainList, navToAd, navigation }) => {

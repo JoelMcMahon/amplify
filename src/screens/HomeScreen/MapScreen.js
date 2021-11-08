@@ -3,7 +3,7 @@ import MapView, { Marker, Callout } from "react-native-maps";
 import { StyleSheet, View, Dimensions, Text, Pressable } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import RequestLocationData from "../../utils/RequestLocationData";
-import buttonStyle from "../HomeScreen/styles";
+import buttonStyle from "./styles";
 import { FontAwesome } from "@expo/vector-icons";
 import { displayMedia } from "../../Hooks/displayMedia";
 

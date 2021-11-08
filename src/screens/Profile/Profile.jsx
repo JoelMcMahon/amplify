@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../../firebase/config";
-import PostFeed from "../../utils/PostFeed";
+import PostFeed from "../PostFeed/PostFeed";
 import { createStackNavigator } from "@react-navigation/stack";
 import ProfilePage from "./ProfilePage";
 import SingleAd from "../SingleAd/SingleAd";
@@ -49,36 +49,6 @@ const Profile = ({ user, setUser, navigation }) => {
       </Stack.Screen>
     </Stack.Navigator>
   );
-
-  // <>
-  //   <Button title="Posts" onPress={togglePosts} />
-  //   {showPosts ? (
-  //     <>
-  //       <Button
-  //         title={order === "desc" ? "Oldest first" : "Latest first"}
-  //         onPress={toggleOrder}
-  //       />
-  //       <PostFeed ads={posts} />
-  //     </>
-  //   ) : (
-  //     <>
-  //       <View style={style.container}>
-  //         <Text>User: {fullName}</Text>
-  //         <Text>Display Name: {displayName}</Text>
-  //         <Text>Email: {email}</Text>
-
-  //         <Pressable
-  //           onPress={() => {
-  //             logoutHandler(setUser);
-  //           }}
-  //           style={style.logout}
-  //         >
-  //           <Text style={style.buttonText}>Logout</Text>
-  //         </Pressable>
-  //       </View>
-  //     </>
-  //   )}
-  // </>
 };
 
 export default Profile;
