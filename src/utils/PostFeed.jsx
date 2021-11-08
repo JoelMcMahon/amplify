@@ -74,6 +74,6 @@ const styles = StyleSheet.create({
   },
   individualPost: {
     marginTop: 10,
-    backgroundColor: "gray",
+    borderWidth: 1,
   },
 });

@@ -53,9 +53,9 @@ export default StyleSheet.create({
     color: "#333333",
   },
   Pressable: {
-    backgroundColor: "black",
     zIndex: 1000,
-    bottom: 50,
+    top: 30,
+    left: 330,
     position: "absolute",
     width: 100,
   },

@@ -4,6 +4,7 @@ import styles from "./styles";
 import MapScreen from "../MapScreen/MapScreen";
 import PostFeed from "../../utils/PostFeed";
 import { useMap } from "../../Hooks/useMarkers";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
 export default function HomeScreen() {
   const [viewToggle, setViewToggle] = useState("map");
@@ -24,7 +25,11 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <Pressable onPress={mapToggle} style={styles.Pressable}>
         <Text style={styles.Text}>
-          {viewToggle === "map" ? "Go to list" : "Go to map"}
+          {viewToggle === "map" ? (
+            <FontAwesome name="th-list" size={35} color="grey" />
+          ) : (
+            <FontAwesome5 name="map-marked-alt" size={35} color="grey" />
+          )}
         </Text>
       </Pressable>
       {viewToggle === "map" && (
