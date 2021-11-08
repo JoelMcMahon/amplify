@@ -5,7 +5,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { LoginScreen, HomeScreen, RegistrationScreen } from "./src/screens";
 import { decode, encode } from "base-64";
 import { LogBox } from "react-native";
-// import { userAppAuth } from "./src/hooks/userAppAuth";
 import { userAppAuth } from "./src/Hooks/userAppAuth";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Profile from "./src/screens/Profile/Profile";
@@ -14,6 +13,9 @@ import Chats from "./src/screens/Chats/Chats";
 import useChats from "./src/Hooks/useChats";
 import useMessages from "./src/Hooks/useMessages";
 import { navIcons } from "./src/utils/navIcons";
+import InboxScreen from "./src/screens/InboxScreen/InboxScreen";
+import useMessages from "./src/Hooks/useMessages";
+import useChats from "./src/Hooks/useChats";
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -30,10 +32,11 @@ export default function App() {
   LogBox.ignoreLogs([
     'Async Storage has been extracted from react-native core',
   ]);
-  LogBox.ignoreLogs(['Setting a timer']);
+  
+  LogBox.ignoreLogs(["Setting a timer"]);
   const { chatArray } = useChats();
-  const { messagesArray } = useMessages(chatArray);
 
+  // useMessages(chatArray);
 
   const { user, setUser } = userAppAuth();
 
