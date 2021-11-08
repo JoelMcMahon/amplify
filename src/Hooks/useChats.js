@@ -1,7 +1,9 @@
+
 import { useEffect } from "react";
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { db } from "../firebase/config";
+
 
 export default function useChats() {
   const [chatArray, setChatArray] = useState([]);
@@ -35,4 +37,5 @@ export default function useChats() {
   }, []);
 
   return { chatArray };
+  
 }
