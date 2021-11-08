@@ -21,13 +21,11 @@ export const useMap = () => {
       const object = await JSON.parse(
         await AsyncStorage.getItem("lastKnownPosition")
       );
-      console.log(object);
       const bounds = geofire.geohashQueryBounds(
         [latitude, longitude],
         10 * 1000
       );
 
-      console.log(bounds);
       const center = [latitude, longitude];
       setLastLocation({ latitude, longitude });
 
