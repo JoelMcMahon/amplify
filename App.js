@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState } from "react";
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { LoginScreen, HomeScreen, RegistrationScreen } from "./src/screens";
@@ -8,10 +8,10 @@ import { LogBox } from "react-native";
 import { userAppAuth } from "./src/Hooks/userAppAuth";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Profile from "./src/screens/Profile/Profile";
-import NewPost from "./src/screens/NewPost/NewPost";
 import { navIcons } from "./src/utils/navIcons";
 import useMessages from "./src/Hooks/useMessages";
 import useChats from "./src/Hooks/useChats";
+import NewPostNav from "./src/screens/NewPost/NewPost";
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -45,7 +45,9 @@ export default function App() {
         <Tab.Screen name="Profile">
           {(props) => <Profile {...props} user={user} setUser={setUser} />}
         </Tab.Screen>
-        <Tab.Screen name="NewPost" component={NewPost} />
+        <Tab.Screen name="NewPost">
+          {(props) => <NewPostNav {...props} user={user} />}
+        </Tab.Screen>
         <Tab.Screen name="Inbox">
           {(props) => <Inbox {...props} chatArray={chatArray} />}
         </Tab.Screen>
