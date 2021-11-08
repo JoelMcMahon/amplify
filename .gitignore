@@ -1,2 +1,4 @@
 node_modules
 AndroidManifest.xml
+.expo/packager-info.json
+.expo/settings.json
