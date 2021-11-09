@@ -45,7 +45,12 @@ const Profile = ({ user, setUser, navigation }) => {
       </Stack.Screen>
       <Stack.Screen name="SingleAd">
         {(props) => (
-          <SingleAd {...props} currentAd={currentAd} onProfile={true} />
+          <SingleAd
+            {...props}
+            currentAd={currentAd}
+            onProfile={true}
+            navigation={navigation}
+          />
         )}
       </Stack.Screen>
     </Stack.Navigator>
