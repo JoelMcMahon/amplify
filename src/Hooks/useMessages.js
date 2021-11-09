@@ -7,40 +7,46 @@ import { db } from "../firebase/config";
 
 export default function useMessages(chatArray, user) {
   const [messagesArray, setMessagesArray] = useState([]);
+  const [tempMessages, setTempMessages] = useState([]);
   const [messagesObject, setMessagesObject] = useState({});
-  // console.log(user, "<<<<<<<<user in usemessages");
-  console.log(chatArray, "<<<< chat array");
+  console.log(user);
+
   useEffect(() => {
     chatArray.map((roomId) => {
-      // console.log(roomId, "<<<<<< room id");
       const roomname = roomId.id;
       fetchMessages(roomId.id, user);
-      console.log(
-        Object.keys(messagesObject),
-        "<<<<<<<<<<<<<room ids in useEffecty"
-      );
+      // console.log(
+      //   messagesObject,
+      //   // messagesObject["0"],
+      //   "<<<<<<<<<<<<<room ids in useEffecty"
+      // );
       setMessagesObject((currObject) => {
-        return { ...currObject, [roomname]: messagesArray };
+        // const currEntries = { ...currObject };
+        // console.log(currObject, "<<<currobject");
+        const updatedObject = { ...currObject, [roomname]: messagesArray };
+        // console.log(updatedObject, "<<<<<<< current entries");
+        return updatedObject;
       });
-
-      // console.log(messagesObject, "<<<<<<in use effect");
     });
-  }, [chatArray]);
-  useEffect(() => {
-    console.log(messagesObject, "messages object in use effect");
-  }, [messagesObject]);
+  }, [, chatArray]);
+
+  // useEffect(() => {
+  //   // console.log(messagesObject, "messages object in use effect");
+  // }, [messagesArray]);
 
   const fetchMessages = (currRoomId, user) => {
     try {
       const currUserID = user.id;
 
-      db.collection(`chats/${currRoomId}/messages/`)
-        .orderBy("createdAt", "desc")
-        .onSnapshot((snapshot) => {
-          const messages = snapshot.docs.map((doc, index) => {
-            const message = doc.data();
-            // console.log(message, "<message");
-
+      db.doc(`chats/${currRoomId}`).onSnapshot((snapshot) => {
+        const data = snapshot.data();
+        console.log(data);
+        if (data.messages) {
+          // console.log(data.messages, "<<<<<<<<<<messages");
+        }
+        const formattedMessages = data.messages
+          .reverse()
+          .map((message, index) => {
             const id = () => {
               if (message.senderID === currUserID) {
                 return 1;
@@ -48,10 +54,7 @@ export default function useMessages(chatArray, user) {
                 return 2;
               }
             };
-            const formattedTime = message.createdAt.seconds
-              ? message.createdAt.seconds * 1000
-              : new Date.now();
-
+            const formattedTime = new Date(message.createdAt);
             const formattedMessage = {
               _id: index,
               text: message.body,
@@ -60,17 +63,15 @@ export default function useMessages(chatArray, user) {
                 _id: id(),
               },
             };
-
             return formattedMessage;
           });
-          console.log(messages, currRoomId, "<<<<< messages and room id");
-          setMessagesArray(messages);
-        });
+
+        setMessagesArray(formattedMessages);
+      });
     } catch (error) {
       console.log(error);
     }
   };
-  // console.log(messagesArray, "<<<<<< in use messages");
-  console.log(messagesObject, "<<<<<<<<messagesObject");
+
   return messagesObject;
 }

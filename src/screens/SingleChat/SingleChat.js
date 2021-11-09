@@ -1,4 +1,4 @@
-import React, { useParams, useState } from "react";
+import React, { useParams, useState, useEffect } from "react";
 import { View, Text } from "react-native";
 import useMessages from "../../Hooks/useMessages";
 import { Bubble, GiftedChat } from "react-native-gifted-chat";
@@ -9,19 +9,26 @@ export default function SingleChat(props) {
   const roomId = props.route.params;
   console.log(roomId, "<<<<<<<<<<Current room");
   const messagesObject = props.messagesObject;
+  const [messages, setMessages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // console.log(Object.keys(props), "<<<<<<<<<<<<<props in singlechat");
-  console.log(messagesObject[roomId], "<<<<<<<<<<<<<room ids in single chat");
+  // console.log(messagesObject, "<<<<<<<<<<<<<messagesObject in single chat");
+  useEffect(() => {
+    setMessages(() => {
+      return messagesObject[roomId];
+    });
+    setIsLoading(false);
+  }, []);
 
   // console.log(roomId, "<<<<<<<room id in single chat");
-  const messages = messagesObject[roomId];
+  // const messages = messagesObject[roomId];
   const [messageBody, setMessageBody] = useState("");
   const userId = firebase.auth().currentUser.uid;
 
-  console.log(messageBody, "<<messageBody");
+  // console.log(messageBody, "<<messageBody");
 
   function renderBubble(props) {
-    // if ()
     return (
       <Bubble
         key={Math.random()}
@@ -35,8 +42,12 @@ export default function SingleChat(props) {
     );
   }
 
-  return (
-    <View style={{ height: "60%" }}>
+  return isLoading ? (
+    <View>
+      <Text>Loading ...</Text>
+    </View>
+  ) : (
+    <View style={{ height: "100%" }}>
       <GiftedChat
         onInputTextChanged={(text) => {
           setMessageBody(text);
@@ -47,7 +58,7 @@ export default function SingleChat(props) {
         }}
         renderBubble={renderBubble}
         user={{ _id: 2 }}
-        messages={messages}
+        messages={messagesObject[roomId]}
       />
     </View>
   );

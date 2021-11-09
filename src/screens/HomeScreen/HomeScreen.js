@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import { Button, Text, View } from "react-native";
-import styles from "./styles";
-import MapScreen from "../MapScreen/MapScreen";
-import PostFeed from "../../utils/PostFeed";
+import { Text, View } from "react-native";
+import MapScreen from "./MapScreen";
+import PostFeed from "../PostFeed/PostFeed";
 import { useMap } from "../../Hooks/useMarkers";
 
-export default function HomeScreen() {
-  const [viewToggle, setViewToggle] = useState("map");
+import { createStackNavigator } from "@react-navigation/stack";
+import SingleAd from "../SingleAd/SingleAd";
+import OtherUser from "../OtherUser/OtherUser";
 
+const Stack = createStackNavigator();
+
+export default function HomeScreen({ navigation }) {
+  const [currentAd, setCurrentAd] = useState({});
+  const [otherUser, setOtherUser] = useState("");
   const { ads, loading, lastLocation } = useMap();
 
   if (loading) {
@@ -18,18 +23,45 @@ export default function HomeScreen() {
     );
   }
 
-  const mapToggle = () => setViewToggle(viewToggle === "map" ? "list" : "map");
+  const navToAd = (ad) => {
+    setCurrentAd(ad);
+    navigation.navigate("SingleHomeAd");
+  };
 
   return (
-    <View style={styles.container}>
-      <Button
-        title={viewToggle === "map" ? "Go to list" : "Go to map"}
-        onPress={mapToggle}
-      ></Button>
-      {viewToggle === "map" && (
-        <MapScreen ads={ads} lastLocation={lastLocation} />
-      )}
-      {viewToggle === "list" && <PostFeed ads={ads} mainList={true} />}
-    </View>
+    <Stack.Navigator
+      screenOptions={{
+        header: () => null,
+      }}
+    >
+      <Stack.Screen name="Map">
+        {(props) => (
+          <MapScreen
+            {...props}
+            ads={ads}
+            lastLocation={lastLocation}
+            navToAd={navToAd}
+          />
+        )}
+      </Stack.Screen>
+      <Stack.Screen name="HomePosts">
+        {(props) => (
+          <PostFeed {...props} ads={ads} mainList={true} navToAd={navToAd} />
+        )}
+      </Stack.Screen>
+      <Stack.Screen name="SingleHomeAd">
+        {(props) => (
+          <SingleAd
+            {...props}
+            currentAd={currentAd}
+            navigation={navigation}
+            setOtherUser={setOtherUser}
+          />
+        )}
+      </Stack.Screen>
+      <Stack.Screen name="OtherUser">
+        {(props) => <OtherUser {...props} userId={otherUser} />}
+      </Stack.Screen>
+    </Stack.Navigator>
   );
 }

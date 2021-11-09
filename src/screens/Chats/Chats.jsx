@@ -10,7 +10,7 @@ import createChatRoom from "../../utils/createChatRoom";
 
 const Chats = ({ navigation, chatArray, usersArray, currUser }) => {
   const { searchStr, setSearchStr } = fetchUsers();
-  console.log(chatArray, "<<<<<<<< chat array for ", currUser.displayName);
+  // console.log(chatArray, "<<<<<<<< chat array for ", currUser.displayName);
   return (
     <ScrollView>
       <SearchBar

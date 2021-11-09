@@ -18,11 +18,14 @@ export const useMap = () => {
       const {
         coords: { latitude, longitude },
       } = await JSON.parse(await AsyncStorage.getItem("lastKnownPosition"));
-
+      const object = await JSON.parse(
+        await AsyncStorage.getItem("lastKnownPosition")
+      );
       const bounds = geofire.geohashQueryBounds(
         [latitude, longitude],
         10 * 1000
       );
+
       const center = [latitude, longitude];
       setLastLocation({ latitude, longitude });
 
@@ -36,7 +39,7 @@ export const useMap = () => {
           return boundPromise.get();
         })
       )
-        .then(async (snapshots) => {
+        .then((snapshots) => {
           const matchingDocs = [];
 
           for (const snap of snapshots) {

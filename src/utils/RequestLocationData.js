@@ -2,12 +2,9 @@ import * as Location from "expo-location";
 import { firebase } from "../firebase/config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default requestLocationPermission = async () => {
-  const geofire = require("geofire-common");
-
-  const storageRef = firebase.firestore().collection("ads");
-
+export default RequestLocationData = async () => {
   try {
+    const geofire = require("geofire-common");
     const granted = await Location.requestForegroundPermissionsAsync();
     if (granted) {
       const currLocation = await Location.getCurrentPositionAsync({

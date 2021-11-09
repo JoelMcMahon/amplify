@@ -52,4 +52,13 @@ export default StyleSheet.create({
     fontSize: 20,
     color: "#333333",
   },
+  Pressable: {
+    zIndex: 1000,
+    top: "4%",
+    right: "7%",
+    position: "absolute",
+  },
+  Text: {
+    color: "white",
+  },
 });
