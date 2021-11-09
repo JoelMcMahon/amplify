@@ -5,8 +5,14 @@ import { displayMedia } from "../../Hooks/displayMedia";
 const SingleAd = ({ currentAd, navigation, onProfile, setOtherUser }) => {
   const { title, body, displayName, created, url, type, userId } = currentAd;
   const back = () => {
-    navigation.goBack();
+    if (onProfile) {
+      navigation.navigate("ProfilePosts");
+    } else {
+      navigation.navigate("HomePosts");
+    }
   };
+
+  console.log(setOtherUser);
 
   const goToChat = () => {
     console.log("goToChat", `User ID: ${userId}`);
@@ -18,7 +24,9 @@ const SingleAd = ({ currentAd, navigation, onProfile, setOtherUser }) => {
   };
 
   useEffect(() => {
-    setOtherUser(userId);
+    if (!onProfile) {
+      setOtherUser(userId);
+    }
   }, []);
 
   return (
