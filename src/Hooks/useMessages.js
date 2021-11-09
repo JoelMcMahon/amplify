@@ -5,29 +5,44 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { db } from "../firebase/config";
 // import useChats from './useChats';
 
-export default async function useMessages(chatArray) {
+export default function useMessages(chatArray, user) {
   const [messagesArray, setMessagesArray] = useState([]);
+  const [messagesObject, setMessagesObject] = useState({});
+  // console.log(user, "<<<<<<<<user in usemessages");
+  console.log(chatArray, "<<<< chat array");
   useEffect(() => {
     chatArray.map((roomId) => {
-      fetchMessages(roomId);
-    });
-  }, []);
+      // console.log(roomId, "<<<<<< room id");
+      const roomname = roomId.id;
+      fetchMessages(roomId.id, user);
+      console.log(
+        Object.keys(messagesObject),
+        "<<<<<<<<<<<<<room ids in useEffecty"
+      );
+      setMessagesObject((currObject) => {
+        return { ...currObject, [roomname]: messagesArray };
+      });
 
-  const fetchMessages = async (roomId) => {
+      // console.log(messagesObject, "<<<<<<in use effect");
+    });
+  }, [chatArray]);
+  useEffect(() => {
+    console.log(messagesObject, "messages object in use effect");
+  }, [messagesObject]);
+
+  const fetchMessages = (currRoomId, user) => {
     try {
-      const userData = await AsyncStorage.getItem("userData");
-      const parsedUserData = JSON.parse(userData);
-      console.log(parsedUserData, "userData  in use messages");
-      console.log(roomId, "<<rooomid");
-      db.collection(`chats/${roomId}/messages/`)
+      const currUserID = user.id;
+
+      db.collection(`chats/${currRoomId}/messages/`)
         .orderBy("createdAt", "desc")
         .onSnapshot((snapshot) => {
           const messages = snapshot.docs.map((doc, index) => {
             const message = doc.data();
-            console.log(message, "<message");
+            // console.log(message, "<message");
 
             const id = () => {
-              if (message.senderID === userId) {
+              if (message.senderID === currUserID) {
                 return 1;
               } else {
                 return 2;
@@ -48,16 +63,14 @@ export default async function useMessages(chatArray) {
 
             return formattedMessage;
           });
+          console.log(messages, currRoomId, "<<<<< messages and room id");
           setMessagesArray(messages);
-          AsyncStorage.setItem(
-            `chats/${roomId}/messages`,
-            JSON.stringify(messages)
-          );
         });
     } catch (error) {
       console.log(error);
     }
   };
-
-  return messagesArray;
+  // console.log(messagesArray, "<<<<<< in use messages");
+  console.log(messagesObject, "<<<<<<<<messagesObject");
+  return messagesObject;
 }

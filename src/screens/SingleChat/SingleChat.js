@@ -7,8 +7,14 @@ import onSend from "../../utils/onSend";
 
 export default function SingleChat(props) {
   const roomId = props.route.params;
-  const messages = useMessages(roomId);
+  console.log(roomId, "<<<<<<<<<<Current room");
+  const messagesObject = props.messagesObject;
 
+  // console.log(Object.keys(props), "<<<<<<<<<<<<<props in singlechat");
+  console.log(messagesObject[roomId], "<<<<<<<<<<<<<room ids in single chat");
+
+  // console.log(roomId, "<<<<<<<room id in single chat");
+  const messages = messagesObject[roomId];
   const [messageBody, setMessageBody] = useState("");
   const userId = firebase.auth().currentUser.uid;
 
