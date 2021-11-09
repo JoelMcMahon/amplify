@@ -27,7 +27,11 @@ export default function HomeScreen({ navigation }) {
   };
 
   return (
-    <Stack.Navigator screenOptions={{ header: () => null }}>
+    <Stack.Navigator
+      screenOptions={{
+        header: () => null,
+      }}
+    >
       <Stack.Screen name="Map">
         {(props) => (
           <MapScreen

@@ -39,7 +39,7 @@ export const useMap = () => {
           return boundPromise.get();
         })
       )
-        .then(async (snapshots) => {
+        .then((snapshots) => {
           const matchingDocs = [];
 
           for (const snap of snapshots) {

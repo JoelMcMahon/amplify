@@ -17,9 +17,10 @@ const Profile = ({ user, setUser, navigation }) => {
         .collection("ads")
         .where("userId", "==", user.id)
         .orderBy("created")
-        .onSnapshot((snapshot) => {
+        .get()
+        .then((docs) => {
           let allPosts = [];
-          snapshot.forEach((doc) => {
+          docs.forEach((doc) => {
             allPosts.unshift(doc.data());
           });
           setPosts(allPosts);
