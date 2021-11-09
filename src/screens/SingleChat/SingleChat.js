@@ -11,7 +11,10 @@ export default function SingleChat(props) {
   const messagesObject = props.messagesObject;
 
   // console.log(Object.keys(props), "<<<<<<<<<<<<<props in singlechat");
-  console.log(messagesObject[roomId], "<<<<<<<<<<<<<room ids in single chat");
+  console.log(
+    messagesObject[roomId],
+    "<<<<<<<<<<<<<messagesObject in single chat"
+  );
 
   // console.log(roomId, "<<<<<<<room id in single chat");
   const messages = messagesObject[roomId];

@@ -2,7 +2,7 @@ import { Video } from "expo-av";
 import React from "react";
 import { Image } from "react-native";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { formatDate } from "./date";
+// import { formatDate } from "./date";
 
 const PostFeed = ({ ads, mainList }) => {
   const media = (type, uri) => {
@@ -27,13 +27,13 @@ const PostFeed = ({ ads, mainList }) => {
   };
 
   const post = ({ item }) => {
-    let date, textTime;
+    // let date, textTime;
 
-    if (item.created) {
-      const { formattedDate, elapsedTime } = formatDate(item.created);
-      date = formattedDate;
-      textTime = elapsedTime;
-    }
+    // if (item.created) {
+    //   const { formattedDate, elapsedTime } = formatDate(item.created);
+    //   date = formattedDate;
+    //   textTime = elapsedTime;
+    // }
 
     return (
       <View style={styles.individualPost}>
@@ -42,8 +42,8 @@ const PostFeed = ({ ads, mainList }) => {
         <Text>{item.body}</Text>
         {item.created && (
           <>
-            <Text>{date}</Text>
-            <Text>{textTime}</Text>
+            {/* <Text>{date}</Text> */}
+            {/* <Text>{textTime}</Text> */}
           </>
         )}
         {media(item.type, item.url)}
