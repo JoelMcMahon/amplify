@@ -28,7 +28,7 @@ const Profile = ({ user, setUser, navigation, setIsLoggedIn }) => {
     };
 
     getPosts();
-  }, [setUser, setIsLoggedIn]);
+  }, []);
 
   const navToAd = (ad) => {
     navigation.navigate("SingleAd");
