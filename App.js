@@ -12,6 +12,8 @@ import NewPost from "./src/screens/NewPost/NewPost";
 import { navIcons } from "./src/utils/navIcons";
 import useMessages from "./src/Hooks/useMessages";
 import useChats from "./src/Hooks/useChats";
+import Inbox from "./src/screens/InboxScreen/InboxScreen";
+import fetchUsers from "./src/Hooks/fetchUsers";
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -28,13 +30,14 @@ export default function App() {
   LogBox.ignoreLogs([
     "Async Storage has been extracted from react-native core",
   ]);
+  const { user, setUser } = userAppAuth();
 
   LogBox.ignoreLogs(["Setting a timer"]);
-  const { chatArray } = useChats();
-
+  const { usersArray } = fetchUsers();
+  const { chatArray } = useChats(user);
   useMessages(chatArray);
 
-  const { user, setUser } = userAppAuth();
+  // console.log(user, "<<<<<<in app");
 
   const tabs = () => {
     return (
@@ -47,7 +50,14 @@ export default function App() {
         </Tab.Screen>
         <Tab.Screen name="NewPost" component={NewPost} />
         <Tab.Screen name="Inbox">
-          {(props) => <Inbox {...props} chatArray={chatArray} />}
+          {(props) => (
+            <Inbox
+              {...props}
+              chatArray={chatArray}
+              usersArray={usersArray}
+              user={user}
+            />
+          )}
         </Tab.Screen>
       </Tab.Navigator>
     );

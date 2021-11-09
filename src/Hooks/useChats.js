@@ -1,31 +1,29 @@
-
 import { useEffect } from "react";
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { db } from "../firebase/config";
 
-
-export default function useChats() {
+export default function useChats(user) {
   const [chatArray, setChatArray] = useState([]);
 
   useEffect(() => {
+    console.log(user, "<<<<<<<<<in useeffect");
     const fetchChats = async () => {
       try {
-        const userData = await AsyncStorage.getItem("userData");
-        const parsedUserData = JSON.parse(userData);
-        const userId = parsedUserData.id;
+        const userId = user.id;
 
-        await db
-          .collection("chats")
+        db.collection("chats")
           .where("users", "array-contains", userId)
           .onSnapshot((snapshot) => {
             const tempRooms = [];
             snapshot.docs.forEach((doc) => {
+              const displayNames = doc.data().displayNames;
               const users = doc.data().users;
               const id = doc.id;
-              tempRooms.push({ id, users });
+              tempRooms.push({ id, users, displayNames });
             });
             AsyncStorage.setItem("chatRooms", JSON.stringify(tempRooms));
+            console.log(tempRooms, "<<<<< chatrooms");
             setChatArray(tempRooms);
           });
       } catch (error) {
@@ -34,8 +32,7 @@ export default function useChats() {
     };
 
     fetchChats();
-  }, []);
+  }, [user]);
 
   return { chatArray };
-  
 }
