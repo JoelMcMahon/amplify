@@ -1,11 +1,13 @@
 import React from "react";
 import MapView, { Marker, Callout } from "react-native-maps";
-import { StyleSheet, View, Dimensions, Text, Image } from "react-native";
+import { StyleSheet, View, Dimensions, Text, Pressable } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import RequestLocationData from "../../utils/RequestLocationData";
-import { Video } from "expo-av";
+import buttonStyle from "./styles";
+import { FontAwesome } from "@expo/vector-icons";
+import { displayMedia } from "../../Hooks/displayMedia";
 
-export default function MapScreen({ ads, lastLocation }) {
+export default function MapScreen({ ads, lastLocation, navToAd, navigation }) {
   const initRegion = {
     latitude: lastLocation.latitude,
     latitudeDelta: 0.008,
@@ -13,29 +15,21 @@ export default function MapScreen({ ads, lastLocation }) {
     longitudeDelta: 0.0008,
   };
 
-  const media = (type, uri) => {
-    if (type === "photo") {
-      return <Image style={styles.media} source={{ uri }} />;
-    } else if (type === "video") {
-      return (
-        <Video
-          style={styles.media}
-          source={{ uri }}
-          useNativeControls
-          isLooping
-        />
-      );
-    } else {
-      return (
-        <View style={styles.media}>
-          <Text>No Media</Text>
-        </View>
-      );
-    }
+  const navToList = () => {
+    navigation.navigate("HomePosts");
+  };
+
+  const seeMoreFromPin = (ad) => {
+    navToAd(ad);
   };
 
   return (
     <View style={styles.container}>
+      <Pressable onPress={navToList} style={buttonStyle.Pressable}>
+        <Text style={buttonStyle.Text}>
+          <FontAwesome name="th-list" size={35} color="grey" />
+        </Text>
+      </Pressable>
       <MapView style={styles.map} region={initRegion}>
         {ads.map((ad, index) => {
           return (
@@ -43,16 +37,11 @@ export default function MapScreen({ ads, lastLocation }) {
               key={index}
               coordinate={{ latitude: ad.lat, longitude: ad.long }}
             >
-              <Callout
-                tooltip
-                onPress={() => {
-                  //Load up specific ad screen here
-                }}
-              >
+              <Callout tooltip onPress={() => seeMoreFromPin(ad)}>
                 <View>
                   <View style={styles.bubble}>
                     <Text style={styles.title}>{ad.title}</Text>
-                    {media(ad.type, ad.url)}
+                    {displayMedia(ad.type, ad.url)}
                     <Text>By: {ad.displayName}</Text>
                   </View>
                   <View style={styles.arrowBorder} />

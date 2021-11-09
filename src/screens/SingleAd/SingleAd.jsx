@@ -11,6 +11,7 @@ const SingleAd = ({ currentAd, navigation, onProfile }) => {
   const goToChat = () => {
     console.log(userId);
   };
+
   return (
     <View>
       {!onProfile && (
