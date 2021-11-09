@@ -30,15 +30,15 @@ export default function App() {
   LogBox.ignoreLogs([
     "Async Storage has been extracted from react-native core",
   ]);
-  const { user, setUser } = userAppAuth();
-
+  const { user, setUser, isLoggedIn } = userAppAuth();
+  // console.log(user, "<<<<<<<<<<user");
   LogBox.ignoreLogs(["Setting a timer"]);
-  const { usersArray } = fetchUsers();
-  const { chatArray } = useChats(user);
-  useMessages(chatArray);
 
   // console.log(user, "<<<<<<in app");
 
+  const { usersArray } = fetchUsers();
+  const { chatArray } = useChats(user);
+  const messagesObject = useMessages(chatArray, user);
   const tabs = () => {
     return (
       <Tab.Navigator screenOptions={navIcons} tabBarHideOnKeyboard={true}>
@@ -56,6 +56,7 @@ export default function App() {
               chatArray={chatArray}
               usersArray={usersArray}
               user={user}
+              messagesObject={messagesObject}
             />
           )}
         </Tab.Screen>
@@ -77,6 +78,8 @@ export default function App() {
   };
 
   return (
-    <NavigationContainer>{user ? tabs() : loginSignup()}</NavigationContainer>
+    <NavigationContainer>
+      {isLoggedIn ? tabs() : loginSignup()}
+    </NavigationContainer>
   );
 }

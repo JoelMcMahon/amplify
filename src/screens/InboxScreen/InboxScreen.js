@@ -5,9 +5,14 @@ import Chats from "../Chats/Chats";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-export default function InboxScreen({ chatArray, usersArray, user }) {
+export default function InboxScreen({
+  chatArray,
+  usersArray,
+  user,
+  messagesObject,
+}) {
   const Stack = createStackNavigator();
-  console.log(user, "<<<in inbox");
+  // console.log(user, "<<<in inbox");
 
   return (
     <Stack.Navigator
@@ -26,7 +31,7 @@ export default function InboxScreen({ chatArray, usersArray, user }) {
         )}
       </Stack.Screen>
       <Stack.Screen name="SingleChat">
-        {(props) => <SingleChat {...props} chatArray />}
+        {(props) => <SingleChat {...props} messagesObject={messagesObject} />}
       </Stack.Screen>
     </Stack.Navigator>
   );

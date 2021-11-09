@@ -7,7 +7,7 @@ export default function useChats(user) {
   const [chatArray, setChatArray] = useState([]);
 
   useEffect(() => {
-    console.log(user, "<<<<<<<<<in useeffect");
+    // console.log(user, "<<<<<<<<<in useeffect");
     const fetchChats = async () => {
       try {
         const userId = user.id;
@@ -23,7 +23,7 @@ export default function useChats(user) {
               tempRooms.push({ id, users, displayNames });
             });
             AsyncStorage.setItem("chatRooms", JSON.stringify(tempRooms));
-            console.log(tempRooms, "<<<<< chatrooms");
+            // console.log(tempRooms, "<<<<< chatrooms");
             setChatArray(tempRooms);
           });
       } catch (error) {

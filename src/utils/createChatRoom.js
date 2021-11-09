@@ -17,7 +17,7 @@ export default async function createChatRoom(
   let roomId;
 
   const displayName = await db.collection("users").doc(userId2).get();
-  console.log(displayName);
+  // console.log(displayName);
   if (chatArray.length === 0) {
     roomExists = false;
   } else {

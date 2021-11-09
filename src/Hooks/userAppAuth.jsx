@@ -3,7 +3,13 @@ import { useState, useEffect } from "react";
 import { firebase } from "../firebase/config";
 
 export const userAppAuth = () => {
-  const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState({
+    displayName: "",
+    email: "",
+    fullName: "",
+    id: "",
+  });
 
   useEffect(() => {
     const usersRef = firebase.firestore().collection("users");
@@ -15,7 +21,8 @@ export const userAppAuth = () => {
           .then((document) => {
             const userData = document.data();
             setUser(userData);
-            AsyncStorage.setItem('userData',JSON.stringify(userData))
+            setIsLoggedIn(true);
+            // AsyncStorage.setItem('userData',JSON.stringify(userData))
           })
           .catch((error) => {
             console.warn(error);
@@ -26,5 +33,5 @@ export const userAppAuth = () => {
     });
   }, []);
 
-  return { user, setUser };
+  return { user, setUser, isLoggedIn };
 };
