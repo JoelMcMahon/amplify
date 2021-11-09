@@ -8,11 +8,9 @@ import { db } from "../firebase/config";
 export default function useMessages(chatArray, user) {
   const [messagesArray, setMessagesArray] = useState([]);
   const [messagesObject, setMessagesObject] = useState({});
-  // console.log(user, "<<<<<<<<user in usemessages");
-  console.log(chatArray, "<<<< chat array");
+
   useEffect(() => {
     chatArray.map((roomId) => {
-      // console.log(roomId, "<<<<<< room id");
       const roomname = roomId.id;
       fetchMessages(roomId.id, user);
       console.log(
@@ -22,10 +20,9 @@ export default function useMessages(chatArray, user) {
       setMessagesObject((currObject) => {
         return { ...currObject, [roomname]: messagesArray };
       });
-
-      // console.log(messagesObject, "<<<<<<in use effect");
     });
   }, [chatArray]);
+
   useEffect(() => {
     console.log(messagesObject, "messages object in use effect");
   }, [messagesObject]);
@@ -39,7 +36,6 @@ export default function useMessages(chatArray, user) {
         .onSnapshot((snapshot) => {
           const messages = snapshot.docs.map((doc, index) => {
             const message = doc.data();
-            // console.log(message, "<message");
 
             const id = () => {
               if (message.senderID === currUserID) {
@@ -70,7 +66,6 @@ export default function useMessages(chatArray, user) {
       console.log(error);
     }
   };
-  // console.log(messagesArray, "<<<<<< in use messages");
-  console.log(messagesObject, "<<<<<<<<messagesObject");
+
   return messagesObject;
 }

@@ -1,29 +1,20 @@
-import { Video } from "expo-av";
 import React from "react";
-import { Image } from "react-native";
-import { FlatList, StyleSheet, Text, View } from "react-native";
-// import { formatDate } from "./date";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Pressable,
+} from "react-native";
+import { displayMedia } from "../../Hooks/displayMedia";
+import { formatDate } from "../../utils/date";
+import buttonStyle from "../HomeScreen/styles";
+import { FontAwesome5 } from "@expo/vector-icons";
 
-const PostFeed = ({ ads, mainList }) => {
-  const media = (type, uri) => {
-    if (type === "photo") {
-      return <Image style={styles.media} source={{ uri }} />;
-    } else if (type === "video") {
-      return (
-        <Video
-          style={styles.media}
-          source={{ uri }}
-          useNativeControls
-          isLooping
-        />
-      );
-    } else {
-      return (
-        <View style={styles.media}>
-          <Text>No Media</Text>
-        </View>
-      );
-    }
+const PostFeed = ({ ads, mainList, navToAd, navigation }) => {
+  const navToMap = () => {
+    navigation.navigate("Map");
   };
 
   const post = ({ item }) => {
@@ -46,13 +37,21 @@ const PostFeed = ({ ads, mainList }) => {
             {/* <Text>{textTime}</Text> */}
           </>
         )}
-        {media(item.type, item.url)}
+        {displayMedia(item.type, item.url)}
+        <Button title="Single Ad" onPress={() => navToAd(item)}></Button>
       </View>
     );
   };
 
   return (
     <View>
+      {mainList && (
+        <Pressable onPress={navToMap} style={buttonStyle.Pressable}>
+          <Text style={styles.Text}>
+            <FontAwesome5 name="map-marked-alt" size={35} color="grey" />
+          </Text>
+        </Pressable>
+      )}
       <FlatList
         data={ads}
         renderItem={post}
@@ -65,15 +64,8 @@ const PostFeed = ({ ads, mainList }) => {
 export default PostFeed;
 
 const styles = StyleSheet.create({
-  media: {
-    height: 200,
-    width: 200,
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   individualPost: {
     marginTop: 10,
-    backgroundColor: "gray",
+    borderWidth: 1,
   },
 });

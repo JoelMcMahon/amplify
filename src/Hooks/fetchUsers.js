@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { View, Text } from "react-native";
+import { useState, useEffect } from "react";
 import firebase from "firebase";
 
 export default function fetchUsers() {

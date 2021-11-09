@@ -24,7 +24,6 @@ export default function SingleChat(props) {
   console.log(messageBody, "<<messageBody");
 
   function renderBubble(props) {
-    // if ()
     return (
       <Bubble
         key={Math.random()}

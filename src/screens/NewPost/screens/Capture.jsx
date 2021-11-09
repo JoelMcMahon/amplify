@@ -86,12 +86,13 @@ const Capture = ({ navigation, setMedia }) => {
             )}
           </Pressable>
         )}
-        <Button title="Toggle type" onPress={toggleType} />
+        {/* <Button title="Toggle type" onPress={toggleType} />
         <Button title="Go Back" onPress={() => navigation.navigate("Form")} />
-        <Button title="Change Camera Mode" onPress={toggleCameraMode} />
-        <Pressable onPress={pickMedia}>
-          <Ionicons name="images-outline" size={40} color="white" />
-        </Pressable>
+        <Button title="Change Camera Mode" onPress={toggleCameraMode} /> */}
+        {/* <Pressable style={styles.gallery} onPress={pickMedia}>
+          <Ionicons name="images-outline" size={30} color="white" />
+        </Pressable> */}
+        <View style={styles.buttonOptions}></View>
       </View>
     );
   };
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
   },
   takeMedia: {
     position: "absolute",
-    bottom: 120,
+    bottom: 75,
     left: "45%",
     borderWidth: 5,
     borderColor: "white",
@@ -149,5 +150,16 @@ const styles = StyleSheet.create({
   },
   whiteText: {
     color: "white",
+  },
+  gallery: {
+    position: "absolute",
+    bottom: 100,
+  },
+  buttonOptions: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    height: 50,
+    backgroundColor: "white",
   },
 });
