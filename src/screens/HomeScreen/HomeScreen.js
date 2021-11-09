@@ -6,11 +6,13 @@ import { useMap } from "../../Hooks/useMarkers";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import SingleAd from "../SingleAd/SingleAd";
+import OtherUser from "../OtherUser/OtherUser";
 
 const Stack = createStackNavigator();
 
 export default function HomeScreen({ navigation }) {
   const [currentAd, setCurrentAd] = useState({});
+  const [otherUser, setOtherUser] = useState("");
   const { ads, loading, lastLocation } = useMap();
 
   if (loading) {
@@ -48,7 +50,17 @@ export default function HomeScreen({ navigation }) {
         )}
       </Stack.Screen>
       <Stack.Screen name="SingleHomeAd">
-        {(props) => <SingleAd {...props} currentAd={currentAd} />}
+        {(props) => (
+          <SingleAd
+            {...props}
+            currentAd={currentAd}
+            navigation={navigation}
+            setOtherUser={setOtherUser}
+          />
+        )}
+      </Stack.Screen>
+      <Stack.Screen name="OtherUser">
+        {(props) => <OtherUser {...props} userId={otherUser} />}
       </Stack.Screen>
     </Stack.Navigator>
   );

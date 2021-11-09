@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { displayMedia } from "../../Hooks/displayMedia";
 
-const SingleAd = ({ currentAd, navigation, onProfile }) => {
+const SingleAd = ({ currentAd, navigation, onProfile, setOtherUser }) => {
   const { title, body, displayName, created, url, type, userId } = currentAd;
   const back = () => {
     navigation.goBack();
   };
 
   const goToChat = () => {
-    console.log(userId);
+    console.log("goToChat", `User ID: ${userId}`);
+    // navigation.navigate("chat-page")
   };
+
+  const goToUserProfile = () => {
+    navigation.navigate("OtherUser");
+  };
+
+  useEffect(() => {
+    setOtherUser(userId);
+  }, []);
 
   return (
     <View>
@@ -18,6 +27,7 @@ const SingleAd = ({ currentAd, navigation, onProfile }) => {
         <>
           <Text>{displayName}</Text>
           <Button title="Chat" onPress={goToChat}></Button>
+          <Button title="Go To Profile" onPress={goToUserProfile}></Button>
         </>
       )}
       {displayMedia(type, url)}

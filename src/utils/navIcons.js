@@ -7,15 +7,28 @@ import React from "react";
 export const navIcons = ({ route }) => ({
   tabBarIcon: ({ focused, size, color }) => {
     if (route.name === "Home") {
-      return <FontAwesome name="map-o" size={24} color="black" />;
-    } else if (route.name === "Profile") {
-      return <Feather name="user" size={24} color="black" />;
-    } else if (route.name === "NewPost") {
-      return <MaterialIcons name="post-add" size={24} color="black" />;
-    } else if (route.name === "Inbox") {
+      return <FontAwesome name="map-o" size={24} color="#FEF4EC" />;
+    }
+
+    if (route.name === "Profile") {
+      return <Feather name="user" size={24} color="#FEF4EC" />;
+    }
+
+    if (route.name === "NewPost") {
+      return <MaterialIcons name="post-add" size={24} color="#FEF4EC" />;
+    }
+
+    if (route.name === "Inbox") {
       return (
-        <Ionicons name="chatbox-ellipses-outline" size={24} color="black" />
+        <Ionicons name="chatbox-ellipses-outline" size={24} color="#FEF4EC" />
       );
     }
   },
+  tabBarStyle: {
+    backgroundColor: `#363636`,
+  },
+  headerStyle: {
+    backgroundColor: "#363636",
+  },
+  headerTintColor: "#FEF4EC",
 });
