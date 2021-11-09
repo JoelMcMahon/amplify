@@ -9,13 +9,11 @@ import { userAppAuth } from "./src/Hooks/userAppAuth";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Profile from "./src/screens/Profile/Profile";
 import NewPost from "./src/screens/NewPost/NewPost";
-import Chats from "./src/screens/Chats/Chats";
-import useChats from "./src/Hooks/useChats";
-import useMessages from "./src/Hooks/useMessages";
 import { navIcons } from "./src/utils/navIcons";
-import InboxScreen from "./src/screens/InboxScreen/InboxScreen";
 import useMessages from "./src/Hooks/useMessages";
 import useChats from "./src/Hooks/useChats";
+import Inbox from "./src/screens/InboxScreen/InboxScreen";
+import fetchUsers from "./src/Hooks/fetchUsers";
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -24,22 +22,23 @@ if (!global.atob) {
   global.atob = decode;
 }
 
-LogBox.ignoreLogs(['Setting a timer']);
+LogBox.ignoreLogs(["Setting a timer"]);
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   LogBox.ignoreLogs([
-    'Async Storage has been extracted from react-native core',
+    "Async Storage has been extracted from react-native core",
   ]);
-  
+  const { user, setUser, isLoggedIn } = userAppAuth();
+  // console.log(user, "<<<<<<<<<<user");
   LogBox.ignoreLogs(["Setting a timer"]);
-  const { chatArray } = useChats();
 
-  // useMessages(chatArray);
+  // console.log(user, "<<<<<<in app");
 
-  const { user, setUser } = userAppAuth();
-
+  const { usersArray } = fetchUsers();
+  const { chatArray } = useChats(user);
+  const messagesObject = useMessages(chatArray, user);
   const tabs = () => {
     return (
       <Tab.Navigator screenOptions={navIcons} tabBarHideOnKeyboard={true}>
@@ -51,7 +50,15 @@ export default function App() {
         </Tab.Screen>
         <Tab.Screen name="NewPost" component={NewPost} />
         <Tab.Screen name="Inbox">
-          {(props) => <Inbox {...props} chatArray={chatArray} />}
+          {(props) => (
+            <Inbox
+              {...props}
+              chatArray={chatArray}
+              usersArray={usersArray}
+              user={user}
+              messagesObject={messagesObject}
+            />
+          )}
         </Tab.Screen>
       </Tab.Navigator>
     );
@@ -71,6 +78,8 @@ export default function App() {
   };
 
   return (
-    <NavigationContainer>{user ? tabs() : loginSignup()}</NavigationContainer>
+    <NavigationContainer>
+      {isLoggedIn ? tabs() : loginSignup()}
+    </NavigationContainer>
   );
 }
