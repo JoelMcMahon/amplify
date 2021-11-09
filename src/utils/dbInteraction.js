@@ -1,6 +1,12 @@
 import { firebase } from "../firebase/config";
 
-export const onLoginPress = (navigation, setUser, email, password) => {
+export const onLoginPress = (
+  navigation,
+  setUser,
+  email,
+  password,
+  setIsLoggedIn
+) => {
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
@@ -17,7 +23,7 @@ export const onLoginPress = (navigation, setUser, email, password) => {
           }
           const user = firestoreDocument.data();
           setUser({ user: user });
-          // navigation.navigate({ name: "Home", params: user });
+          setIsLoggedIn(true);
         })
         .catch((error) => {
           alert(error);
@@ -28,12 +34,18 @@ export const onLoginPress = (navigation, setUser, email, password) => {
     });
 };
 
-export const logoutHandler = (setUser) => {
+export const logoutHandler = (setUser, setIsLoggedIn) => {
   firebase
     .auth()
     .signOut()
-    .then((res) => {
-      setUser(null);
+    .then(() => {
+      setIsLoggedIn(false);
+      setUser({
+        displayName: "",
+        email: "",
+        fullName: "",
+        id: "",
+      });
     })
     .catch((err) => console.dir(err));
 };

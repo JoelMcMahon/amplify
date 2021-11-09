@@ -43,6 +43,14 @@ const PostFeed = ({ ads, mainList, navToAd, navigation }) => {
     );
   };
 
+  if (ads.length === 0) {
+    return (
+      <View>
+        <Text>No ads found</Text>
+      </View>
+    );
+  }
+
   return (
     <View>
       {mainList && (

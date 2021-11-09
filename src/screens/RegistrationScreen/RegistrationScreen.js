@@ -4,7 +4,11 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import styles from "./styles";
 import { firebase } from "../../firebase/config";
 
-export default function RegistrationScreen({ navigation, setUser }) {
+export default function RegistrationScreen({
+  navigation,
+  setUser,
+  setIsLoggedIn,
+}) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,19 +19,12 @@ export default function RegistrationScreen({ navigation, setUser }) {
     navigation.navigate("Login");
   };
 
-  const onRegisterPress = (
-    navigation,
-    displayName,
-    fullName,
-    email,
-    password,
-    confirmPassword,
-    setUser
-  ) => {
+  const onRegisterPress = () => {
     if (password !== confirmPassword) {
       alert("Passwords don't match.");
       return;
     }
+
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -44,8 +41,8 @@ export default function RegistrationScreen({ navigation, setUser }) {
           .doc(uid)
           .set(data)
           .then(() => {
-            // navigation.navigate("Home", { user: data });
             setUser({ user: data });
+            setIsLoggedIn(true);
           })
           .catch((error) => {
             alert(error);
@@ -88,7 +85,10 @@ export default function RegistrationScreen({ navigation, setUser }) {
           style={styles.input}
           placeholder="E-mail"
           placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={(text) => {
+            console.log(email);
+            setEmail(text);
+          }}
           value={email}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
@@ -117,17 +117,7 @@ export default function RegistrationScreen({ navigation, setUser }) {
         />
         <TouchableOpacity
           style={styles.button}
-          onPress={() =>
-            onRegisterPress(
-              navigation,
-              displayName,
-              fullName,
-              email,
-              password,
-              confirmPassword,
-              setUser
-            )
-          }
+          onPress={() => onRegisterPress()}
         >
           <Text style={styles.buttonTitle}>Create account</Text>
         </TouchableOpacity>

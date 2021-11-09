@@ -4,7 +4,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { onLoginPress } from "../../utils/dbInteraction";
 import styles from "./styles";
 
-export default function LoginScreen({ navigation, setUser }) {
+export default function LoginScreen({ navigation, setUser, setIsLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -43,7 +43,9 @@ export default function LoginScreen({ navigation, setUser }) {
         />
         <TouchableOpacity
           style={styles.button}
-          onPress={() => onLoginPress(navigation, setUser, email, password)}
+          onPress={() =>
+            onLoginPress(navigation, setUser, email, password, setIsLoggedIn)
+          }
         >
           <Text style={styles.buttonTitle}>Log in</Text>
         </TouchableOpacity>
