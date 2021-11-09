@@ -14,6 +14,7 @@ import useChats from "./src/Hooks/useChats";
 import NewPostNav from "./src/screens/NewPost/NewPost";
 import Inbox from "./src/screens/InboxScreen/InboxScreen";
 import fetchUsers from "./src/Hooks/fetchUsers";
+import { testChat } from "./src/Hooks/testChats";
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -36,9 +37,8 @@ export default function App() {
 
   // console.log(user, "<<<<<<in app");
 
-  const { usersArray } = fetchUsers();
-  const { chatArray } = useChats(user);
-  const messagesObject = useMessages(chatArray, user);
+  const { usersArray, chatArray, messagesObject } = testChat(user);
+
   const tabs = () => {
     return (
       <Tab.Navigator screenOptions={navIcons} tabBarHideOnKeyboard={true}>
