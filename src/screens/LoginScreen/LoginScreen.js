@@ -1,3 +1,4 @@
+import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -14,13 +15,18 @@ export default function LoginScreen({ navigation, setUser, setIsLoggedIn }) {
 
   return (
     <View style={styles.container}>
+      <LinearGradient
+        colors={["#252525", "#181818"]}
+        style={styles.background}
+      />
+
       <KeyboardAwareScrollView
         style={{ flex: 1, width: "100%" }}
         keyboardShouldPersistTaps="always"
       >
         <Image
           style={styles.logo}
-          source={require("../../../assets/icon.png")}
+          source={require("../../../assets/amplify-resized.png")}
         />
         <TextInput
           style={styles.input}
