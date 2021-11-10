@@ -2,7 +2,7 @@ import React from "react";
 import { Image, View, Text, StyleSheet } from "react-native";
 import { Video } from "expo-av";
 
-export const displayMedia = (type, uri) => {
+export const displayMedia = (type, uri, bool) => {
   if (type === "photo") {
     return <Image style={styles.media} source={{ uri }} />;
   } else if (type === "video") {
@@ -10,23 +10,23 @@ export const displayMedia = (type, uri) => {
       <Video
         style={styles.media}
         source={{ uri }}
-        useNativeControls
+        useNativeControls={bool ? false : true}
         isLooping
       />
     );
   } else {
-    return (
-      <View style={styles.media}>
-        <Text>No Media</Text>
-      </View>
-    );
+    return <View></View>;
   }
 };
 
 const styles = StyleSheet.create({
   media: {
     height: 200,
-    width: 200,
+    width: "100%",
+    // marginTop: -11,
+    borderTopLeftRadius: 3,
+    borderTopRightRadius: 3,
+    borderWidth: 2,
     // flex: 1,
     // justifyContent: "center",
     // alignItems: "center",

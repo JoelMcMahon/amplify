@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, Pressable } from "react-native";
 import { logoutHandler } from "../../utils/dbInteraction";
 import style from "./style";
 
-const ProfilePage = ({ user, setUser, navigation }) => {
+const ProfilePage = ({ user, setUser, navigation, setIsLoggedIn }) => {
   const { fullName, displayName, email } = user;
   const postNavigator = () => {
     navigation.navigate("ProfilePosts");
@@ -16,7 +16,7 @@ const ProfilePage = ({ user, setUser, navigation }) => {
 
       <Pressable
         onPress={() => {
-          logoutHandler(setUser);
+          logoutHandler(setUser, setIsLoggedIn);
         }}
         style={style.logout}
       >
