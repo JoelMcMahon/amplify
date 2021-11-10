@@ -20,6 +20,6 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width,
     alignSelf: "center",
   },
-  userCard: { backgroundColor: "#404040" },
+  userCard: { backgroundColor: "#404050" },
 });
 export default styles;

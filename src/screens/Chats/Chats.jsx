@@ -8,6 +8,8 @@ import fetchUsers from "../../Hooks/fetchUsers";
 import createChatRoom from "../../utils/createChatRoom";
 import getSingleChat from "../../utils/getSingleChat";
 import { LinearGradient } from "expo-linear-gradient";
+import { Entypo } from "@expo/vector-icons";
+
 const Chats = ({ navigation, chatArray, usersArray, currUser }) => {
   const { searchStr, setSearchStr } = fetchUsers();
   const [tempMessages, setTempMessages] = useState([]);
@@ -45,41 +47,43 @@ const Chats = ({ navigation, chatArray, usersArray, currUser }) => {
                       setSearchStr("");
                     }}
                   >
-                    <Title>{user.displayName}</Title>
-                    <Subheading>Hi...</Subheading>
+                    <Title>
+                      <Entypo name="new-message" size={24} color="#FEF4EC" />
+                      {"  "}
+                      {user.displayName}
+                    </Title>
                   </TouchableOpacity>
                 </Card.Content>
               </Card>
             );
           })
-        : null}
-      {chatArray.map((roomId) => {
-        return (
-          <Card key={roomId.id} style={styles.card}>
-            <Card.Content>
-              <TouchableOpacity
-                onPress={async () => {
-                  const messages = await getSingleChat(roomId.id, currUser);
+        : chatArray.map((roomId) => {
+            return (
+              <Card key={roomId.id} style={styles.card}>
+                <Card.Content>
+                  <TouchableOpacity
+                    onPress={async () => {
+                      const messages = await getSingleChat(roomId.id, currUser);
 
-                  navigation.navigate({
-                    name: "SingleChat",
-                    params: { roomId: roomId.id, messages },
-                  });
-                }}
-              >
-                <Title>
-                  <Text styles={styles.text}>
-                    {" "}
-                    {roomId.displayNames[0] === currUser.displayName
-                      ? roomId.displayNames[1]
-                      : roomId.displayNames[0]}
-                  </Text>
-                </Title>
-              </TouchableOpacity>
-            </Card.Content>
-          </Card>
-        );
-      })}
+                      navigation.navigate({
+                        name: "SingleChat",
+                        params: { roomId: roomId.id, messages },
+                      });
+                    }}
+                  >
+                    <Title>
+                      <Text styles={styles.text}>
+                        {" "}
+                        {roomId.displayNames[0] === currUser.displayName
+                          ? roomId.displayNames[1]
+                          : roomId.displayNames[0]}
+                      </Text>
+                    </Title>
+                  </TouchableOpacity>
+                </Card.Content>
+              </Card>
+            );
+          })}
     </ScrollView>
   );
 };
