@@ -24,18 +24,12 @@ if (!global.atob) {
 }
 
 LogBox.ignoreLogs(["Setting a timer"]);
+LogBox.ignoreLogs(["Async Storage has been extracted from react-native core"]);
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  LogBox.ignoreLogs([
-    "Async Storage has been extracted from react-native core",
-  ]);
-  const { user, setUser, isLoggedIn } = userAppAuth();
-  // console.log(user, "<<<<<<<<<<user");
-  LogBox.ignoreLogs(["Setting a timer"]);
-
-  // console.log(user, "<<<<<<in app");
+  const { user, setUser, isLoggedIn, setIsLoggedIn } = userAppAuth();
 
   const { usersArray, chatArray, messagesObject } = testChat(user);
 
@@ -46,7 +40,14 @@ export default function App() {
           {(props) => <HomeScreen {...props} user={user} />}
         </Tab.Screen>
         <Tab.Screen name="Profile">
-          {(props) => <Profile {...props} user={user} setUser={setUser} />}
+          {(props) => (
+            <Profile
+              {...props}
+              user={user}
+              setUser={setUser}
+              setIsLoggedIn={setIsLoggedIn}
+            />
+          )}
         </Tab.Screen>
         <Tab.Screen name="NewPost">
           {(props) => <NewPostNav {...props} user={user} />}
@@ -70,10 +71,22 @@ export default function App() {
     return (
       <Stack.Navigator>
         <Stack.Screen name="Login">
-          {(props) => <LoginScreen {...props} setUser={setUser} />}
+          {(props) => (
+            <LoginScreen
+              {...props}
+              setUser={setUser}
+              setIsLoggedIn={setIsLoggedIn}
+            />
+          )}
         </Stack.Screen>
         <Stack.Screen name="Registration">
-          {(props) => <RegistrationScreen {...props} setUser={setUser} />}
+          {(props) => (
+            <RegistrationScreen
+              {...props}
+              setUser={setUser}
+              setIsLoggedIn={setIsLoggedIn}
+            />
+          )}
         </Stack.Screen>
       </Stack.Navigator>
     );

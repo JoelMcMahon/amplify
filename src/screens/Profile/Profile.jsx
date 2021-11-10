@@ -7,7 +7,7 @@ import SingleAd from "../SingleAd/SingleAd";
 
 const Stack = createStackNavigator();
 
-const Profile = ({ user, setUser, navigation }) => {
+const Profile = ({ user, setUser, navigation, setIsLoggedIn }) => {
   const [posts, setPosts] = useState([]);
   const [currentAd, setCurrentAd] = useState({});
 
@@ -38,7 +38,14 @@ const Profile = ({ user, setUser, navigation }) => {
   return (
     <Stack.Navigator screenOptions={{ header: () => null }}>
       <Stack.Screen name="ProfileInfo">
-        {(props) => <ProfilePage {...props} user={user} setUser={setUser} />}
+        {(props) => (
+          <ProfilePage
+            {...props}
+            user={user}
+            setUser={setUser}
+            setIsLoggedIn={setIsLoggedIn}
+          />
+        )}
       </Stack.Screen>
       <Stack.Screen name="ProfilePosts">
         {(props) => <PostFeed {...props} ads={posts} navToAd={navToAd} />}
