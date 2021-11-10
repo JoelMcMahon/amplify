@@ -12,6 +12,7 @@ export const userAppAuth = () => {
   });
 
   useEffect(() => {
+    console.log("test");
     const usersRef = firebase.firestore().collection("users");
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -22,16 +23,16 @@ export const userAppAuth = () => {
             const userData = document.data();
             setUser(userData);
             setIsLoggedIn(true);
-            // AsyncStorage.setItem('userData',JSON.stringify(userData))
+            AsyncStorage.setItem("userData", JSON.stringify(userData));
           })
           .catch((error) => {
             console.warn(error);
           });
       } else {
-        console.warn("Invalid user");
+        console.log("logged out");
       }
     });
-  }, []);
+  }, [setUser, setIsLoggedIn]);
 
-  return { user, setUser, isLoggedIn };
+  return { user, setUser, isLoggedIn, setIsLoggedIn };
 };
