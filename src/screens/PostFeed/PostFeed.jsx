@@ -29,24 +29,22 @@ const PostFeed = ({ ads, mainList, navToAd, navigation }) => {
         // mode={"outlined"}
       >
         {/* <Card.Cover source={{ uri: item.url }} /> */}
-        <Text>{mainList && item.displayName}</Text>
-        {displayMedia(item.type, item.url)}
+        {/* <Text>{mainList && item.displayName}</Text> */}
+        {displayMedia(item.type, item.url, true)}
+        <Card.Title
+          title={item.title}
+          subtitle={[mainList && item.displayName, item.created && textTime]}
+          subtitleNumberOfLines={2}
+        />
         <Card.Content>
-          <Title>{item.title}</Title>
           <Text>{item.body}</Text>
-          {item.created && (
-            <>
-              <Text>{date}</Text>
-              <Text>{textTime}</Text>
-            </>
-          )}
         </Card.Content>
-        <Button
+        {/* <Button
           style={styles.button}
           title="Single Ad"
           onPress={() => navToAd(item)}
           dark={true}
-        ></Button>
+        ></Button> */}
       </Card>
     );
   };
