@@ -10,7 +10,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 const Form = ({ navigation, media, setMedia, user }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [uploadingAd, setUploadingAd] = useState(true);
+  const [uploadingAd, setUploadingAd] = useState(false);
   const [error, setError] = useState(false);
 
   const navigateToCapture = () => {
