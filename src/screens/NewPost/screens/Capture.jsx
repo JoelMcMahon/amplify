@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     flexDirection: "row",
     width: "100%",
-    backgroundColor: "white",
+    backgroundColor: "#e05c10",
     justifyContent: "space-around",
     paddingBottom: 5,
     paddingTop: 5,
