@@ -15,6 +15,7 @@ import NewPostNav from "./src/screens/NewPost/NewPost";
 import Inbox from "./src/screens/InboxScreen/InboxScreen";
 import fetchUsers from "./src/Hooks/fetchUsers";
 import { testChat } from "./src/Hooks/testChats";
+import { Provider as PaperProvider } from 'react-native-paper';
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -93,8 +94,10 @@ export default function App() {
   };
 
   return (
+    <PaperProvider>
     <NavigationContainer>
       {isLoggedIn ? tabs() : loginSignup()}
     </NavigationContainer>
+    </PaperProvider>
   );
 }
