@@ -1,14 +1,13 @@
 import { Camera } from "expo-camera";
 import React, { useState } from "react";
-import { Pressable } from "react-native";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import { useCamera } from "../hooks/camera";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
-
 import * as ImagePicker from "expo-image-picker";
 import { AntDesign } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 const Capture = ({ navigation, setMedia }) => {
   const [camera, setCamera] = useState(null);
@@ -86,13 +85,25 @@ const Capture = ({ navigation, setMedia }) => {
             )}
           </Pressable>
         )}
-        {/* <Button title="Toggle type" onPress={toggleType} />
-        <Button title="Go Back" onPress={() => navigation.navigate("Form")} />
-        <Button title="Change Camera Mode" onPress={toggleCameraMode} /> */}
-        {/* <Pressable style={styles.gallery} onPress={pickMedia}>
-          <Ionicons name="images-outline" size={30} color="white" />
-        </Pressable> */}
-        <View style={styles.buttonOptions}></View>
+
+        <View style={styles.buttonOptions}>
+          <Pressable onPress={pickMedia}>
+            <MaterialIcons name="add-photo-alternate" size={32} color="black" />
+          </Pressable>
+          <Pressable onPress={toggleType}>
+            <Ionicons name="camera-reverse-sharp" size={32} color="black" />
+          </Pressable>
+          <Pressable onPress={toggleCameraMode}>
+            {mediaType === "photo" ? (
+              <FontAwesome5 name="camera-retro" size={32} color="black" />
+            ) : (
+              <AntDesign name="videocamera" size={32} color="black" />
+            )}
+          </Pressable>
+          <Pressable onPress={() => navigation.navigate("Form")}>
+            <AntDesign name="back" size={32} color="black" />
+          </Pressable>
+        </View>
       </View>
     );
   };
@@ -158,8 +169,11 @@ const styles = StyleSheet.create({
   buttonOptions: {
     position: "absolute",
     bottom: 0,
+    flexDirection: "row",
     width: "100%",
-    height: 50,
     backgroundColor: "white",
+    justifyContent: "space-around",
+    paddingBottom: 5,
+    paddingTop: 5,
   },
 });
