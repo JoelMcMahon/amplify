@@ -15,7 +15,16 @@ import NewPostNav from "./src/screens/NewPost/NewPost";
 import Inbox from "./src/screens/InboxScreen/InboxScreen";
 import fetchUsers from "./src/Hooks/fetchUsers";
 import { testChat } from "./src/Hooks/testChats";
-import { Provider as PaperProvider } from 'react-native-paper';
+import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: "#e05c10",
+    text: "white",
+  },
+};
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -94,10 +103,10 @@ export default function App() {
   };
 
   return (
-    <PaperProvider>
-    <NavigationContainer>
-      {isLoggedIn ? tabs() : loginSignup()}
-    </NavigationContainer>
+    <PaperProvider theme={theme}>
+      <NavigationContainer>
+        {isLoggedIn ? tabs() : loginSignup()}
+      </NavigationContainer>
     </PaperProvider>
   );
 }

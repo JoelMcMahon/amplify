@@ -8,27 +8,32 @@ export default getSingleChat = async (roomId, currUser) => {
     .get()
     .then((docs) => {
       const data = docs.data();
+      console.log(typeof data.messages);
+      if (Array.isArray(data.messages)) {
+        const formattedMessages = data.messages.map((message, index) => {
+          const id = () => {
+            if (message.senderId === currUserID) {
+              return 1;
+            } else {
+              return 2;
+            }
+          };
+          const formattedTime = new Date(message.createdAt);
+          const formattedMessage = {
+            _id: index,
+            text: message.body,
+            createdAt: formattedTime,
+            user: {
+              _id: id(),
+            },
+          };
+          return formattedMessage;
+        });
+        return formattedMessages;
+      } else {
+        return [];
+      }
       //   console.log(docs.data(), "<<<<<data in singlechat");
-      const formattedMessages = data.messages.map((message, index) => {
-        const id = () => {
-          if (message.senderId === currUserID) {
-            return 1;
-          } else {
-            return 2;
-          }
-        };
-        const formattedTime = new Date(message.createdAt);
-        const formattedMessage = {
-          _id: index,
-          text: message.body,
-          createdAt: formattedTime,
-          user: {
-            _id: id(),
-          },
-        };
-        return formattedMessage;
-      });
-      return formattedMessages;
     });
   return msgs.reverse();
   //   console.log(msgs, "<<<<<<msgs");

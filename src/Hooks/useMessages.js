@@ -42,28 +42,32 @@ export default function useMessages(chatArray, user) {
         const data = snapshot.data();
         // console.log(data, "<<<<<<<data");
         // console.log(data);
-        if (data.messages) {
+        let formattedMessages;
+        if (typeof data.messages == "array") {
           // console.log(data.messages, "<<<<<<<<<<messages");
+
+          formattedMessages = data.messages.map((message, index) => {
+            const id = () => {
+              if (message.senderId === currUserID) {
+                return 1;
+              } else {
+                return 2;
+              }
+            };
+            const formattedTime = new Date(message.createdAt);
+            const formattedMessage = {
+              _id: index,
+              text: message.body,
+              createdAt: formattedTime,
+              user: {
+                _id: id(),
+              },
+            };
+            return formattedMessage;
+          });
+        } else {
+          formattedMessages = [];
         }
-        const formattedMessages = data.messages.map((message, index) => {
-          const id = () => {
-            if (message.senderId === currUserID) {
-              return 1;
-            } else {
-              return 2;
-            }
-          };
-          const formattedTime = new Date(message.createdAt);
-          const formattedMessage = {
-            _id: index,
-            text: message.body,
-            createdAt: formattedTime,
-            user: {
-              _id: id(),
-            },
-          };
-          return formattedMessage;
-        });
 
         if (formattedMessages.length > 0) {
           setMessagesArray(formattedMessages.reverse());

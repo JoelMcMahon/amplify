@@ -4,7 +4,7 @@ export default function formatMessageBeforeAdding(messageBody, newIndex) {
     text: messageBody,
     createdAt: Date.now(),
     user: {
-      _id: 2,
+      _id: 1,
     },
   };
   return formattedMessage;
