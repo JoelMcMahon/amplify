@@ -6,6 +6,7 @@ import buttonStyle from "../HomeScreen/styles";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Card, Title, Button, Paragraph } from "react-native-paper";
 import { styles } from "./Styles";
+import { LinearGradient } from "expo-linear-gradient";
 
 const PostFeed = ({ ads, mainList, navToAd, navigation }) => {
   const navToMap = () => {
@@ -38,9 +39,12 @@ const PostFeed = ({ ads, mainList, navToAd, navigation }) => {
           subtitleNumberOfLines={2}
         />
         <Card.Content>
-          <Text>{item.body}</Text>
+          <Text style={styles.text}>{item.body}</Text>
         </Card.Content>
-        <Button style={styles.button} onPress={() => navToAd(item)} dark={true}>
+        <Button
+          // style={(styles.button, styles.shadow)}
+          onPress={() => navToAd(item)}
+        >
           View Ad
         </Button>
       </Card>
@@ -57,6 +61,10 @@ const PostFeed = ({ ads, mainList, navToAd, navigation }) => {
 
   return (
     <View>
+      <LinearGradient
+        colors={["#252525", "#181818"]}
+        style={styles.background}
+      />
       {mainList && (
         <Pressable onPress={navToMap} style={buttonStyle.Pressable}>
           <Text style={styles.Text}>
