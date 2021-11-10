@@ -18,13 +18,13 @@ const PostFeed = ({ ads, mainList, navToAd, navigation }) => {
   };
 
   const post = ({ item }) => {
-    let date, textTime;
+    // let date, textTime;
 
-    if (item.created) {
-      const { formattedDate, elapsedTime } = formatDate(item.created);
-      date = formattedDate;
-      textTime = elapsedTime;
-    }
+    // if (item.created) {
+    //   const { formattedDate, elapsedTime } = formatDate(item.created);
+    //   date = formattedDate;
+    //   textTime = elapsedTime;
+    // }
 
     return (
       <View style={styles.individualPost}>
@@ -33,8 +33,8 @@ const PostFeed = ({ ads, mainList, navToAd, navigation }) => {
         <Text>{item.body}</Text>
         {item.created && (
           <>
-            <Text>{date}</Text>
-            <Text>{textTime}</Text>
+            {/* <Text>{date}</Text> */}
+            {/* <Text>{textTime}</Text> */}
           </>
         )}
         {displayMedia(item.type, item.url)}
