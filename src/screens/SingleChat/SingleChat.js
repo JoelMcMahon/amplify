@@ -60,8 +60,8 @@ export default function SingleChat(props) {
         key={Math.random()}
         {...props}
         wrapperStyle={{
-          right: { backgroundColor: "#DD7316" },
-          left: { backgroundColor: "#16DDD7" },
+          right: { backgroundColor: "#DD7316", marginRight: 5 },
+          left: { backgroundColor: "#16DDD7", marginLeft: -45 },
         }}
         textStyle={{ right: { color: "#000" }, left: { color: "#000" } }}
       />
