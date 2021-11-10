@@ -26,7 +26,10 @@ export const displayMedia = (type, uri) => {
 const styles = StyleSheet.create({
   media: {
     height: 200,
-    width: 200,
+    width: "100%",
+    marginTop: -11,
+    borderTopLeftRadius: 3,
+    borderTopRightRadius: 3,
     // flex: 1,
     // justifyContent: "center",
     // alignItems: "center",

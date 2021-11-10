@@ -24,13 +24,13 @@ const PostFeed = ({ ads, mainList, navToAd, navigation }) => {
     return (
       <Card
         style={styles.individualPost}
-        onLongPress={() => console.log("l")}
+        onPress={() => navToAd(item)}
         elevation={1}
         // mode={"outlined"}
       >
-        <Card.Cover source={{ uri: item.url }} />
+        {/* <Card.Cover source={{ uri: item.url }} /> */}
         <Text>{mainList && item.displayName}</Text>
-        {/* {displayMedia(item.type, item.url)} */}
+        {displayMedia(item.type, item.url)}
         <Card.Content>
           <Title>{item.title}</Title>
           <Text>{item.body}</Text>
