@@ -26,6 +26,7 @@ const PostFeed = ({ ads, mainList, navToAd, navigation }) => {
         style={styles.individualPost}
         onPress={() => navToAd(item)}
         elevation={1}
+        theme={{ colors: { text: styles.text } }}
         // mode={"outlined"}
       >
         {/* <Card.Cover source={{ uri: item.url }} /> */}
@@ -39,12 +40,9 @@ const PostFeed = ({ ads, mainList, navToAd, navigation }) => {
         <Card.Content>
           <Text>{item.body}</Text>
         </Card.Content>
-        {/* <Button
-          style={styles.button}
-          title="Single Ad"
-          onPress={() => navToAd(item)}
-          dark={true}
-        ></Button> */}
+        <Button style={styles.button} onPress={() => navToAd(item)} dark={true}>
+          View Ad
+        </Button>
       </Card>
     );
   };

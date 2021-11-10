@@ -5,12 +5,21 @@ export const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 10,
     padding: 5,
-    borderWidth: 1,
+    borderWidth: 2,
     width: "99%",
+    height: "99%",
   },
-  text: {
-    color: "blue",
+  Pressable: {
+    alignSelf: "flex-end",
   },
+  username: {
+    marginTop: -8,
+    color: "#E36B09",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  bodyText: {},
+
   //   button: {
   //     backgroundColor: "black",
   //     color: "white",
