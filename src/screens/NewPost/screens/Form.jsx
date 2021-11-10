@@ -4,7 +4,7 @@ import { Image } from "react-native";
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import { Button } from "react-native-paper";
 import { uploadAd } from "../dbInteraction";
-import loadingIcon from "../../../images/loading.svg";
+import loadingIcon from "../../../images/loading.gif";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const Form = ({ navigation, media, setMedia, user }) => {
@@ -46,23 +46,18 @@ const Form = ({ navigation, media, setMedia, user }) => {
   if (uploadingAd) {
     return (
       <View style={styles.uploadingContainer}>
-        <Text>Uploading..</Text>
-        <Image
-          source={loadingIcon}
-          style={{ height: 200, width: 200, backgroundColor: "red" }}
-        />
+        <Image source={loadingIcon} style={{ height: 75, width: 75 }} />
+        <Text style={{ color: "#e05c10" }}>Uploading...</Text>
       </View>
     );
   }
 
   return (
-    //Checks if any media is being held and displays the correct component
     <KeyboardAwareScrollView
       resetScrollToCoords={{ x: 0, y: 0 }}
       contentContainerStyle={styles.formContainer}
       scrollEnabled={true}
       extraScrollHeight={10}
-      // enableOnAndroid={true}
     >
       <View style={{ backgroundColor: "#252525", height: "100%" }}>
         <View style={styles.mediaContainer}>{mediaPlaceholder()}</View>
@@ -133,7 +128,7 @@ const styles = StyleSheet.create({
   uploadingContainer: {
     height: "100%",
     width: "100%",
-    backgroundColor: "#302f2f",
+    backgroundColor: "#252525",
     justifyContent: "center",
     alignItems: "center",
   },
