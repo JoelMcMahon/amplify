@@ -1,13 +1,14 @@
 import { db } from "../firebase/config";
 
-export default getSingleChat = async (roomId, currUser) => {
-  //   console.log(currUser);
-  const currUserID = currUser.id;
-  const msgs = await db
+export default fetchChatsOnPage = async (roomId, currUserID) => {
+  const newMessages = await db
     .doc(`chats/${roomId}`)
     .get()
-    .then((docs) => {
-      const data = docs.data();
+    .then((doc) => {
+      const data = doc.data();
+      // console.log(data);
+      console.log("fetching data");
+
       //   console.log(docs.data(), "<<<<<data in singlechat");
       const formattedMessages = data.messages.map((message, index) => {
         const id = () => {
@@ -30,6 +31,5 @@ export default getSingleChat = async (roomId, currUser) => {
       });
       return formattedMessages;
     });
-  return msgs.reverse();
-  //   console.log(msgs, "<<<<<<msgs");
+  return newMessages.reverse();
 };

@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { Text } from "react-native";
+import styles from "./styles";
 
-import firebase from "firebase";
-import { Card } from "react-native-elements/dist/card/Card";
+import { Card, Subheading, Title } from "react-native-paper";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { SearchBar } from "react-native-elements";
 import fetchUsers from "../../Hooks/fetchUsers";
 import createChatRoom from "../../utils/createChatRoom";
+import getSingleChat from "../../utils/getSingleChat";
 
 const Chats = ({ navigation, chatArray, usersArray, currUser }) => {
   const { searchStr, setSearchStr } = fetchUsers();
+  const [tempMessages, setTempMessages] = useState([]);
   // console.log(chatArray, "<<<<<<<< chat array for ", currUser.displayName);
   return (
     <ScrollView>
@@ -24,25 +26,28 @@ const Chats = ({ navigation, chatArray, usersArray, currUser }) => {
         ? usersArray.map((user) => {
             return (
               <Card key={user.id}>
-                <TouchableOpacity
-                  onPress={async () => {
-                    const newRoomId = await createChatRoom(
-                      currUser.id,
-                      currUser.displayName,
-                      user.id,
-                      user.displayName,
-                      chatArray
-                    );
-                    console.log(newRoomId, "<newId");
-                    navigation.navigate({
-                      name: "SingleChat",
-                      params: newRoomId,
-                    });
-                    setSearchStr("");
-                  }}
-                >
-                  <Text>{user.displayName}</Text>
-                </TouchableOpacity>
+                <Card.Content style={{ textAlign: "center" }}>
+                  <TouchableOpacity
+                    onPress={async () => {
+                      const newRoomId = await createChatRoom(
+                        currUser.id,
+                        currUser.displayName,
+                        user.id,
+                        user.displayName,
+                        chatArray
+                      );
+                      // console.log(newRoomId, "<newId");
+                      navigation.navigate({
+                        name: "SingleChat",
+                        params: newRoomId,
+                      });
+                      setSearchStr("");
+                    }}
+                  >
+                    <Title>{user.displayName}</Title>
+                    <Subheading>Hi...</Subheading>
+                  </TouchableOpacity>
+                </Card.Content>
               </Card>
             );
           })
@@ -50,18 +55,24 @@ const Chats = ({ navigation, chatArray, usersArray, currUser }) => {
       {chatArray.map((roomId) => {
         return (
           <Card key={roomId.id}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate({ name: "SingleChat", params: roomId.id });
-              }}
-            >
-              <Text>
-                {" "}
-                {roomId.displayNames[0] === currUser.displayName
-                  ? roomId.displayNames[1]
-                  : roomId.displayNames[0]}
-              </Text>
-            </TouchableOpacity>
+            <Card.Content>
+              <TouchableOpacity
+                onPress={async () => {
+                  const messages = await getSingleChat(roomId.id, currUser);
+                  navigation.navigate({
+                    name: "SingleChat",
+                    params: { roomId: roomId.id, messages },
+                  });
+                }}
+              >
+                <Title>
+                  {" "}
+                  {roomId.displayNames[0] === currUser.displayName
+                    ? roomId.displayNames[1]
+                    : roomId.displayNames[0]}
+                </Title>
+              </TouchableOpacity>
+            </Card.Content>
           </Card>
         );
       })}

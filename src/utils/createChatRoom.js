@@ -10,8 +10,8 @@ export default async function createChatRoom(
   userDN2,
   chatArray
 ) {
-  console.log("in function");
-  console.log(chatArray, "<<chat arr in function");
+  // console.log("in function");
+  // console.log(chatArray, "<<chat arr in function");
   const db = firebase.firestore();
   let roomExists = false;
   let roomId;

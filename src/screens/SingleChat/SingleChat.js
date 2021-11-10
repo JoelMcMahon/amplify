@@ -4,17 +4,31 @@ import { Bubble, GiftedChat } from "react-native-gifted-chat";
 import firebase from "firebase";
 // import onSend from "../../utils/onSend";
 import formatMessageBeforeAdding from "../../utils/formatMessageBeforeAdding";
+import fetchChatsOnPage from "../../utils/fetchChatsOnPage";
+import onSend from "../../utils/onSend";
 
 export default function SingleChat(props) {
-  setInterval(() => {
-    fetchChatsOnPage();
-  }, 1000);
   const roomId = props.route.params.roomId;
-  console.log(props, "<<<<<<<,props");
+  const userId = firebase.auth().currentUser.uid;
+  const [refreshInterval, setRefreshInterval] = useState(
+    setInterval(async () => {
+      const updateMsgs = await fetchChatsOnPage(roomId, userId);
+      setMessages(updateMsgs);
+    }, 1000)
+  );
+  // console.log(props, "<<<<<<<,props");
   const messagesObject = props.messagesObject;
   const messagesArray = props.route.params.messages;
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    clearInterval(refreshInterval);
+    setRefreshInterval(() => {
+      return setInterval(() => {
+        fetchChatsOnPage(roomId, userId);
+      }, 1000);
+    });
+  }, []);
 
   // console.log(Object.keys(props), "<<<<<<<<<<<<<props in singlechat");
   // console.log(messagesObject, "<<<<<<<<<<<<<messagesObject in single chat");
@@ -26,7 +40,6 @@ export default function SingleChat(props) {
   // console.log(roomId, "<<<<<<<room id in single chat");
   // const messages = messagesObject[roomId];
   const [messageBody, setMessageBody] = useState("");
-  const userId = firebase.auth().currentUser.uid;
 
   // console.log(messageBody, "<<messageBody");
 
@@ -55,17 +68,18 @@ export default function SingleChat(props) {
           setMessageBody(text);
         }}
         onSend={async () => {
-          const newMessage = formatMessageBeforeAdding(
-            messageBody,
-            messagesArray.length
-          );
-          messagesArray.unshift(newMessage);
+          // const newMessage = formatMessageBeforeAdding(
+          //   messageBody,
+          //   messagesArray.length
+          // );
+          // messagesArray.unshift(newMessage);
 
           setMessageBody("");
+          onSend(roomId, userId, messageBody);
         }}
         renderBubble={renderBubble}
-        user={{ _id: 2 }}
-        messages={messagesArray}
+        user={{ _id: 1 }}
+        messages={messages}
       />
     </View>
   );

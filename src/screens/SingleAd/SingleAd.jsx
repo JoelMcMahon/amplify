@@ -15,7 +15,7 @@ const SingleAd = ({ currentAd, navigation, onProfile, setOtherUser }) => {
   console.log(setOtherUser);
 
   const goToChat = () => {
-    console.log("goToChat", `User ID: ${userId}`);
+    // console.log("goToChat", `User ID: ${userId}`);
     // navigation.navigate("chat-page")
   };
 
