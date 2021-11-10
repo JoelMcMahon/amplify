@@ -9,11 +9,8 @@ import { userAppAuth } from "./src/Hooks/userAppAuth";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Profile from "./src/screens/Profile/Profile";
 import { navIcons } from "./src/utils/navIcons";
-import useMessages from "./src/Hooks/useMessages";
-import useChats from "./src/Hooks/useChats";
 import NewPostNav from "./src/screens/NewPost/NewPost";
 import Inbox from "./src/screens/InboxScreen/InboxScreen";
-import fetchUsers from "./src/Hooks/fetchUsers";
 import { testChat } from "./src/Hooks/testChats";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 
