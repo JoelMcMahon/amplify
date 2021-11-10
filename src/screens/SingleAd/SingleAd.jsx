@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import { displayMedia } from "../../Hooks/displayMedia";
+import { Card, Title, Button, Paragraph } from "react-native-paper";
+import { styles } from "./Styles";
+import { Ionicons } from "@expo/vector-icons";
 
 const SingleAd = ({ currentAd, navigation, onProfile, setOtherUser }) => {
   const { title, body, displayName, created, url, type, userId } = currentAd;
@@ -30,22 +33,24 @@ const SingleAd = ({ currentAd, navigation, onProfile, setOtherUser }) => {
   }, []);
 
   return (
-    <View>
-      {!onProfile && (
-        <>
-          <Text>{displayName}</Text>
-          <Button title="Chat" onPress={goToChat}></Button>
-          <Button title="Go To Profile" onPress={goToUserProfile}></Button>
-        </>
-      )}
+    <Card style={styles.individualPost}>
       {displayMedia(type, url)}
-      <Text>{title}</Text>
-      <Text>{body}</Text>
-      <Button title="Back" onPress={back}></Button>
-    </View>
+      <Card.Title title={title} />
+      <Card.Content>
+        {!onProfile && (
+          <>
+            <Text style={styles.username}>{displayName}</Text>
+            <Button title="Go To Profile" onPress={goToUserProfile}></Button>
+          </>
+        )}
+        <Text style={styles.bodyText}>{body}</Text>
+        <Pressable onPress={goToChat} style={styles.Pressable}>
+          <Ionicons name="chatbox-ellipses-outline" size={40} color="#363636" />
+        </Pressable>
+      </Card.Content>
+      <Button onPress={back}>Back</Button>
+    </Card>
   );
 };
 
 export default SingleAd;
-
-const styles = StyleSheet.create({});
