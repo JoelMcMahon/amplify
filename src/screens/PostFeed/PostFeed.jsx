@@ -72,15 +72,25 @@ const PostFeed = ({ ads, mainList, navToAd, navigation }) => {
       />
       {mainList && (
         <Pressable onPress={navToMap} style={buttonStyle.Pressable}>
-          <Text style={styles.Text}>
-            <FontAwesome5 name="map-marked-alt" size={35} color="grey" />
-          </Text>
+          <View
+            style={{
+              backgroundColor: "#E36B09",
+              padding: 5,
+              borderRadius: 4,
+              paddingTop: 5,
+              paddingRight: 8,
+              paddingLeft: 8,
+            }}
+          >
+            <FontAwesome5 name="map-marked-alt" size={35} color="#5A5A5A" />
+          </View>
         </Pressable>
       )}
       <FlatList
         data={ads}
         renderItem={post}
         keyExtractor={(item, index) => index}
+        listHeaderComponent={<Text>Test</Text>}
       />
     </View>
   );

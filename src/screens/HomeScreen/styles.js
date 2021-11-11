@@ -54,9 +54,13 @@ export default StyleSheet.create({
   },
   Pressable: {
     zIndex: 1000,
-    top: "4%",
+    top: 20,
+    width: 60,
+    height: 60,
     right: "7%",
     position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
   },
   Text: {
     color: "white",

@@ -26,9 +26,18 @@ export default function MapScreen({ ads, lastLocation, navToAd, navigation }) {
   return (
     <View style={styles.container}>
       <Pressable onPress={navToList} style={buttonStyle.Pressable}>
-        <Text style={buttonStyle.Text}>
-          <FontAwesome name="th-list" size={35} color="grey" />
-        </Text>
+        <View
+          style={{
+            backgroundColor: "#E36B09",
+            padding: 5,
+            borderRadius: 4,
+            paddingTop: 8,
+            paddingRight: 14,
+            paddingLeft: 14,
+          }}
+        >
+          <FontAwesome name="th-list" size={35} color="#5A5A5A" />
+        </View>
       </Pressable>
       <MapView style={styles.map} region={initRegion}>
         {ads.map((ad, index) => {

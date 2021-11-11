@@ -44,9 +44,11 @@ const SingleAd = ({ currentAd, navigation, onProfile, setOtherUser }) => {
 
   const chatIcon = () => {
     return (
-      <Pressable onPress={goToChat} style={styles.Pressable}>
-        <Ionicons name="chatbox-ellipses-outline" size={40} color="white" />
-      </Pressable>
+      !onProfile && (
+        <Pressable onPress={goToChat} style={styles.Pressable}>
+          <Ionicons name="chatbox-ellipses-outline" size={40} color="white" />
+        </Pressable>
+      )
     );
   };
 
