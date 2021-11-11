@@ -4,8 +4,18 @@ import { displayMedia } from "../../Hooks/displayMedia";
 import { Card, Title, Button, Paragraph } from "react-native-paper";
 import { styles } from "./Styles";
 import { Ionicons } from "@expo/vector-icons";
+import createChatRoom from "../../utils/createChatRoom";
+import getSingleChat from "../../utils/getSingleChat";
+import { userAppAuth } from "../../Hooks/userAppAuth";
 
-const SingleAd = ({ currentAd, navigation, onProfile, setOtherUser }) => {
+const SingleAd = ({
+  currentAd,
+  navigation,
+  onProfile,
+  setOtherUser,
+  currentUser,
+  chatArray,
+}) => {
   const { title, body, displayName, created, url, type, userId } = currentAd;
   const back = () => {
     if (onProfile) {
@@ -14,12 +24,24 @@ const SingleAd = ({ currentAd, navigation, onProfile, setOtherUser }) => {
       navigation.navigate("HomePosts");
     }
   };
-
-  console.log(setOtherUser);
-
-  const goToChat = () => {
-    // console.log("goToChat", `User ID: ${userId}`);
-    // navigation.navigate("chat-page")
+  const { user } = userAppAuth();
+  const goToChat = async () => {
+    console.log(chatArray);
+    const newRoomId = await createChatRoom(
+      user.id,
+      user.displayName,
+      //^current user id and DN
+      userId,
+      displayName,
+      //^ad posters id and DN
+      chatArray
+    );
+    const messages = await getSingleChat(newRoomId, user.id);
+    // console.log(newRoomId, "<newId");
+    navigation.navigate("Inbox", {
+      screen: "SingleChat",
+      params: { roomId: newRoomId, messages },
+    });
   };
 
   const goToUserProfile = () => {

@@ -42,12 +42,11 @@ export default function App() {
 
   const tabs = () => {
     return (
-      <Tab.Navigator
-        screenOptions={navIcons}
-        tabBarHideOnKeyboard={true}
-      >
+      <Tab.Navigator screenOptions={navIcons} tabBarHideOnKeyboard={true}>
         <Tab.Screen name="Home">
-          {(props) => <HomeScreen {...props} user={user} />}
+          {(props) => (
+            <HomeScreen {...props} user={user} chatArray={chatArray} />
+          )}
         </Tab.Screen>
         <Tab.Screen name="Profile">
           {(props) => (
@@ -62,7 +61,7 @@ export default function App() {
         <Tab.Screen name="NewPost">
           {(props) => <NewPostNav {...props} user={user} />}
         </Tab.Screen>
-        <Tab.Screen name="Inbox">
+        <Tab.Screen name="Inbox" screen="Chats">
           {(props) => (
             <Inbox
               {...props}

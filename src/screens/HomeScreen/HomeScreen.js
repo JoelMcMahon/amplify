@@ -7,13 +7,15 @@ import { useMap } from "../../Hooks/useMarkers";
 import { createStackNavigator } from "@react-navigation/stack";
 import SingleAd from "../SingleAd/SingleAd";
 import OtherUser from "../OtherUser/OtherUser";
+import Chats from "../Chats/Chats";
 
 const Stack = createStackNavigator();
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({ navigation, currentUser, chatArray }) {
   const [currentAd, setCurrentAd] = useState({});
   const [otherUser, setOtherUser] = useState("");
   const { ads, loading, lastLocation } = useMap();
+  // console.log(chatArray, "<<<< CA in homescreen");
 
   if (loading) {
     return (
@@ -25,7 +27,7 @@ export default function HomeScreen({ navigation }) {
 
   const navToAd = (ad) => {
     setCurrentAd(ad);
-    navigation.navigate("SingleHomeAd");
+    navigation.navigate("SingleHomeAd", { currentUser });
   };
 
   return (
@@ -56,6 +58,8 @@ export default function HomeScreen({ navigation }) {
             currentAd={currentAd}
             navigation={navigation}
             setOtherUser={setOtherUser}
+            currentUser={currentUser}
+            chatArray={chatArray}
           />
         )}
       </Stack.Screen>
