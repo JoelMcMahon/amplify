@@ -19,7 +19,7 @@ export default function useChats(user) {
             snapshot.docs.forEach((doc) => {
               const displayNames = doc.data().displayNames;
               const users = doc.data().users;
-              console.log(users, "<<< USERS");
+              // console.log(users, "<<< USERS");
               const id = doc.id;
               tempRooms.push({ id, users, displayNames });
             });

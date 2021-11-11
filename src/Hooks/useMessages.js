@@ -9,7 +9,7 @@ export default function useMessages(chatArray, user) {
   const [messagesArray, setMessagesArray] = useState([]);
   const [tempMessages, setTempMessages] = useState([]);
   const [messagesObject, setMessagesObject] = useState({});
-  console.log(user);
+  // console.log(user);
 
   useEffect(() => {
     chatArray.map((roomId) => {
@@ -31,7 +31,7 @@ export default function useMessages(chatArray, user) {
   }, [, chatArray]);
 
   // useEffect(() => {
-  //   // console.log(messagesObject, "messages object in use effect");
+  // console.log(messagesObject, "messages object in use effect");
   // }, [messagesArray]);
 
   const fetchMessages = (currRoomId, user) => {
@@ -40,15 +40,15 @@ export default function useMessages(chatArray, user) {
 
       db.doc(`chats/${currRoomId}`).onSnapshot((snapshot) => {
         const data = snapshot.data();
-        console.log(data);
-        if (data.messages) {
+        // console.log(data, "<<<<<<<data");
+        // console.log(data);
+        let formattedMessages;
+        if (typeof data.messages == "array") {
           // console.log(data.messages, "<<<<<<<<<<messages");
-        }
-        const formattedMessages = data.messages
-          .reverse()
-          .map((message, index) => {
+
+          formattedMessages = data.messages.map((message, index) => {
             const id = () => {
-              if (message.senderID === currUserID) {
+              if (message.senderId === currUserID) {
                 return 1;
               } else {
                 return 2;
@@ -65,8 +65,13 @@ export default function useMessages(chatArray, user) {
             };
             return formattedMessage;
           });
+        } else {
+          formattedMessages = [];
+        }
 
-        setMessagesArray(formattedMessages);
+        if (formattedMessages.length > 0) {
+          setMessagesArray(formattedMessages.reverse());
+        }
       });
     } catch (error) {
       console.log(error);

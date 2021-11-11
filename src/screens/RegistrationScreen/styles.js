@@ -8,8 +8,8 @@ export default StyleSheet.create({
   title: {},
   logo: {
     flex: 1,
-    height: 120,
-    width: 90,
+    height: 50,
+    width: 200,
     alignSelf: "center",
     margin: 30,
   },
@@ -25,7 +25,12 @@ export default StyleSheet.create({
     paddingLeft: 16,
   },
   button: {
+<<<<<<< HEAD
+    backgroundColor: "#e05c10",
+    color: "white",
+=======
     backgroundColor: "#788eec",
+>>>>>>> db98d1d31f76a23336f8a003d46ebfe6ac269710
     marginLeft: 30,
     marginRight: 30,
     marginTop: 20,
@@ -33,6 +38,11 @@ export default StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
+<<<<<<< HEAD
+
+    elevation: 10,
+=======
+>>>>>>> db98d1d31f76a23336f8a003d46ebfe6ac269710
   },
   buttonTitle: {
     color: "white",
@@ -53,4 +63,14 @@ export default StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
+<<<<<<< HEAD
+  background: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    height: "100%",
+  },
+=======
+>>>>>>> db98d1d31f76a23336f8a003d46ebfe6ac269710
 });

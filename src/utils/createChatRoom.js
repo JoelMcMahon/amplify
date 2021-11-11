@@ -10,21 +10,22 @@ export default async function createChatRoom(
   userDN2,
   chatArray
 ) {
-  console.log("in function");
+  // console.log("in function");
   console.log(chatArray, "<<chat arr in function");
   const db = firebase.firestore();
   let roomExists = false;
   let roomId;
+  console.log(userId1, userId2);
 
-  const displayName = await db.collection("users").doc(userId2).get();
   // console.log(displayName);
   if (chatArray.length === 0) {
     roomExists = false;
   } else {
-    await chatArray.forEach(async (chat) => {
+    await chatArray.forEach((chat) => {
       if (chat.users.includes(userId1) && chat.users.includes(userId2)) {
         roomExists = true;
         roomId = chat.id;
+        console.log(chat.id, "<<<<<<<<<<chat id");
       }
     });
   }
