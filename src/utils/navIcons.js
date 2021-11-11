@@ -26,9 +26,11 @@ export const navIcons = ({ route }) => ({
   },
   tabBarStyle: {
     backgroundColor: `#363636`,
+    borderTopWidth: 0,
   },
   headerStyle: {
     backgroundColor: "#363636",
+    borderBottomWidth: 0,
   },
   headerTintColor: "#FEF4EC",
   tabBarActiveTintColor: "#e05c10"

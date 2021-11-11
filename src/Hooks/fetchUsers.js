@@ -5,10 +5,10 @@ export default function fetchUsers() {
   const [searchStr, setSearchStr] = useState("");
   const [usersArray, setUsersArr] = useState([]);
   useEffect(() => {
-    searchUsers();
+    searchUsers(searchStr);
   }, [searchStr]);
 
-  const searchUsers = () => {
+  const searchUsers = (searchStr) => {
     const db = firebase.firestore();
     db.collection("users")
       .orderBy("displayName")

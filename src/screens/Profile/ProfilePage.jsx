@@ -9,7 +9,7 @@ import { View } from 'react-native';
 const ProfilePage = ({ user, setUser, navigation, setIsLoggedIn }) => {
   const { displayName, city } = user;
   const postNavigator = () => {
-    navigation.navigate('ProfilePosts');
+    navigation.navigate("ProfilePosts");
   };
   const imgs = {
     Celina: require('../../../assets/pexels-anna-tarazevich-8479248.jpg'),
@@ -26,7 +26,7 @@ const ProfilePage = ({ user, setUser, navigation, setIsLoggedIn }) => {
   return (
     <View style={style.container}>
       <LinearGradient
-        colors={['#252525', '#181818']}
+        colors={["#252525", "#181818"]}
         style={style.background}
       />
 
