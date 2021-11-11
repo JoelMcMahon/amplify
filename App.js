@@ -79,7 +79,7 @@ export default function App() {
 
   const loginSignup = () => {
     return (
-      <Stack.Navigator screenOptions={{headerShown:false}}>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login">
           {(props) => (
             <LoginScreen

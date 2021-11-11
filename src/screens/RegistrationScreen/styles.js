@@ -12,6 +12,7 @@ export default StyleSheet.create({
     width: 200,
     alignSelf: "center",
     margin: 30,
+    marginTop: 80,
   },
   input: {
     height: 48,
@@ -25,12 +26,8 @@ export default StyleSheet.create({
     paddingLeft: 16,
   },
   button: {
-<<<<<<< HEAD
     backgroundColor: "#e05c10",
     color: "white",
-=======
-    backgroundColor: "#788eec",
->>>>>>> db98d1d31f76a23336f8a003d46ebfe6ac269710
     marginLeft: 30,
     marginRight: 30,
     marginTop: 20,
@@ -38,11 +35,8 @@ export default StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
-<<<<<<< HEAD
 
     elevation: 10,
-=======
->>>>>>> db98d1d31f76a23336f8a003d46ebfe6ac269710
   },
   buttonTitle: {
     color: "white",
@@ -56,14 +50,13 @@ export default StyleSheet.create({
   },
   footerText: {
     fontSize: 16,
-    color: "#2e2e2d",
+    color: "#fff",
   },
   footerLink: {
-    color: "#788eec",
+    color: "#e05c10",
     fontWeight: "bold",
     fontSize: 16,
   },
-<<<<<<< HEAD
   background: {
     position: "absolute",
     left: 0,
@@ -71,6 +64,4 @@ export default StyleSheet.create({
     top: 0,
     height: "100%",
   },
-=======
->>>>>>> db98d1d31f76a23336f8a003d46ebfe6ac269710
 });
