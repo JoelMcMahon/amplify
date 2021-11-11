@@ -1,6 +1,7 @@
 import { Camera } from "expo-camera";
 import { useEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
+import { Audio } from "expo-av";
 
 export const useCamera = () => {
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -14,6 +15,7 @@ export const useCamera = () => {
     setHasPermission(status === "granted");
     const mediaPermissions =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const audioPermissions = Audio.requestPermissionsAsync();
     setHasLibraryPermissions(mediaPermissions.status === "granted");
   };
   useEffect(() => {
