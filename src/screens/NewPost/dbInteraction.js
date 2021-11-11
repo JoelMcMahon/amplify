@@ -8,7 +8,8 @@ export const uploadAd = async (
   media,
   setError,
   user,
-  setUpdateMap
+  setUpdateMap,
+  navigation
 ) => {
   //Checks if the title/body are adequate length. If not - changes error state and returns from function.
   if (title.length < 5 || body.length < 10) {
@@ -58,4 +59,5 @@ export const uploadAd = async (
   setUpdateMap((currentArray) => [...currentArray, 1]);
 
   setUploadingAd(false);
+  navigation.navigate("Home");
 };

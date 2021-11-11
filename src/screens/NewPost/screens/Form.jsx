@@ -98,7 +98,8 @@ const Form = ({ navigation, media, setMedia, user, setUpdateMap }) => {
                 media,
                 setError,
                 user,
-                setUpdateMap
+                setUpdateMap,
+                navigation
               );
             }}
             style={styles.bottomMargin}
