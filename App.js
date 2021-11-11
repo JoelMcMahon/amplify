@@ -42,7 +42,10 @@ export default function App() {
 
   const tabs = () => {
     return (
-      <Tab.Navigator screenOptions={navIcons} tabBarHideOnKeyboard={true}>
+      <Tab.Navigator
+        screenOptions={navIcons}
+        tabBarHideOnKeyboard={true}
+      >
         <Tab.Screen name="Home">
           {(props) => <HomeScreen {...props} user={user} />}
         </Tab.Screen>
@@ -76,7 +79,7 @@ export default function App() {
 
   const loginSignup = () => {
     return (
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login">
           {(props) => (
             <LoginScreen

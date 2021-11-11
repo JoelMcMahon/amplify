@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { db } from "../firebase/config";
+import RequestLocationData from "../utils/RequestLocationData";
 
 const geofire = require("geofire-common");
 
@@ -13,6 +14,7 @@ export const useMap = () => {
   });
 
   useEffect(() => {
+    RequestLocationData();
     const getAds = async () => {
       setLoading(true);
       const {

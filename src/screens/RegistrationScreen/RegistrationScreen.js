@@ -3,6 +3,8 @@ import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 import { firebase } from "../../firebase/config";
+import { LinearGradient } from "expo-linear-gradient";
+import { Button } from "react-native-paper";
 
 export default function RegistrationScreen({
   navigation,
@@ -55,13 +57,17 @@ export default function RegistrationScreen({
 
   return (
     <View style={styles.container}>
+      <LinearGradient
+        colors={["#252525", "#181818"]}
+        style={styles.background}
+      />
       <KeyboardAwareScrollView
         style={{ flex: 1, width: "100%" }}
         keyboardShouldPersistTaps="always"
       >
         <Image
           style={styles.logo}
-          source={require("../../../assets/icon.png")}
+          source={require("../../../assets/amplify-resized.png")}
         />
         <TextInput
           style={styles.input}
@@ -115,12 +121,9 @@ export default function RegistrationScreen({
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => onRegisterPress()}
-        >
+        <Button style={styles.button} onPress={() => onRegisterPress()}>
           <Text style={styles.buttonTitle}>Create account</Text>
-        </TouchableOpacity>
+        </Button>
         <View style={styles.footerView}>
           <Text style={styles.footerText}>
             Already got an account?{" "}
