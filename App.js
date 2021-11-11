@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { LoginScreen, HomeScreen, RegistrationScreen } from "./src/screens";
@@ -41,6 +41,7 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   const { user, setUser, isLoggedIn, setIsLoggedIn } = userAppAuth();
+  const [updateMap, setUpdateMap] = useState([]);
 
   const { usersArray, chatArray, messagesObject } = testChat(user);
 
@@ -49,7 +50,12 @@ export default function App() {
       <Tab.Navigator screenOptions={navIcons} tabBarHideOnKeyboard={true}>
         <Tab.Screen name="Home">
           {(props) => (
-            <HomeScreen {...props} user={user} chatArray={chatArray} />
+            <HomeScreen
+              {...props}
+              user={user}
+              updateMap={updateMap}
+              chatArray={chatArray}
+            />
           )}
         </Tab.Screen>
         <Tab.Screen name="Profile">
@@ -63,7 +69,9 @@ export default function App() {
           )}
         </Tab.Screen>
         <Tab.Screen name="NewPost">
-          {(props) => <NewPostNav {...props} user={user} />}
+          {(props) => (
+            <NewPostNav {...props} user={user} setUpdateMap={setUpdateMap} />
+          )}
         </Tab.Screen>
         <Tab.Screen
           name="Inbox"

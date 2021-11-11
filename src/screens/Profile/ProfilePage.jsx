@@ -12,14 +12,17 @@ const ProfilePage = ({ user, setUser, navigation, setIsLoggedIn }) => {
     navigation.navigate("ProfilePosts");
   };
   const imgs = {
-    Celina: require('../../../assets/pexels-anna-tarazevich-8479248.jpg'),
-    Jeff: require('../../../assets/pexels-amine-msiouri-2108813.jpg'),
-    // Brennan: require('../../../assets/pexels-rodolfo-quirós-1727280.jpg'),
-    Larry: require('../../../assets/pexels-rodolfo-quirós-1727280.jpg'),
+    CelinaAd: require('../../../assets/pexels-anna-tarazevich-8479248.jpg'),
+    rebelJeff: require('../../../assets/pexels-amine-msiouri-2108813.jpg'),
+    Brent123: require('../../../assets/pexels-rodolfo-quirós-1727280.jpg'),
+    Brentley86: require ('../../../assets/pexels-cottonbro-6503569.jpg'),
+    BrendanIam: require ('../../../assets/pexels-wendy-wei-1576280.jpg'),
+    BrentwoodH:require ('../../../assets/pexels-jack-carey-3331904.jpg'),
+    McLarry: require('../../../assets/pexels-rodolfo-quirós-1727280.jpg'),
     Ctrlholtdel: require('../../../assets/pexels-nichole-sebastian-3361381.jpg'),
-    Dave: require('../../../assets/pexels-anne-mccarthy-6344364.jpg'),
+    dave334: require('../../../assets/pexels-anne-mccarthy-6344364.jpg'),
     Emilyb93: require('../../../assets/pexels-cottonbro-6853299.jpg'),
-    Steve: require('../../../assets/pexels-cottonbro-6503569.jpg'),
+    steveRaw: require('../../../assets/pexels-cottonbro-6503569.jpg'),
   };
   const imgSource = imgs[displayName];
 
