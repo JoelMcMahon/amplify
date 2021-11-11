@@ -5,9 +5,18 @@ import { Card, Title, Button, Paragraph } from "react-native-paper";
 import { styles } from "./Styles";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { formatDate } from "../../utils/date";
 
 const SingleAd = ({ currentAd, navigation, onProfile, setOtherUser }) => {
   const { title, body, displayName, created, url, type, userId } = currentAd;
+
+  let date;
+
+  if (created) {
+    const { formattedDate } = formatDate(created);
+    date = formattedDate;
+  }
+
   const back = () => {
     if (onProfile) {
       navigation.navigate("ProfilePosts");
@@ -19,8 +28,8 @@ const SingleAd = ({ currentAd, navigation, onProfile, setOtherUser }) => {
   console.log(setOtherUser);
 
   const goToChat = () => {
-    // console.log("goToChat", `User ID: ${userId}`);
-    // navigation.navigate("chat-page")
+    console.log("goToChat", `User ID: ${userId}`);
+    navigation.navigate("Inbox");
   };
 
   const goToUserProfile = () => {
@@ -33,11 +42,19 @@ const SingleAd = ({ currentAd, navigation, onProfile, setOtherUser }) => {
     }
   }, []);
 
+  const chatIcon = () => {
+    return (
+      <Pressable onPress={goToChat} style={styles.Pressable}>
+        <Ionicons name="chatbox-ellipses-outline" size={40} color="white" />
+      </Pressable>
+    );
+  };
+
   return (
     <LinearGradient colors={["#252525", "#181818"]}>
       <Card style={styles.individualPost}>
         {displayMedia(type, url)}
-        <Card.Title title={title} />
+        <Card.Title title={title} subtitle={date} right={chatIcon} />
         <Card.Content>
           {!onProfile && (
             <>
@@ -46,13 +63,6 @@ const SingleAd = ({ currentAd, navigation, onProfile, setOtherUser }) => {
             </>
           )}
           <Text style={styles.bodyText}>{body}</Text>
-          <Pressable onPress={goToChat} style={styles.Pressable}>
-            <Ionicons
-              name="chatbox-ellipses-outline"
-              size={40}
-              color="#363636"
-            />
-          </Pressable>
         </Card.Content>
         <Button onPress={back}>Back</Button>
       </Card>

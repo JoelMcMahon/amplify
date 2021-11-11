@@ -2,23 +2,24 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   individualPost: {
-    alignSelf: "center",
     padding: 5,
     borderWidth: 2,
     width: "99%",
     height: "100%",
     backgroundColor: "#252525",
   },
-  Pressable: {
-    alignSelf: "flex-end",
-  },
   username: {
-    marginTop: -8,
+    marginTop: -3,
     color: "#E36B09",
     fontSize: 18,
     fontWeight: "bold",
   },
-  bodyText: {},
+  bodyText: {
+    color: "white",
+    fontSize: 16,
+    lineHeight: 20,
+    marginBottom: 15,
+  },
 
   //   button: {
   //     backgroundColor: "black",
