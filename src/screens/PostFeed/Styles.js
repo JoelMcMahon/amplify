@@ -27,4 +27,9 @@ export const styles = StyleSheet.create({
     top: 0,
     height: "100%",
   },
+
+  displayName: {
+    color: "#E36B09",
+    fontSize: 17,
+  },
 });

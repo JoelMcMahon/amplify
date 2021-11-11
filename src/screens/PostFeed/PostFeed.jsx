@@ -4,7 +4,7 @@ import { displayMedia } from "../../Hooks/displayMedia";
 import { formatDate } from "../../utils/date";
 import buttonStyle from "../HomeScreen/styles";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { Card, Title, Button, Paragraph } from "react-native-paper";
+import { Card, Title, Button, Paragraph, Badge } from "react-native-paper";
 import { styles } from "./Styles";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -30,15 +30,20 @@ const PostFeed = ({ ads, mainList, navToAd, navigation }) => {
         theme={{ colors: { text: styles.text } }}
         // mode={"outlined"}
       >
-        {/* <Card.Cover source={{ uri: item.url }} /> */}
-        {/* <Text>{mainList && item.displayName}</Text> */}
         {displayMedia(item.type, item.url, true)}
-        <Card.Title
-          title={item.title}
-          subtitle={[mainList && item.displayName, item.created && textTime]}
-          subtitleNumberOfLines={2}
-        />
+        <Card.Title title={item.title} subtitle={item.created && textTime} />
+
         <Card.Content>
+          <Badge
+            style={{
+              backgroundColor: "#E36B09",
+              alignSelf: "flex-start",
+              color: "black",
+            }}
+          >
+            Davey29
+          </Badge>
+
           <Text style={styles.text}>{item.body}</Text>
         </Card.Content>
         <Button
