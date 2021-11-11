@@ -1,25 +1,40 @@
-import { Dimensions, StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   text: {
-    textAlign: "center",
-    color: "white",
+    // textAlign: "center",
+    color: 'white',
   },
   background: {
-    backgroundColor: "#181818",
+    backgroundColor: '#181818',
   },
   searchBar: {
-    color: "black",
-    backgroundColor: "white",
+    color: 'black',
+    backgroundColor: 'white',
     borderRadius: 5,
     paddingLeft: 10,
   },
   card: {
-    backgroundColor: "#404040",
+    backgroundColor: '#404040',
     borderRadius: 5,
-    width: Dimensions.get("window").width,
-    alignSelf: "center",
+    width: '80%',
+    margin: 8,
+    alignSelf: 'center',
   },
-  userCard: { backgroundColor: "#404050" },
+  userCard: { backgroundColor: '#272c30' },
+  avatar: {
+    marginRight: 20,
+  },
+  chatcontainer: {
+    flexDirection: 'row',
+    alignContent: 'center',
+  },
+  searchtitle: {
+    marginRight: 30,
+  },
+  divider: {
+    marginTop: 15,
+    marginBottom: -15,
+  },
 });
 export default styles;
