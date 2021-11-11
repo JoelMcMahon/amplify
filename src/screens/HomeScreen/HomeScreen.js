@@ -10,10 +10,10 @@ import OtherUser from "../OtherUser/OtherUser";
 
 const Stack = createStackNavigator();
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({ navigation, updateMap }) {
   const [currentAd, setCurrentAd] = useState({});
   const [otherUser, setOtherUser] = useState("");
-  const { ads, loading, lastLocation } = useMap();
+  const { ads, loading, lastLocation } = useMap(updateMap);
 
   if (loading) {
     return (

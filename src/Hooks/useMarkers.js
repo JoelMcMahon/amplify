@@ -5,7 +5,7 @@ import RequestLocationData from "../utils/RequestLocationData";
 
 const geofire = require("geofire-common");
 
-export const useMap = () => {
+export const useMap = (updateMap) => {
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(false);
   const [lastLocation, setLastLocation] = useState({
@@ -67,7 +67,7 @@ export const useMap = () => {
     };
 
     getAds();
-  }, []);
+  }, [updateMap]);
 
   return { ads, loading, lastLocation };
 };

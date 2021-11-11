@@ -8,7 +8,7 @@ import loadingIcon from "../../../images/loading.gif";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { LinearGradient } from "expo-linear-gradient";
 
-const Form = ({ navigation, media, setMedia, user }) => {
+const Form = ({ navigation, media, setMedia, user, setUpdateMap }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [uploadingAd, setUploadingAd] = useState(false);
@@ -91,7 +91,15 @@ const Form = ({ navigation, media, setMedia, user }) => {
           />
           <Button
             onPress={() => {
-              uploadAd(setUploadingAd, title, body, media, setError, user);
+              uploadAd(
+                setUploadingAd,
+                title,
+                body,
+                media,
+                setError,
+                user,
+                setUpdateMap
+              );
             }}
             style={styles.bottomMargin}
           >
