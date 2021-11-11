@@ -6,6 +6,7 @@ import { Button } from "react-native-paper";
 import { uploadAd } from "../dbInteraction";
 import loadingIcon from "../../../images/loading.gif";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Form = ({ navigation, media, setMedia, user }) => {
   const [title, setTitle] = useState("");
@@ -34,11 +35,22 @@ const Form = ({ navigation, media, setMedia, user }) => {
       );
     } else {
       return (
-        <View style={styles.mediaPlaceholder}>
+        <LinearGradient
+          colors={["#252525", "#181818"]}
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: 0,
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <Text style={{ color: "#e05c10" }}>
             No Media. You can add a photo or video below!
           </Text>
-        </View>
+        </LinearGradient>
       );
     }
   };
