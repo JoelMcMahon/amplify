@@ -48,7 +48,7 @@ const Chats = ({ navigation, chatArray, usersArray, currUser }) => {
                     }}
                   >
                     <Title>
-                      <Entypo name="new-message" size={24} color="#FEF4EC" />
+                      <Entypo name="new-message" size={16} color="#FEF4EC" />
                       {"  "}
                       {user.displayName}
                     </Title>
