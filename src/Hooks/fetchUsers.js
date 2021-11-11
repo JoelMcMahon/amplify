@@ -13,7 +13,7 @@ export default function fetchUsers() {
     db.collection("users")
       .orderBy("displayName")
       .startAt(searchStr)
-      .limit(10)
+      .limit(3)
       .get()
       .then((users) => {
         const data = users.docs.map((doc) => {
