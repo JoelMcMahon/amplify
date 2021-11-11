@@ -26,12 +26,8 @@ export default StyleSheet.create({
     paddingLeft: 16,
   },
   button: {
-<<<<<<< HEAD
-    backgroundColor: "#788eec",
-=======
     backgroundColor: "#e05c10",
     color: "white",
->>>>>>> 231c58730ae09e27ffc2c254e106e1b75d87aa19
     marginLeft: 30,
     marginRight: 30,
     marginTop: 20,
@@ -39,11 +35,8 @@ export default StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
-<<<<<<< HEAD
-=======
 
     elevation: 10,
->>>>>>> 231c58730ae09e27ffc2c254e106e1b75d87aa19
   },
   buttonTitle: {
     color: "white",
@@ -64,8 +57,6 @@ export default StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
-<<<<<<< HEAD
-=======
   background: {
     position: "absolute",
     left: 0,
@@ -73,5 +64,4 @@ export default StyleSheet.create({
     top: 0,
     height: "100%",
   },
->>>>>>> 231c58730ae09e27ffc2c254e106e1b75d87aa19
 });
