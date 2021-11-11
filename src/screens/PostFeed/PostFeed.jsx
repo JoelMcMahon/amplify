@@ -41,7 +41,7 @@ const PostFeed = ({ ads, mainList, navToAd, navigation }) => {
               color: "black",
             }}
           >
-            Davey29
+            {item.displayName}
           </Badge>
 
           <Text style={styles.text}>{item.body}</Text>
