@@ -4,6 +4,7 @@ import { useGetUser } from "./getUser";
 
 const OtherUser = ({ userId, navigation }) => {
   const { loading, user } = useGetUser(userId);
+  console.log("on other user");
 
   if (loading)
     return (

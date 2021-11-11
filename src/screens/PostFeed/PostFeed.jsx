@@ -15,6 +15,7 @@ const PostFeed = ({ ads, mainList, navToAd, navigation }) => {
 
   const post = ({ item }) => {
     let date, textTime;
+    console.log(item);
 
     if (item.created) {
       const { formattedDate, elapsedTime } = formatDate(item.created);

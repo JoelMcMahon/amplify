@@ -4,6 +4,10 @@ import SingleChat from "../SingleChat/SingleChat";
 import Chats from "../Chats/Chats";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { Constants } from "expo";
+import { Platform } from "expo-modules-core";
+import { StatusBar } from "react-native";
+import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
 
 export default function InboxScreen({
   chatArray,
@@ -15,24 +19,42 @@ export default function InboxScreen({
   // console.log(user, "<<<in inbox");
 
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
+    <View
+      style={{
+        flex: 1,
+
+        // backgroundColor: "#fff",
+        headerStyle: { backgroundColor: "pink" },
       }}
     >
-      <Stack.Screen name="Chats">
-        {(props) => (
-          <Chats
-            {...props}
-            chatArray={chatArray}
-            usersArray={usersArray}
-            currUser={user}
-          />
-        )}
-      </Stack.Screen>
-      <Stack.Screen name="SingleChat">
-        {(props) => <SingleChat {...props} messagesObject={messagesObject} />}
-      </Stack.Screen>
-    </Stack.Navigator>
+      <Stack.Navigator initialRouteName="Chats">
+        <Stack.Screen
+          name="Chats"
+          options={{
+            headerStyle: { backgroundColor: "#252525" },
+            headerTitleStyle: { color: "white" },
+          }}
+        >
+          {(props) => (
+            <Chats
+              {...props}
+              chatArray={chatArray}
+              usersArray={usersArray}
+              currUser={user}
+            />
+          )}
+        </Stack.Screen>
+        <Stack.Screen
+          name="SingleChat"
+          options={{
+            title: "Chat",
+            headerStyle: { backgroundColor: "#252525" },
+            headerTitleStyle: { color: "white" },
+          }}
+        >
+          {(props) => <SingleChat {...props} messagesObject={messagesObject} />}
+        </Stack.Screen>
+      </Stack.Navigator>
+    </View>
   );
 }

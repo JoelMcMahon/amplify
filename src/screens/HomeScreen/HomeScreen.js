@@ -7,6 +7,7 @@ import { useMap } from "../../Hooks/useMarkers";
 import { createStackNavigator } from "@react-navigation/stack";
 import SingleAd from "../SingleAd/SingleAd";
 import OtherUser from "../OtherUser/OtherUser";
+import Chats from "../Chats/Chats";
 
 const Stack = createStackNavigator();
 
@@ -25,7 +26,7 @@ export default function HomeScreen({ navigation, updateMap }) {
 
   const navToAd = (ad) => {
     setCurrentAd(ad);
-    navigation.navigate("SingleHomeAd");
+    navigation.navigate("SingleHomeAd", { currentUser });
   };
 
   return (
@@ -56,6 +57,8 @@ export default function HomeScreen({ navigation, updateMap }) {
             currentAd={currentAd}
             navigation={navigation}
             setOtherUser={setOtherUser}
+            currentUser={currentUser}
+            chatArray={chatArray}
           />
         )}
       </Stack.Screen>

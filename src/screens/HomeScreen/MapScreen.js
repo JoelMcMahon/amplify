@@ -7,7 +7,13 @@ import buttonStyle from "./styles";
 import { FontAwesome } from "@expo/vector-icons";
 import { displayMedia } from "../../Hooks/displayMedia";
 
-export default function MapScreen({ ads, lastLocation, navToAd, navigation }) {
+export default function MapScreen({
+  ads,
+  lastLocation,
+  navToAd,
+  navigation,
+  currentUser,
+}) {
   const initRegion = {
     latitude: lastLocation.latitude,
     latitudeDelta: 0.008,
