@@ -36,7 +36,7 @@ const SingleAd = ({
   };
   const { user } = userAppAuth();
   const goToChat = async () => {
-    conasole.log(chatArray);
+    console.log(chatArray);
     const newRoomId = await createChatRoom(
       user.id,
       user.displayName,
@@ -49,6 +49,7 @@ const SingleAd = ({
     const messages = await getSingleChat(newRoomId, user.id);
     // console.log(newRoomId, "<newId");
     navigation.navigate("Inbox", {
+      screen: "Chats",
       screen: "SingleChat",
       params: { roomId: newRoomId, messages },
     });

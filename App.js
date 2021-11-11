@@ -13,6 +13,10 @@ import NewPostNav from "./src/screens/NewPost/NewPost";
 import Inbox from "./src/screens/InboxScreen/InboxScreen";
 import { testChat } from "./src/Hooks/testChats";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
+import { Button } from "react-native";
+import { Constants } from "expo-constants";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const theme = {
   ...DefaultTheme,
@@ -61,7 +65,13 @@ export default function App() {
         <Tab.Screen name="NewPost">
           {(props) => <NewPostNav {...props} user={user} />}
         </Tab.Screen>
-        <Tab.Screen name="Inbox" screen="Chats">
+        <Tab.Screen
+          name="Inbox"
+          screen="Chats"
+          options={{
+            header: () => null,
+          }}
+        >
           {(props) => (
             <Inbox
               {...props}
@@ -102,10 +112,19 @@ export default function App() {
   };
 
   return (
-    <PaperProvider theme={theme}>
-      <NavigationContainer>
-        {isLoggedIn ? tabs() : loginSignup()}
-      </NavigationContainer>
-    </PaperProvider>
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar
+        animated={true}
+        backgroundColor="#252525"
+        color="white"
+        translucent={true}
+        style="light"
+      />
+      <PaperProvider theme={theme}>
+        <NavigationContainer>
+          {isLoggedIn ? tabs() : loginSignup()}
+        </NavigationContainer>
+      </PaperProvider>
+    </SafeAreaView>
   );
 }
