@@ -61,7 +61,8 @@ const Capture = ({ navigation, setMedia }) => {
     });
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      setMedia({ type: mediaType, uri: result.uri });
+      navigation.navigate("ConfirmMedia");
     }
   };
 
