@@ -42,7 +42,10 @@ export default function App() {
 
   const tabs = () => {
     return (
-      <Tab.Navigator screenOptions={navIcons} tabBarHideOnKeyboard={true}>
+      <Tab.Navigator
+        screenOptions={navIcons}
+        tabBarHideOnKeyboard={true}
+      >
         <Tab.Screen name="Home">
           {(props) => <HomeScreen {...props} user={user} />}
         </Tab.Screen>
